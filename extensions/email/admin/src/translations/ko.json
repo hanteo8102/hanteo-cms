@@ -1,0 +1,22 @@
+{
+  "plugin.description.long": "이메일을 전송합니다.",
+  "plugin.description.short": "이메일 전송",
+  "SettingsNav.section-label": "이메일 플러그인",
+  "SettingsNav.link.settings": "이메일 설정",
+  "Settings.title": "이메일 설정",
+  "Settings.subTitle": "이메일 설정에 대한 테스트를 할 수 있습니다.",
+  "Settings.button.test-email": "테스트 이메일",
+  "Settings.notification.test.success": "이메일 테스트에 성공했습니다. {to} 메일함을 확인해보세요.",
+  "Settings.notification.test.error": "{to} 로 이메일 전송이 실패하였습니다.",
+  "Settings.notification.config.error": "이메일 환경 설정을 찾는 것에 실패하였습니다.",
+  "Settings.form.title.config": "환경 설정",
+  "Settings.form.title.test": "테스트 이메일 보내기",
+  "Settings.form.label.provider": "이메일 공급자",
+  "Settings.form.label.defaultFrom": "기본 발신인",
+  "Settings.form.label.defaultReplyTo": "기본 수신인",
+  "Settings.form.label.testAddress": "이메일 테스트를 진행합니다.",
+  "Settings.form.placeholder.defaultFrom": "ex: 한일생활정보 한터 <kentaro@kakao.com>",
+  "Settings.form.placeholder.defaultReplyTo": "ex: 한일생활정보 한터 <kentaro@kakao.com>",
+  "Settings.form.placeholder.testAddress": "ex: kentaro@kakao.com",
+  "Settings.form.text.configuration": " "
+}

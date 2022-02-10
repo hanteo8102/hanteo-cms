@@ -7,7 +7,7 @@ const trads = {
 };
 
 export const languageNativeNames = {
-  en: 'English',
+  en: '영어',
   ko: '한국어',
 };
 

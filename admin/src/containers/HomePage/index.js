@@ -6,60 +6,13 @@
 /* eslint-disable */
 import React, { memo, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { get, upperFirst } from 'lodash';
+import { get } from 'lodash';
 import { auth, LoadingIndicatorPage } from 'strapi-helper-plugin';
 import PageTitle from '../../components/PageTitle';
 import { useModels } from '../../hooks';
 
 import useFetch from './hooks';
-import { ALink, Block, Container, LinkWrapper, P, Wave, Separator } from './components';
-import BlogPost from './BlogPost';
-import SocialLink from './SocialLink';
-
-const FIRST_BLOCK_LINKS = [
-  {
-    link:
-      'https://strapi.io/documentation/developer-docs/latest/getting-started/quick-start.html#_4-create-a-category-content-type',
-    contentId: 'app.components.BlockLink.documentation.content',
-    titleId: 'app.components.BlockLink.documentation',
-  },
-  {
-    link: 'https://github.com/strapi/foodadvisor',
-    contentId: 'app.components.BlockLink.code.content',
-    titleId: 'app.components.BlockLink.code',
-  },
-];
-
-const SOCIAL_LINKS = [
-  {
-    name: 'GitHub',
-    link: 'https://github.com/strapi/strapi/',
-  },
-  {
-    name: 'Discord',
-    link: 'https://discord.strapi.io/',
-  },
-  {
-    name: 'Reddit',
-    link: 'https://www.reddit.com/r/Strapi/',
-  },
-  {
-    name: 'Twitter',
-    link: 'https://twitter.com/strapijs',
-  },
-  {
-    name: 'Blog',
-    link: 'https://strapi.io/blog',
-  },
-  {
-    name: 'Forum',
-    link: 'https://forum.strapi.io',
-  },
-  {
-    name: 'Careers',
-    link: 'https://strapi.io/careers',
-  },
-];
+import { Container } from './components';
 
 const HomePage = ({ history: { push } }) => {
   const { error, isLoading, posts } = useFetch();

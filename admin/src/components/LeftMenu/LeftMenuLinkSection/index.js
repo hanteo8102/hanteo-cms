@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import matchSorter from 'match-sorter';
-import { sortBy } from 'lodash';
-import { FormattedMessage } from 'react-intl';
+import {sortBy} from 'lodash';
+import {FormattedMessage} from 'react-intl';
 
 import LeftMenuLink from '../LeftMenuLink';
 import LeftMenuLinkHeader from '../LeftMenuLinkHeader';
@@ -11,13 +11,13 @@ import EmptyLinksList from './EmptyLinksList';
 import EmptyLinksListWrapper from './EmptyLinksListWrapper';
 
 const LeftMenuLinksSection = ({
-  section,
-  searchable,
-  location,
-  links,
-  emptyLinksListMessage,
-  shrink,
-}) => {
+                                section,
+                                searchable,
+                                location,
+                                links,
+                                emptyLinksListMessage,
+                                shrink,
+                              }) => {
   const [search, setSearch] = useState('');
 
   const filteredList = sortBy(
@@ -38,7 +38,7 @@ const LeftMenuLinksSection = ({
       <LeftMenuListLink shrink={shrink}>
         {filteredList.length > 0 ? (
           filteredList.map((link, index) => {
-            if(link.destination === '/marketplace' || link.destination === '/list-plugins') {
+            if (link.destination === '/marketplace' || link.destination === '/list-plugins') {
               return null
             }
             return (
@@ -87,3 +87,4 @@ LeftMenuLinksSection.defaultProps = {
 };
 
 export default LeftMenuLinksSection;
+

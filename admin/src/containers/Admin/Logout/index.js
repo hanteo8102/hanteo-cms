@@ -24,6 +24,10 @@ const Logout = ({history: {push}}) => {
     });
   };
 
+  const onGoToHomePage = () => {
+    window.open(hanteoHomepage, '_blank');
+  }
+
   const handleLogout = () => {
     auth.clearAppStorage();
     push('/auth/login');
@@ -32,10 +36,16 @@ const Logout = ({history: {push}}) => {
   const toggle = () => setIsOpen(prev => !prev);
 
   const userInfo = auth.getUserInfo();
-  const displayName =
-    userInfo && userInfo.firstname && userInfo.lastname
-      ? `${userInfo.firstname} ${userInfo.lastname}`
-      : get(userInfo, 'username', '');
+  // const displayName =
+  //   userInfo && userInfo.firstname && userInfo.lastname
+  //     ? get(userInfo, 'username', '')
+  //     : `${userInfo.lastname}${userInfo.firstname}`;
+
+  const displayName = userInfo && userInfo.username
+    ? `${userInfo.username}`
+    : userInfo && userInfo.firstname && userInfo.lastname
+      ? `${userInfo.lastname}${userInfo.firstname}`
+      : `${userInfo.email}`;
 
   return (
     <Wrapper>
@@ -45,11 +55,11 @@ const Logout = ({history: {push}}) => {
           <FontAwesomeIcon icon="caret-down"/>
         </DropdownToggle>
         <DropdownMenu className="dropDownContent">
-          <DropdownItem className="item">
-            <a href={hanteoHomepage} target="_blank" rel="noopener noreferrer">
-              <FormattedMessage id="app.components.Logout.homepage"/>
-            </a>
+          {/*<a href={hanteoHomepage} target="_blank" rel="noopener noreferrer">*/}
+          <DropdownItem className="item" onClick={onGoToHomePage}>
+            <FormattedMessage id="app.components.Logout.homepage"/>
           </DropdownItem>
+          {/*</a>*/}
           <DropdownItem onClick={handleGoToMe} className="item">
             <FormattedMessage id="app.components.Logout.profile"/>
           </DropdownItem>

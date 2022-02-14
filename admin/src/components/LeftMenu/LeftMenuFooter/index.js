@@ -1,9 +1,3 @@
-/**
- *
- * LeftMenuFooter
- *
- */
-
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import Wrapper, { A } from './Wrapper';

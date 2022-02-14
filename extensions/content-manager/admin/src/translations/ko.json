@@ -111,5 +111,8 @@
   "components.SettingsViewWrapper.pluginHeader.title": "화면 구성 - {name}",
   "containers.SettingPage.view": "화면",
   "containers.SettingPage.add.field": "새로운 필드 추가",
-  "containers.SettingPage.add.relational-field": "새로운 관계 필드 추가"
+  "containers.SettingPage.add.relational-field": "새로운 관계 필드 추가",
+  "api.id": "API ID",
+  "containers.Edit.information": "정보",
+  "containers.Edit.information.lastUpdate": "마지막 업데이트"
 }

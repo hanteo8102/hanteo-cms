@@ -249,5 +249,8 @@
   "notification.success.saved": "저장 성공",
   "Settings.permissions.category.plugins": "{category} 플러그인 권한 설정",
   "Roles.RoleRow.user-count.plural": "{number} 사용자",
-  "Roles.RoleRow.user-count.singular": "{number} 사용자"
+  "Roles.RoleRow.user-count.singular": "{number} 사용자",
+  "Settings.roles.deleted": "역할 삭제 성공",
+  "Settings.roles.edited": "역할 수정 성공",
+  "form.button.configure-view": "보기 방식 설정"
 }

@@ -27,7 +27,8 @@
     },
     "view_count": {
       "type": "integer",
-      "default": 0
+      "default": 0,
+      "required": true
     },
     "is_delete": {
       "type": "boolean",
@@ -35,8 +36,8 @@
       "required": true
     },
     "category": {
-      "model": "category",
-      "via": "boards"
+      "via": "boards",
+      "model": "category"
     }
   }
 }

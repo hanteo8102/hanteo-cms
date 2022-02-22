@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notices",
+  "info": {
+    "name": "notice",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "contents": {
+      "type": "richtext",
+      "required": true
+    },
+    "writer": {
+      "plugin": "admin",
+      "model": "user"
+    },
+    "view_count": {
+      "type": "integer",
+      "required": true,
+      "default": 0
+    },
+    "is_delete": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "writing_type": {
+      "type": "enumeration",
+      "enum": [
+        "공지",
+        "필독"
+      ],
+      "required": true,
+      "default": "공지"
+    },
+    "color_type": {
+      "type": "enumeration",
+      "enum": [
+        "파랑(#2f6fd4)",
+        "빨강(#ff6666)",
+        "검정(#333333)"
+      ],
+      "default": "파랑(#2f6fd4)",
+      "required": true
+    },
+    "categories": {
+      "via": "notices",
+      "collection": "category"
+    }
+  }
+}

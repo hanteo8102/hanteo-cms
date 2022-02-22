@@ -112,5 +112,7 @@
   "form.attribute.text.option.long-text.description": "자세한 설명등에 적합합니다.",
   "form.attribute.text.option.short-text": "짧은 형식",
   "form.attribute.text.option.short-text.description": "제목, 이름, 링크등에 적합합니다.",
-  "form.button.add-field": "다른 필드 추가"
+  "form.button.add-field": "다른 필드 추가",
+  "form.attribute.item.privateField": "관리자 전용 항목",
+  "form.attribute.item.privateField.description": "이 항목을 체크하면 API 결과에서는 표시되지 않습니다."
 }

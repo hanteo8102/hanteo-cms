@@ -35,6 +35,8 @@ const LeftMenuLinksSection = ({
         return '게시판'
       case 'Categories':
         return '카테고리'
+      case 'Notices':
+        return '공지'
       default:
         return defaultLabel
     }

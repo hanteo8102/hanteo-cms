@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/boards": {
+    "/notices": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Board"
+                    "$ref": "#/components/schemas/Notice"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Board"
+          "Notice"
         ],
         "parameters": [
           {
@@ -201,7 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Board"
+                  "$ref": "#/components/schemas/Notice"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Board"
+          "Notice"
         ],
         "requestBody": {
           "description": "",
@@ -247,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewBoard"
+                "$ref": "#/components/schemas/NewNotice"
               }
             }
           }
         }
       }
     },
-    "/boards/count": {
+    "/notices/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -306,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Board"
+          "Notice"
         ],
         "parameters": []
       }
     },
-    "/boards/{id}": {
+    "/notices/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -321,7 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Board"
+                  "$ref": "#/components/schemas/Notice"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Board"
+          "Notice"
         ],
         "parameters": [
           {
@@ -383,7 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Board"
+                  "$ref": "#/components/schemas/Notice"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Board"
+          "Notice"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewBoard"
+                "$ref": "#/components/schemas/NewNotice"
               }
             }
           }
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Board"
+          "Notice"
         ],
         "parameters": [
           {
@@ -514,13 +514,15 @@
   },
   "components": {
     "schemas": {
-      "Board": {
+      "Notice": {
         "required": [
           "id",
           "title",
           "contents",
           "view_count",
-          "is_delete"
+          "is_delete",
+          "writing_type",
+          "color_type"
         ],
         "properties": {
           "id": {
@@ -535,11 +537,16 @@
           "writer": {
             "required": [
               "id",
-              "username",
               "email"
             ],
             "properties": {
               "id": {
+                "type": "string"
+              },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
                 "type": "string"
               },
               "username": {
@@ -548,53 +555,28 @@
               "email": {
                 "type": "string"
               },
-              "provider": {
-                "type": "string"
-              },
               "password": {
                 "type": "string"
               },
               "resetPasswordToken": {
                 "type": "string"
               },
-              "confirmationToken": {
+              "registrationToken": {
                 "type": "string"
               },
-              "confirmed": {
+              "isActive": {
                 "type": "boolean"
               },
-              "blocked": {
-                "type": "boolean"
-              },
-              "role": {
-                "type": "string"
-              },
-              "first_name": {
-                "type": "string"
-              },
-              "last_name": {
-                "type": "string"
-              },
-              "gender": {
-                "type": "string",
-                "enum": [
-                  "남자",
-                  "여자"
-                ]
-              },
-              "birth_day": {
-                "type": "string"
-              },
-              "boards": {
+              "roles": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 }
               },
-              "created_by": {
-                "type": "string"
+              "blocked": {
+                "type": "boolean"
               },
-              "updated_by": {
+              "preferedLanguage": {
                 "type": "string"
               }
             }
@@ -607,50 +589,72 @@
             "type": "boolean",
             "default": false
           },
-          "category": {
-            "required": [
-              "id",
-              "main_category",
-              "sub_category"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "main_category": {
-                "type": "string"
-              },
-              "sub_category": {
-                "type": "string"
-              },
-              "boards": {
-                "type": "array",
-                "items": {
+          "writing_type": {
+            "type": "string",
+            "default": "공지",
+            "enum": [
+              "공지",
+              "필독"
+            ]
+          },
+          "color_type": {
+            "type": "string",
+            "default": "파랑(#2f6fd4)",
+            "enum": [
+              "파랑(#2f6fd4)",
+              "빨강(#ff6666)",
+              "검정(#333333)"
+            ]
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "main_category",
+                "sub_category"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "main_category": {
+                  "type": "string"
+                },
+                "sub_category": {
+                  "type": "string"
+                },
+                "boards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "notices": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
                   "type": "string"
                 }
-              },
-              "notices": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
               }
             }
           }
         }
       },
-      "NewBoard": {
+      "NewNotice": {
         "required": [
           "title",
           "contents",
           "view_count",
-          "is_delete"
+          "is_delete",
+          "writing_type",
+          "color_type"
         ],
         "properties": {
           "title": {
@@ -670,8 +674,28 @@
             "type": "boolean",
             "default": false
           },
-          "category": {
-            "type": "string"
+          "writing_type": {
+            "type": "string",
+            "default": "공지",
+            "enum": [
+              "공지",
+              "필독"
+            ]
+          },
+          "color_type": {
+            "type": "string",
+            "default": "파랑(#2f6fd4)",
+            "enum": [
+              "파랑(#2f6fd4)",
+              "빨강(#ff6666)",
+              "검정(#333333)"
+            ]
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "created_by": {
             "type": "string"
@@ -685,7 +709,7 @@
   },
   "tags": [
     {
-      "name": "Board"
+      "name": "Notice"
     }
   ]
 }

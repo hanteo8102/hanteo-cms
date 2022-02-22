@@ -1,0 +1,65 @@
+{
+  "kind": "collectionType",
+  "collectionName": "news_contents",
+  "info": {
+    "name": "newsContents",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "contents": {
+      "type": "richtext",
+      "required": true
+    },
+    "thumbnail": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "news_expected_date": {
+      "type": "datetime"
+    },
+    "reporter": {
+      "plugin": "admin",
+      "model": "user"
+    },
+    "is_public_reporter_email": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "source_type": {
+      "type": "enumeration",
+      "enum": [
+        "no",
+        "yna"
+      ],
+      "default": "yna",
+      "required": true
+    },
+    "priority": {
+      "type": "biginteger",
+      "default": "0",
+      "min": "0"
+    }
+  }
+}

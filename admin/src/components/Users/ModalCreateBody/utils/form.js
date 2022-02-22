@@ -24,6 +24,6 @@ const form = {
       required: true,
     },
   },
-};
+}
 
-export default form;
+export default form

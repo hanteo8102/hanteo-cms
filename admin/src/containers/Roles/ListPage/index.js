@@ -1,64 +1,69 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { List, Header } from '@buffetjs/custom';
-import { Button } from '@buffetjs/core';
-import { Duplicate, Pencil, Plus } from '@buffetjs/icons';
-import matchSorter from 'match-sorter';
-import { useIntl } from 'react-intl';
-import { useHistory } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ListButton, useGlobalContext, useQuery, useUserPermissions } from 'strapi-helper-plugin';
-import adminPermissions from '../../../permissions';
-import PageTitle from '../../../components/SettingsPageTitle';
-import { EmptyRole, RoleListWrapper, RoleRow } from '../../../components/Roles';
-import { useRolesList, useSettingsHeaderSearchContext } from '../../../hooks';
-import UpgradePlanModal from '../../../components/UpgradePlanModal';
-import BaselineAlignment from './BaselineAlignment';
+import React, { useCallback, useEffect, useState } from 'react'
+import { List, Header } from '@buffetjs/custom'
+import { Button } from '@buffetjs/core'
+import { Duplicate, Pencil, Plus } from '@buffetjs/icons'
+import matchSorter from 'match-sorter'
+import { useIntl } from 'react-intl'
+import { useHistory } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  ListButton,
+  useGlobalContext,
+  useQuery,
+  useUserPermissions,
+} from 'strapi-helper-plugin'
+import adminPermissions from '../../../permissions'
+import PageTitle from '../../../components/SettingsPageTitle'
+import { EmptyRole, RoleListWrapper, RoleRow } from '../../../components/Roles'
+import { useRolesList, useSettingsHeaderSearchContext } from '../../../hooks'
+import UpgradePlanModal from '../../../components/UpgradePlanModal'
+import BaselineAlignment from './BaselineAlignment'
 
 const RoleListPage = () => {
-  const { formatMessage } = useIntl();
-  const { push } = useHistory();
-  const [isOpen, setIsOpen] = useState(false);
-  const { emitEvent, settingsBaseURL } = useGlobalContext();
-  const { roles, isLoading } = useRolesList();
-  const { toggleHeaderSearch } = useSettingsHeaderSearchContext();
+  const { formatMessage } = useIntl()
+  const { push } = useHistory()
+  const [isOpen, setIsOpen] = useState(false)
+  const { emitEvent, settingsBaseURL } = useGlobalContext()
+  const { roles, isLoading } = useRolesList()
+  const { toggleHeaderSearch } = useSettingsHeaderSearchContext()
   const {
     allowedActions: { canUpdate },
-  } = useUserPermissions(adminPermissions.settings.roles);
-  const query = useQuery();
-  const _q = decodeURIComponent(query.get('_q') || '');
-  const results = matchSorter(roles, _q, { keys: ['name', 'description'] });
+  } = useUserPermissions(adminPermissions.settings.roles)
+  const query = useQuery()
+  const _q = decodeURIComponent(query.get('_q') || '')
+  const results = matchSorter(roles, _q, { keys: ['name', 'description'] })
 
   useEffect(() => {
-    toggleHeaderSearch({ id: 'Settings.permissions.menu.link.roles.label' });
+    toggleHeaderSearch({ id: 'Settings.permissions.menu.link.roles.label' })
 
     return () => {
-      toggleHeaderSearch();
-    };
+      toggleHeaderSearch()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   const handleGoTo = useCallback(
-    id => {
-      push(`${settingsBaseURL}/roles/${id}`);
+    (id) => {
+      push(`${settingsBaseURL}/roles/${id}`)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [settingsBaseURL]
-  );
+  )
 
-  const handleToggle = useCallback(e => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsOpen(prev => !prev);
-  }, []);
+  const handleToggle = useCallback((e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsOpen((prev) => !prev)
+  }, [])
 
-  const handleToggleModalForCreatingRole = useCallback(e => {
-    e.preventDefault();
-    e.stopPropagation();
-    emitEvent('didShowRBACUpgradeModal');
+  const handleToggleModalForCreatingRole = useCallback((e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    emitEvent('didShowRBACUpgradeModal')
 
-    setIsOpen(true);
+    setIsOpen(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   const headerActions = [
     {
@@ -71,9 +76,9 @@ const RoleListPage = () => {
       type: 'button',
       icon: true,
     },
-  ];
+  ]
 
-  const resultsCount = results.length;
+  const resultsCount = results.length
 
   return (
     <>
@@ -99,13 +104,15 @@ const RoleListPage = () => {
         <List
           title={formatMessage(
             {
-              id: `Settings.roles.list.title${results.length > 1 ? '.plural' : '.singular'}`,
+              id: `Settings.roles.list.title${
+                results.length > 1 ? '.plural' : '.singular'
+              }`,
             },
             { number: resultsCount }
           )}
           items={results}
           isLoading={isLoading}
-          customRowComponent={role => (
+          customRowComponent={(role) => (
             <RoleRow
               onClick={() => handleGoTo(role.id)}
               canUpdate={canUpdate}
@@ -117,7 +124,7 @@ const RoleListPage = () => {
                 {
                   icon: canUpdate ? <Pencil fill="#0e1622" /> : null,
                   onClick: () => {
-                    handleGoTo(role.id);
+                    handleGoTo(role.id)
                   },
                 },
                 {
@@ -143,7 +150,7 @@ const RoleListPage = () => {
       </RoleListWrapper>
       <UpgradePlanModal isOpen={isOpen} onToggle={handleToggle} />
     </>
-  );
-};
+  )
+}
 
-export default RoleListPage;
+export default RoleListPage

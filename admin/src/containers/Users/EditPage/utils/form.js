@@ -47,6 +47,6 @@ const form = {
     type: 'bool',
     validations: {},
   },
-};
+}
 
-export default form;
+export default form

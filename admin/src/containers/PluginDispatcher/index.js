@@ -4,14 +4,14 @@
  *
  */
 
-import React, { memo } from 'react';
-import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
-import { get } from 'lodash';
-import { ErrorBoundary } from 'react-error-boundary';
-import { BlockerComponent, ErrorFallback } from 'strapi-helper-plugin';
-import PageTitle from '../../components/PageTitle';
-import { LOGIN_LOGO } from '../../config';
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
+import { get } from 'lodash'
+import { ErrorBoundary } from 'react-error-boundary'
+import { BlockerComponent, ErrorFallback } from 'strapi-helper-plugin'
+import PageTitle from '../../components/PageTitle'
+import { LOGIN_LOGO } from '../../config'
 
 export function PluginDispatcher(props) {
   const {
@@ -19,12 +19,12 @@ export function PluginDispatcher(props) {
     match: {
       params: { pluginId },
     },
-  } = props;
+  } = props
 
-  const pluginToRender = get(plugins, pluginId, null);
+  const pluginToRender = get(plugins, pluginId, null)
 
   if (!pluginToRender) {
-    return <Redirect to="/404" />;
+    return <Redirect to="/404" />
   }
 
   const {
@@ -33,12 +33,14 @@ export function PluginDispatcher(props) {
     mainComponent,
     name,
     preventComponentRendering,
-  } = pluginToRender;
-  let PluginEntryComponent = preventComponentRendering ? BlockerComponent : mainComponent;
+  } = pluginToRender
+  let PluginEntryComponent = preventComponentRendering
+    ? BlockerComponent
+    : mainComponent
 
   // Change the plugin's blockerComponent if the plugin uses a custom one.
   if (preventComponentRendering && blockerComponent) {
-    PluginEntryComponent = blockerComponent;
+    PluginEntryComponent = blockerComponent
   }
 
   return (
@@ -52,10 +54,10 @@ export function PluginDispatcher(props) {
         />
       </ErrorBoundary>
     </div>
-  );
+  )
 }
 
-PluginDispatcher.defaultProps = {};
+PluginDispatcher.defaultProps = {}
 
 PluginDispatcher.propTypes = {
   global: PropTypes.object.isRequired,
@@ -64,6 +66,6 @@ PluginDispatcher.propTypes = {
       pluginId: PropTypes.string,
     }),
   }).isRequired,
-};
+}
 
-export default memo(PluginDispatcher);
+export default memo(PluginDispatcher)

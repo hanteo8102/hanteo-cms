@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "boards",
+  "info": {
+    "name": "board",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "contents": {
+      "type": "richtext",
+      "required": true
+    },
+    "writer": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "boards"
+    },
+    "view_count": {
+      "type": "integer",
+      "default": 0
+    },
+    "is_delete": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

@@ -3,6 +3,6 @@ const formDataModel = {
   lastname: '',
   email: '',
   roles: [],
-};
+}
 
-export default formDataModel;
+export default formDataModel

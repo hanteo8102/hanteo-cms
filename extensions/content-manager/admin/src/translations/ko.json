@@ -80,7 +80,7 @@
   "form.Input.description": "설명",
   "form.Input.description.placeholder": "Display name in the profile",
   "form.Input.editable": "필드 수정가능 여부",
-  "form.Input.filters": "필더 활성화",
+  "form.Input.filters": "필터 활성화",
   "form.Input.label": "라벨",
   "form.Input.label.inputDescription": "이 값은 테이블 머리에 표시된 라벨을 덮어씌웁니다.",
   "form.Input.pageEntries": "페이지 당 요소",
@@ -114,5 +114,14 @@
   "containers.SettingPage.add.relational-field": "새로운 관계 필드 추가",
   "api.id": "API ID",
   "containers.Edit.information": "정보",
-  "containers.Edit.information.lastUpdate": "마지막 업데이트"
+  "containers.Edit.information.lastUpdate": "마지막 업데이트",
+  "containers.Edit.information.by": "작성자",
+  "containers.Edit.information.draftVersion": "비공개",
+  "containers.Edit.information.editing": "컨텐츠 상태 : ",
+  "containers.Edit.information.publishedVersion": "공개",
+  "popUpWarning.warning.unpublish": "이 컨텐츠를 비공개 상태로 전환하면 사이트에 표시되지 않습니다.",
+  "popUpWarning.warning.unpublish-question": "비공개 상태로 전환하시겠습니까?",
+  "containers.Edit.delete-entry": "컨텐츠 삭제",
+  "components.Select.draft-info-title": "상태: 비공개",
+  "components.Select.publish-info-title": "상태: 공개"
 }

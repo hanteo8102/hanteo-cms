@@ -1,9 +1,9 @@
-import en from './en.json';
-import ko from './ko.json';
+import en from './en.json'
+import ko from './ko.json'
 
 const trads = {
   en,
   ko,
-};
+}
 
-export default trads;
+export default trads

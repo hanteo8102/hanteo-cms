@@ -1,20 +1,27 @@
-import React from 'react';
-import {Checkbox} from '@buffetjs/core';
-import {useIntl} from 'react-intl';
-import {get} from 'lodash';
-import PropTypes from 'prop-types';
-import {BaselineAlignment} from 'strapi-helper-plugin';
+import React from 'react'
+import { Checkbox } from '@buffetjs/core'
+import { useIntl } from 'react-intl'
+import { get } from 'lodash'
+import PropTypes from 'prop-types'
+import { BaselineAlignment } from 'strapi-helper-plugin'
 
-import Button from '../../../../components/FullWidthButton';
-import AuthLink from '../AuthLink';
-import Box from '../Box';
-import Input from '../Input';
-import Logo from '../Logo';
-import Section from '../Section';
-import AuthTitle from "./AuthTitle";
+import Button from '../../../../components/FullWidthButton'
+import AuthLink from '../AuthLink'
+import Box from '../Box'
+import Input from '../Input'
+import Logo from '../Logo'
+import Section from '../Section'
+import AuthTitle from './AuthTitle'
 
-const Login = ({children, formErrors, modifiedData, onChange, onSubmit, requestError}) => {
-  const {formatMessage} = useIntl();
+const Login = ({
+  children,
+  formErrors,
+  modifiedData,
+  onChange,
+  onSubmit,
+  requestError,
+}) => {
+  const { formatMessage } = useIntl()
 
   return (
     <>
@@ -33,7 +40,7 @@ const Login = ({children, formErrors, modifiedData, onChange, onSubmit, requestE
                 onChange={onChange}
                 placeholder="Auth.form.email.placeholder"
                 type="email"
-                validations={{required: true}}
+                validations={{ required: true }}
                 value={modifiedData.email}
               />
               <Input
@@ -42,36 +49,39 @@ const Login = ({children, formErrors, modifiedData, onChange, onSubmit, requestE
                 name="password"
                 onChange={onChange}
                 type="password"
-                validations={{required: true}}
+                validations={{ required: true }}
                 value={modifiedData.password}
               />
               <Checkbox
                 type="checkbox"
-                message={formatMessage({id: 'Auth.form.rememberMe.label'})}
+                message={formatMessage({ id: 'Auth.form.rememberMe.label' })}
                 name="rememberMe"
                 onChange={onChange}
                 value={modifiedData.rememberMe}
               />
               <BaselineAlignment top size="27px">
                 <Button type="submit" color="primary" textTransform="uppercase">
-                  {formatMessage({id: 'Auth.form.button.login'})}
+                  {formatMessage({ id: 'Auth.form.button.login' })}
                 </Button>
               </BaselineAlignment>
             </form>
             {children}
           </Box>
-          <AuthLink label="Auth.link.forgot-password" to="/auth/forgot-password"/>
+          <AuthLink
+            label="Auth.link.forgot-password"
+            to="/auth/forgot-password"
+          />
         </BaselineAlignment>
       </Section>
     </>
-  );
-};
+  )
+}
 
 Login.defaultProps = {
   children: null,
-  onSubmit: e => e.preventDefault(),
+  onSubmit: (e) => e.preventDefault(),
   requestError: null,
-};
+}
 
 Login.propTypes = {
   children: PropTypes.node,
@@ -80,6 +90,6 @@ Login.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func,
   requestError: PropTypes.object,
-};
+}
 
-export default Login;
+export default Login

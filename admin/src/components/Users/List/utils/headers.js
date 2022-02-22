@@ -1,14 +1,14 @@
-import React from 'react';
-import ActiveStatus from '../ActiveStatus';
+import React from 'react'
+import ActiveStatus from '../ActiveStatus'
 
 const headers = [
   {
     cellFormatter: (cellData, rowData) => {
       if (!cellData) {
-        return '-';
+        return '-'
       }
 
-      return `${cellData} ${rowData.lastname}`;
+      return `${cellData} ${rowData.lastname}`
     },
     name: '이름',
     value: 'firstname',
@@ -18,9 +18,9 @@ const headers = [
     value: 'email',
   },
   {
-    cellFormatter: cellData => {
+    cellFormatter: (cellData) => {
       // Only display the role's name
-      return cellData.map(role => role.name).join(',\n');
+      return cellData.map((role) => role.name).join(',\n')
     },
     name: '역할',
     value: 'roles',
@@ -32,11 +32,15 @@ const headers = [
   {
     // eslint-disable-next-line react/prop-types
     cellAdapter: ({ isActive }) => {
-      return <ActiveStatus isActive={isActive}>{isActive ? 'Active' : 'Inactive'}</ActiveStatus>;
+      return (
+        <ActiveStatus isActive={isActive}>
+          {isActive ? 'Active' : 'Inactive'}
+        </ActiveStatus>
+      )
     },
     name: '활성화',
     value: 'isActive',
   },
-];
+]
 
-export default headers;
+export default headers

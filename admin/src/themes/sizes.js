@@ -26,6 +26,6 @@ const sizes = {
     lg: '18px',
     xl: '24px',
   },
-};
+}
 
-export default sizes;
+export default sizes

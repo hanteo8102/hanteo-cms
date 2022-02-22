@@ -252,5 +252,11 @@
   "Roles.RoleRow.user-count.singular": "{number} 사용자",
   "Settings.roles.deleted": "역할 삭제 성공",
   "Settings.roles.edited": "역할 수정 성공",
-  "form.button.configure-view": "보기 방식 설정"
+  "form.button.configure-view": "보기 방식 설정",
+  "app.utils.publish": "공개",
+  "app.utils.select-all": "전체선택",
+  "app.utils.unpublish": "비공개",
+  "components.popUpWarning.button.cancel": "아니오",
+  "components.popUpWarning.button.confirm": "예",
+  "app.links.configure-view": "보기 설정"
 }

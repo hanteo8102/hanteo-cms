@@ -46,6 +46,6 @@ const colors = {
     'blue-dark': '#151c2e',
     blue: '#0097f7',
   },
-};
+}
 
-export default colors;
+export default colors

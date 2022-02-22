@@ -1,31 +1,42 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import matchSorter from 'match-sorter';
-import {sortBy} from 'lodash';
-import {FormattedMessage} from 'react-intl';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import matchSorter from 'match-sorter'
+import { sortBy } from 'lodash'
+import { FormattedMessage } from 'react-intl'
 
-import LeftMenuLink from '../LeftMenuLink';
-import LeftMenuLinkHeader from '../LeftMenuLinkHeader';
-import LeftMenuListLink from './LeftMenuListLink';
-import EmptyLinksList from './EmptyLinksList';
-import EmptyLinksListWrapper from './EmptyLinksListWrapper';
+import LeftMenuLink from '../LeftMenuLink'
+import LeftMenuLinkHeader from '../LeftMenuLinkHeader'
+import LeftMenuListLink from './LeftMenuListLink'
+import EmptyLinksList from './EmptyLinksList'
+import EmptyLinksListWrapper from './EmptyLinksListWrapper'
 
 const LeftMenuLinksSection = ({
-                                section,
-                                searchable,
-                                location,
-                                links,
-                                emptyLinksListMessage,
-                                shrink,
-                              }) => {
-  const [search, setSearch] = useState('');
+  section,
+  searchable,
+  location,
+  links,
+  emptyLinksListMessage,
+  shrink,
+}) => {
+  const [search, setSearch] = useState('')
 
   const filteredList = sortBy(
     matchSorter(links, search, {
       keys: ['label'],
     }),
     'label'
-  );
+  )
+
+  const handleLabel = (defaultLabel) => {
+    switch (defaultLabel) {
+      case 'Users':
+        return '회원'
+      case 'Boards':
+        return '게시판'
+      default:
+        return defaultLabel
+    }
+  }
 
   return (
     <>
@@ -38,7 +49,10 @@ const LeftMenuLinksSection = ({
       <LeftMenuListLink shrink={shrink}>
         {filteredList.length > 0 ? (
           filteredList.map((link, index) => {
-            if (link.destination === '/marketplace' || link.destination === '/list-plugins') {
+            if (
+              link.destination === '/marketplace' ||
+              link.destination === '/list-plugins'
+            ) {
               return null
             }
             return (
@@ -48,7 +62,7 @@ const LeftMenuLinksSection = ({
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 iconName={link.icon}
-                label={link.label}
+                label={handleLabel(link.label)}
                 destination={link.destination}
                 notificationsCount={link.notificationsCount || 0}
                 search={link.search}
@@ -57,19 +71,22 @@ const LeftMenuLinksSection = ({
           })
         ) : (
           <EmptyLinksListWrapper>
-            <FormattedMessage id={emptyLinksListMessage} defaultMessage="No plugins installed yet">
-              {msg => <EmptyLinksList>{msg}</EmptyLinksList>}
+            <FormattedMessage
+              id={emptyLinksListMessage}
+              defaultMessage="No plugins installed yet"
+            >
+              {(msg) => <EmptyLinksList>{msg}</EmptyLinksList>}
             </FormattedMessage>
           </EmptyLinksListWrapper>
         )}
       </LeftMenuListLink>
     </>
-  );
-};
+  )
+}
 
 LeftMenuLinksSection.defaultProps = {
   shrink: false,
-};
+}
 
 LeftMenuLinksSection.propTypes = {
   section: PropTypes.string.isRequired,
@@ -80,11 +97,10 @@ LeftMenuLinksSection.propTypes = {
   }).isRequired,
   links: PropTypes.arrayOf(PropTypes.object).isRequired,
   emptyLinksListMessage: PropTypes.string,
-};
+}
 
 LeftMenuLinksSection.defaultProps = {
   emptyLinksListMessage: 'components.ListRow.empty',
-};
+}
 
-export default LeftMenuLinksSection;
-
+export default LeftMenuLinksSection

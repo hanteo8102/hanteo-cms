@@ -1,0 +1,7 @@
+build
+coverage
+*.html
+.cache
+.idea
+public
+node_modules

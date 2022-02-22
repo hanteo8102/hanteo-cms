@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Wrapper = styled.div`
   position: relative;
@@ -127,6 +127,6 @@ const Wrapper = styled.div`
     color: black;
     text-decoration: none;
   }
-`;
+`
 
-export default Wrapper;
+export default Wrapper

@@ -1,16 +1,29 @@
 {
   "name": "hanteo-cms",
   "private": true,
-  "version": "0.1.0",
-  "description": "A Strapi application",
+  "version": "1.0.0",
+  "description": "Hanteo Admin Panel API Server",
+  "author": "MinCheol Kim <kimmincheol@triton-sys.co.jp>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.16.0 <=14.x.x",
+    "npm": "6.0.0"
+  },
+  "strapi": {
+    "uuid": "0d93f7ba-bebd-43c4-b8a6-7d8a5a480ade"
+  },
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",
-    "deploy": "NODE_ENV=production npm run build && NODE_ENV=production npm run start"
+    "deploy": "NODE_ENV=production npm run build && NODE_ENV=production npm run start",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write ."
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  },
   "dependencies": {
     "knex": "0.21.18",
     "pg": "8.7.1",
@@ -27,16 +40,5 @@
     "strapi-provider-email-gmail-api": "npm:@bztes/strapi-provider-email-gmail-api@1.0.1",
     "strapi-provider-upload-aws-s3": "3.6.8",
     "strapi-utils": "3.6.8"
-  },
-  "author": {
-    "name": "A Strapi developer"
-  },
-  "strapi": {
-    "uuid": "0d93f7ba-bebd-43c4-b8a6-7d8a5a480ade"
-  },
-  "engines": {
-    "node": ">=10.16.0 <=14.x.x",
-    "npm": "^6.0.0"
-  },
-  "license": "MIT"
+  }
 }

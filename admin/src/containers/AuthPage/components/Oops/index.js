@@ -1,23 +1,24 @@
-import React from 'react';
-import { Text, Padded } from '@buffetjs/core';
-import { useHistory } from 'react-router-dom';
-import { useIntl } from 'react-intl';
-import { BaselineAlignment, useQuery } from 'strapi-helper-plugin';
-import Button from '../../../../components/FullWidthButton';
-import Box from '../Box';
-import Logo from '../Logo';
-import Section from '../Section';
+import React from 'react'
+import { Text, Padded } from '@buffetjs/core'
+import { useHistory } from 'react-router-dom'
+import { useIntl } from 'react-intl'
+import { BaselineAlignment, useQuery } from 'strapi-helper-plugin'
+import Button from '../../../../components/FullWidthButton'
+import Box from '../Box'
+import Logo from '../Logo'
+import Section from '../Section'
 
 const Oops = () => {
-  const { push } = useHistory();
-  const { formatMessage } = useIntl();
-  const query = useQuery();
+  const { push } = useHistory()
+  const { formatMessage } = useIntl()
+  const query = useQuery()
 
   const handleClick = () => {
-    push('/auth/login');
-  };
+    push('/auth/login')
+  }
 
-  const message = query.get('info') || formatMessage({ id: 'Auth.components.Oops.text' });
+  const message =
+    query.get('info') || formatMessage({ id: 'Auth.components.Oops.text' })
 
   return (
     <>
@@ -47,7 +48,12 @@ const Oops = () => {
             {/*  </Padded>*/}
             {/*</Padded>*/}
             <Padded top size="md">
-              <Button type="button" color="primary" textTransform="uppercase" onClick={handleClick}>
+              <Button
+                type="button"
+                color="primary"
+                textTransform="uppercase"
+                onClick={handleClick}
+              >
                 {formatMessage({ id: 'Auth.link.signin' })}
               </Button>
             </Padded>
@@ -55,7 +61,7 @@ const Oops = () => {
         </BaselineAlignment>
       </Section>
     </>
-  );
-};
+  )
+}
 
-export default Oops;
+export default Oops

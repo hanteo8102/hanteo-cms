@@ -67,7 +67,10 @@
     },
     "gender": {
       "type": "enumeration",
-      "enum": ["남자", "여자"]
+      "enum": [
+        "남자",
+        "여자"
+      ]
     },
     "birth_day": {
       "type": "date"

@@ -193,7 +193,7 @@
   "notification.version.update.message": "새로운 버전이 출시 되었습니다.",
   "notification.version.update.link": "자세히 보기",
   "Documentation": "문서",
-  "app.components.LeftMenuLinkContainer.collectionTypes": "컬렉션 타입",
+  "app.components.LeftMenuLinkContainer.collectionTypes": "관리",
   "app.components.LeftMenuLinkContainer.settings": "설정",
   "Content Type Builder": "콘텐츠 타입 빌더",
   "Media Library": "미디어 라이브러리",

@@ -107,5 +107,10 @@
   "popUpWarning.draft-publish.message": "활성화 / 비활성화 시스템을 사용안함으로 설정하면 기존에 작성되어있는 비활성화 컨텐츠가 전부 삭제됩니다.",
   "popUpWarning.draft-publish.second-message": "정말로 해당 기능을 사용안함으로 설정하시겠습니까?",
   "form.button.delete": "삭제",
-  "form.button.finish": "완료"
+  "form.button.finish": "완료",
+  "form.attribute.text.option.long-text": "긴 형식",
+  "form.attribute.text.option.long-text.description": "자세한 설명등에 적합합니다.",
+  "form.attribute.text.option.short-text": "짧은 형식",
+  "form.attribute.text.option.short-text.description": "제목, 이름, 링크등에 적합합니다.",
+  "form.button.add-field": "다른 필드 추가"
 }

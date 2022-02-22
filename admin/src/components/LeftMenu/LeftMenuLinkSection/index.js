@@ -33,6 +33,8 @@ const LeftMenuLinksSection = ({
         return '회원'
       case 'Boards':
         return '게시판'
+      case 'Categories':
+        return '카테고리'
       default:
         return defaultLabel
     }

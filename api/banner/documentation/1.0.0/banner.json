@@ -1,19 +1,18 @@
 {
   "paths": {
-    "/news-contents": {
+    "/banners": {
       "get": {
         "deprecated": false,
-        "description": "Find all the news-contents's records",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Retrieve news-contents document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Banner"
                   }
                 }
               }
@@ -52,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "News-contents"
+          "Banner"
         ],
         "parameters": [
           {
@@ -195,18 +194,14 @@
       },
       "post": {
         "deprecated": false,
-        "description": "Create a new news-contents record",
+        "description": "Create a new record",
         "responses": {
           "200": {
-            "description": "Retrieve news-contents document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Banner"
                 }
               }
             }
@@ -244,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "News-contents"
+          "Banner"
         ],
         "requestBody": {
           "description": "",
@@ -252,26 +247,26 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewNews-contents"
+                "$ref": "#/components/schemas/NewBanner"
               }
             }
           }
         }
       }
     },
-    "/news-contents/count": {
+    "/banners/count": {
       "get": {
         "deprecated": false,
-        "description": "Retrieve the number of news-contents documents",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Retrieve news-contents document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
                   "properties": {
-                    "foo": {
-                      "type": "string"
+                    "count": {
+                      "type": "integer"
                     }
                   }
                 }
@@ -311,26 +306,22 @@
         },
         "summary": "",
         "tags": [
-          "News-contents"
+          "Banner"
         ],
         "parameters": []
       }
     },
-    "/news-contents/{id}": {
+    "/banners/{id}": {
       "get": {
         "deprecated": false,
-        "description": "Find one news-contents record",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Retrieve news-contents document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Banner"
                 }
               }
             }
@@ -368,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "News-contents"
+          "Banner"
         ],
         "parameters": [
           {
@@ -385,18 +376,14 @@
       },
       "put": {
         "deprecated": false,
-        "description": "Update a single news-contents record",
+        "description": "Update a record",
         "responses": {
           "200": {
-            "description": "Retrieve news-contents document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Banner"
                 }
               }
             }
@@ -434,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "News-contents"
+          "Banner"
         ],
         "requestBody": {
           "description": "",
@@ -442,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewNews-contents"
+                "$ref": "#/components/schemas/NewBanner"
               }
             }
           }
@@ -462,10 +449,10 @@
       },
       "delete": {
         "deprecated": false,
-        "description": "Delete a single news-contents record",
+        "description": "Delete a record",
         "responses": {
           "200": {
-            "description": "deletes a single news-contents based on the ID supplied",
+            "description": "deletes a single record based on the ID supplied",
             "content": {
               "application/json": {
                 "schema": {
@@ -508,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "News-contents"
+          "Banner"
         ],
         "parameters": [
           {
@@ -527,26 +514,72 @@
   },
   "components": {
     "schemas": {
-      "News-contents": {
+      "Banner": {
         "required": [
           "id",
-          "title",
+          "company_name",
+          "main_banner_text",
           "contents",
+          "position",
           "is_public",
-          "is_public_reporter_email",
-          "source_type"
+          "priority"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "title": {
+          "company_name": {
             "type": "string"
           },
-          "contents": {
+          "category": {
+            "required": [
+              "id",
+              "main_category",
+              "sub_category"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "main_category": {
+                "type": "string"
+              },
+              "sub_category": {
+                "type": "string"
+              },
+              "boards": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "notices": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "banners": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "main_banner_text": {
             "type": "string"
           },
-          "thumbnail": {
+          "sub_banner_text": {
+            "type": "string"
+          },
+          "small_banner_image": {
             "required": [
               "id",
               "name",
@@ -613,116 +646,214 @@
               }
             }
           },
-          "is_public": {
-            "type": "boolean",
-            "default": true
-          },
-          "news_expected_date": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "reporter": {
+          "big_banner_image": {
             "required": [
               "id",
-              "email"
+              "name",
+              "hash",
+              "mime",
+              "size",
+              "url",
+              "provider"
             ],
             "properties": {
               "id": {
                 "type": "string"
               },
-              "firstname": {
+              "name": {
                 "type": "string"
               },
-              "lastname": {
+              "alternativeText": {
                 "type": "string"
               },
-              "username": {
+              "caption": {
                 "type": "string"
               },
-              "email": {
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "formats": {
+                "type": "object"
+              },
+              "hash": {
                 "type": "string"
               },
-              "password": {
+              "ext": {
                 "type": "string"
               },
-              "resetPasswordToken": {
+              "mime": {
                 "type": "string"
               },
-              "registrationToken": {
+              "size": {
+                "type": "number"
+              },
+              "url": {
                 "type": "string"
               },
-              "isActive": {
-                "type": "boolean"
+              "previewUrl": {
+                "type": "string"
               },
-              "roles": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
+              "provider": {
+                "type": "string"
               },
-              "blocked": {
-                "type": "boolean"
+              "provider_metadata": {
+                "type": "object"
               },
-              "preferedLanguage": {
+              "related": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
                 "type": "string"
               }
             }
           },
-          "is_public_reporter_email": {
-            "type": "boolean",
-            "default": false
-          },
-          "source_type": {
-            "type": "string",
-            "default": "연합뉴스",
-            "enum": [
-              "뉴스 출처 없음",
-              "연합뉴스"
-            ]
-          },
-          "priority": {
-            "type": "integer",
-            "default": "0"
-          }
-        }
-      },
-      "NewNews-contents": {
-        "required": [
-          "title",
-          "contents",
-          "is_public",
-          "is_public_reporter_email",
-          "source_type"
-        ],
-        "properties": {
-          "title": {
+          "site_url": {
             "type": "string"
           },
           "contents": {
             "type": "string"
           },
-          "is_public": {
-            "type": "boolean",
-            "default": true
-          },
-          "news_expected_date": {
+          "position": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "home",
+              "home_big",
+              "side",
+              "category_top"
+            ]
           },
-          "reporter": {
-            "type": "string"
-          },
-          "is_public_reporter_email": {
+          "is_public": {
             "type": "boolean",
             "default": false
           },
-          "source_type": {
+          "contact_info": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "pdf_file": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "alternativeText": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                },
+                "formats": {
+                  "type": "object"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "previewUrl": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewBanner": {
+        "required": [
+          "company_name",
+          "main_banner_text",
+          "contents",
+          "position",
+          "is_public",
+          "priority"
+        ],
+        "properties": {
+          "company_name": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "main_banner_text": {
+            "type": "string"
+          },
+          "sub_banner_text": {
+            "type": "string"
+          },
+          "site_url": {
+            "type": "string"
+          },
+          "contents": {
+            "type": "string"
+          },
+          "position": {
             "type": "string",
-            "default": "연합뉴스",
             "enum": [
-              "뉴스 출처 없음",
-              "연합뉴스"
+              "home",
+              "home_big",
+              "side",
+              "category_top"
             ]
+          },
+          "is_public": {
+            "type": "boolean",
+            "default": false
+          },
+          "contact_info": {
+            "type": "string"
           },
           "priority": {
             "type": "integer",
@@ -738,5 +869,9 @@
       }
     }
   },
-  "tags": []
+  "tags": [
+    {
+      "name": "Banner"
+    }
+  ]
 }

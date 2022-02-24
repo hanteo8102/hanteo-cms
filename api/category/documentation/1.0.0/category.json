@@ -631,6 +631,79 @@
                 }
               }
             }
+          },
+          "banners": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "company_name",
+                "main_banner_text",
+                "contents",
+                "position",
+                "is_public",
+                "priority"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "company_name": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "main_banner_text": {
+                  "type": "string"
+                },
+                "sub_banner_text": {
+                  "type": "string"
+                },
+                "small_banner_image": {
+                  "type": "string"
+                },
+                "big_banner_image": {
+                  "type": "string"
+                },
+                "site_url": {
+                  "type": "string"
+                },
+                "contents": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "string",
+                  "enum": [
+                    "home",
+                    "home_big",
+                    "side",
+                    "category_top"
+                  ]
+                },
+                "is_public": {
+                  "type": "boolean"
+                },
+                "contact_info": {
+                  "type": "string"
+                },
+                "priority": {
+                  "type": "integer"
+                },
+                "pdf_file": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -653,6 +726,12 @@
             }
           },
           "notices": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "banners": {
             "type": "array",
             "items": {
               "type": "string"

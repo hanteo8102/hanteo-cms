@@ -28,6 +28,10 @@
       "collection": "notice",
       "via": "categories",
       "dominant": true
+    },
+    "banners": {
+      "via": "category",
+      "collection": "banner"
     }
   }
 }

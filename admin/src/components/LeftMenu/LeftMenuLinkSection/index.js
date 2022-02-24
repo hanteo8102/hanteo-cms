@@ -39,6 +39,10 @@ const LeftMenuLinksSection = ({
         return '공지'
       case 'NewsContents':
         return '뉴스'
+      case 'NewsPapers':
+        return '한터 신문'
+      case 'Banners':
+        return '배너 광고'
       default:
         return defaultLabel
     }

@@ -1,0 +1,93 @@
+{
+  "kind": "collectionType",
+  "collectionName": "banners",
+  "info": {
+    "name": "banner",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "company_name": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "model": "category",
+      "via": "banners"
+    },
+    "main_banner_text": {
+      "type": "text",
+      "required": true
+    },
+    "sub_banner_text": {
+      "type": "text"
+    },
+    "small_banner_image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "big_banner_image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "site_url": {
+      "type": "string"
+    },
+    "contents": {
+      "type": "richtext",
+      "required": true
+    },
+    "position": {
+      "type": "enumeration",
+      "enum": [
+        "home",
+        "home_big",
+        "side",
+        "category_top"
+      ],
+      "required": true
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "contact_info": {
+      "type": "text"
+    },
+    "priority": {
+      "type": "biginteger",
+      "default": "0",
+      "required": true
+    },
+    "pdf_file": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files",
+        "images",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}

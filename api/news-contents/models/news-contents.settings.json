@@ -50,10 +50,10 @@
     "source_type": {
       "type": "enumeration",
       "enum": [
-        "no",
-        "yna"
+        "뉴스 출처 없음",
+        "연합뉴스"
       ],
-      "default": "yna",
+      "default": "연합뉴스",
       "required": true
     },
     "priority": {

@@ -4,11 +4,17 @@ module.exports = ({ env }) => {
       upload: {
         provider: 'aws-s3',
         providerOptions: {
-          accessKeyId: env('AWS_S3_ACCESS_KEY_ID'),
-          secretAccessKey: env('AWS_S3_ACCESS_SECRET'),
-          region: env('AWS_S3_REGION'),
+          // accessKeyId: env('AWS_S3_ACCESS_KEY_ID'),
+          // secretAccessKey: env('AWS_S3_ACCESS_SECRET'),
+          // region: env('AWS_S3_REGION'),
+          // params: {
+          //   Bucket: env('AWS_S3_BUCKET_NAME'),
+          // },
+          accessKeyId: env('AKIAVKI56CKYDF2ZCH7F'),
+          secretAccessKey: env('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'),
+          region: env('hanteo-release'),
           params: {
-            Bucket: env('AWS_S3_BUCKET_NAME'),
+            Bucket: env('ap-northeast-1'),
           },
         },
       },

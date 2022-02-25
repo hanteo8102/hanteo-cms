@@ -675,10 +675,10 @@
                 "position": {
                   "type": "string",
                   "enum": [
-                    "home",
-                    "home_big",
-                    "side",
-                    "category_top"
+                    "홈 화면",
+                    "홈 화면(큰 배너)",
+                    "사이드 화면",
+                    "카테고리 페이지 상단"
                   ]
                 },
                 "is_public": {

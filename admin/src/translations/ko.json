@@ -258,5 +258,8 @@
   "app.utils.unpublish": "비공개",
   "components.popUpWarning.button.cancel": "아니오",
   "components.popUpWarning.button.confirm": "예",
-  "app.links.configure-view": "보기 설정"
+  "app.links.configure-view": "보기 설정",
+  "Settings.permissions.conditions.no-actions": "조건을 정의하기 전에 먼저 작업을 선택해야 합니다.",
+  "Settings.permissions.conditions.apply": "적용",
+  "global.prompt.unsaved": "이 페이지에서 나가시겠습니까? 작성중인 모든 내용이 손실 됩니다."
 }

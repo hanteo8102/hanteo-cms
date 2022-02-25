@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "02/24/2022 1:31:34 PM"
+    "x-generation-date": "02/24/2022 8:52:21 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -5574,10 +5574,10 @@
           "position": {
             "type": "string",
             "enum": [
-              "home",
-              "home_big",
-              "side",
-              "category_top"
+              "홈 화면",
+              "홈 화면(큰 배너)",
+              "사이드 화면",
+              "카테고리 페이지 상단"
             ]
           },
           "is_public": {
@@ -5694,10 +5694,10 @@
           "position": {
             "type": "string",
             "enum": [
-              "home",
-              "home_big",
-              "side",
-              "category_top"
+              "홈 화면",
+              "홈 화면(큰 배너)",
+              "사이드 화면",
+              "카테고리 페이지 상단"
             ]
           },
           "is_public": {
@@ -6053,10 +6053,10 @@
                 "position": {
                   "type": "string",
                   "enum": [
-                    "home",
-                    "home_big",
-                    "side",
-                    "category_top"
+                    "홈 화면",
+                    "홈 화면(큰 배너)",
+                    "사이드 화면",
+                    "카테고리 페이지 상단"
                   ]
                 },
                 "is_public": {

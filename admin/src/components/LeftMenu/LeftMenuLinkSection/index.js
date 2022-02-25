@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import matchSorter from 'match-sorter'
 import { sortBy } from 'lodash'
 import { FormattedMessage } from 'react-intl'
+import { auth } from 'strapi-helper-plugin'
 
 import LeftMenuLink from '../LeftMenuLink'
 import LeftMenuLinkHeader from '../LeftMenuLinkHeader'
@@ -19,6 +20,8 @@ const LeftMenuLinksSection = ({
   shrink,
 }) => {
   const [search, setSearch] = useState('')
+
+  const userInfo = auth.getUserInfo()
 
   const filteredList = sortBy(
     matchSorter(links, search, {
@@ -48,6 +51,10 @@ const LeftMenuLinksSection = ({
     }
   }
 
+  if (userInfo.roles[0].id >= 2 && section === 'general') {
+    return null
+  }
+
   return (
     <>
       <LeftMenuLinkHeader
@@ -56,7 +63,7 @@ const LeftMenuLinksSection = ({
         setSearch={setSearch}
         search={search}
       />
-      <LeftMenuListLink shrink={shrink}>
+      <LeftMenuListLink section={section} shrink={shrink}>
         {filteredList.length > 0 ? (
           filteredList.map((link, index) => {
             if (

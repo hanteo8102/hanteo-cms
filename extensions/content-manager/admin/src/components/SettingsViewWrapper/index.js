@@ -1,9 +1,9 @@
-import React, { useState, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { get, isEqual, upperFirst } from 'lodash';
-import { withRouter } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
-import { Inputs as Input, Header } from '@buffetjs/custom';
+import React, { useState, useMemo } from 'react'
+import PropTypes from 'prop-types'
+import { get, isEqual, upperFirst } from 'lodash'
+import { withRouter } from 'react-router-dom'
+import { FormattedMessage } from 'react-intl'
+import { Inputs as Input, Header } from '@buffetjs/custom'
 import {
   BackHeader,
   LoadingIndicatorPage,
@@ -11,12 +11,13 @@ import {
   PopUpWarning,
   // contexts
   useGlobalContext,
-} from 'strapi-helper-plugin';
-import pluginId from '../../pluginId';
-import Block from '../Block';
-import Container from '../Container';
-import SectionTitle from '../SectionTitle';
-import Separator from '../Separator';
+} from 'strapi-helper-plugin'
+import pluginId from '../../pluginId'
+import Block from '../Block'
+import Container from '../Container'
+import SectionTitle from '../SectionTitle'
+import Separator from '../Separator'
+import getTrad from '../../utils/getTrad'
 
 const SettingsViewWrapper = ({
   children,
@@ -33,16 +34,16 @@ const SettingsViewWrapper = ({
   onConfirmSubmit,
   onModalConfirmClosed,
 }) => {
-  const { emitEvent, formatMessage } = useGlobalContext();
-  const [showWarningCancel, setWarningCancel] = useState(false);
-  const [showWarningSubmit, setWarningSubmit] = useState(false);
+  const { emitEvent, formatMessage } = useGlobalContext()
+  const [showWarningCancel, setWarningCancel] = useState(false)
+  const [showWarningSubmit, setWarningSubmit] = useState(false)
 
   const attributes = useMemo(() => {
-    return get(modifiedData, ['attributes'], {});
-  }, [modifiedData]);
+    return get(modifiedData, ['attributes'], {})
+  }, [modifiedData])
 
-  const toggleWarningCancel = () => setWarningCancel(prevState => !prevState);
-  const toggleWarningSubmit = () => setWarningSubmit(prevState => !prevState);
+  const toggleWarningCancel = () => setWarningCancel((prevState) => !prevState)
+  const toggleWarningSubmit = () => setWarningSubmit((prevState) => !prevState)
 
   const getPluginHeaderActions = () => {
     return [
@@ -72,8 +73,8 @@ const SettingsViewWrapper = ({
           fontWeight: 600,
         },
       },
-    ];
-  };
+    ]
+  }
 
   const headerProps = {
     actions: getPluginHeaderActions(),
@@ -90,24 +91,26 @@ const SettingsViewWrapper = ({
         isEditSettings ? 'edit' : 'list'
       }-settings`,
     }),
-  };
+  }
 
-  const getSelectOptions = input => {
+  const getSelectOptions = (input) => {
     if (input.name === 'settings.defaultSortBy') {
       return [
         'id',
-        ...displayedFields.filter(name => {
-          const type = get(attributes, [name, 'type']);
+        ...displayedFields.filter((name) => {
+          const type = get(attributes, [name, 'type'])
 
-          return !['media', 'richtext', 'dynamiczone', 'relation'].includes(type) && name !== 'id';
+          return (
+            !['media', 'richtext', 'dynamiczone', 'relation'].includes(type) &&
+            name !== 'id'
+          )
         }),
-      ];
+      ]
     }
 
     if (input.name === 'settings.mainField') {
-      const options = Object.keys(attributes).filter(attr => {
-        const type = get(attributes, [attr, 'type'], '');
-
+      const options = Object.keys(attributes).filter((attr) => {
+        const type = get(attributes, [attr, 'type'], '')
         return (
           ![
             'dynamiczone',
@@ -121,23 +124,23 @@ const SettingsViewWrapper = ({
             'richtext',
             'timestamp',
           ].includes(type) && !!type
-        );
-      });
+        )
+      })
 
-      return options;
+      return options
     }
 
-    return input.options;
-  };
+    return input.options
+  }
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    toggleWarningSubmit();
-    emitEvent('willSaveContentTypeLayout');
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    toggleWarningSubmit()
+    emitEvent('willSaveContentTypeLayout')
+  }
 
   if (isLoading) {
-    return <LoadingIndicatorPage />;
+    return <LoadingIndicatorPage />
   }
 
   return (
@@ -161,15 +164,19 @@ const SettingsViewWrapper = ({
             >
               <SectionTitle isSettings />
               <div className="row">
-                {inputs.map(input => {
+                {inputs.map((input) => {
                   return (
                     <FormattedMessage key={input.name} id={input.label.id}>
-                      {label => (
+                      {(label) => (
                         <div className={input.customBootstrapClass}>
                           <FormattedMessage
-                            id={get(input, 'description.id', 'app.utils.defaultMessage')}
+                            id={get(
+                              input,
+                              'description.id',
+                              'app.utils.defaultMessage'
+                            )}
                           >
-                            {description => (
+                            {(description) => (
                               <Input
                                 {...input}
                                 description={description}
@@ -183,7 +190,7 @@ const SettingsViewWrapper = ({
                         </div>
                       )}
                     </FormattedMessage>
-                  );
+                  )
                 })}
                 <div className="col-12">
                   <Separator style={{ marginBottom: 20 }} />
@@ -201,8 +208,8 @@ const SettingsViewWrapper = ({
             }}
             popUpWarningType="danger"
             onConfirm={() => {
-              onConfirmReset();
-              toggleWarningCancel();
+              onConfirmReset()
+              toggleWarningCancel()
             }}
           />
           <ModalConfirm
@@ -213,20 +220,20 @@ const SettingsViewWrapper = ({
             }}
             type="success"
             onConfirm={async () => {
-              await onConfirmSubmit();
-              toggleWarningSubmit();
+              await onConfirmSubmit()
+              toggleWarningSubmit()
             }}
             onClosed={() => {
               if (onModalConfirmClosed) {
-                onModalConfirmClosed();
+                onModalConfirmClosed()
               }
             }}
           />
         </form>
       </Container>
     </>
-  );
-};
+  )
+}
 
 SettingsViewWrapper.defaultProps = {
   displayedFields: [],
@@ -249,7 +256,7 @@ SettingsViewWrapper.defaultProps = {
       values: {},
     },
   },
-};
+}
 
 SettingsViewWrapper.propTypes = {
   children: PropTypes.node.isRequired,
@@ -278,6 +285,6 @@ SettingsViewWrapper.propTypes = {
       values: PropTypes.object,
     }),
   }),
-};
+}
 
-export default withRouter(SettingsViewWrapper);
+export default withRouter(SettingsViewWrapper)

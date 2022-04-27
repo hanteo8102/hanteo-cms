@@ -531,48 +531,6 @@
           "company_name": {
             "type": "string"
           },
-          "category": {
-            "required": [
-              "id",
-              "main_category",
-              "sub_category"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "main_category": {
-                "type": "string"
-              },
-              "sub_category": {
-                "type": "string"
-              },
-              "boards": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "notices": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "banners": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
           "main_banner_text": {
             "type": "string"
           },
@@ -808,6 +766,32 @@
                 }
               }
             }
+          },
+          "banner_category": {
+            "required": [
+              "id",
+              "category_name"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "category_name": {
+                "type": "string"
+              },
+              "banners": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -822,9 +806,6 @@
         ],
         "properties": {
           "company_name": {
-            "type": "string"
-          },
-          "category": {
             "type": "string"
           },
           "main_banner_text": {
@@ -858,6 +839,9 @@
           "priority": {
             "type": "integer",
             "default": "0"
+          },
+          "banner_category": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

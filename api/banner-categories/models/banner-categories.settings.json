@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "banner_categories",
+  "info": {
+    "name": "BannerCategories",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "category_name": {
+      "type": "string",
+      "required": true
+    },
+    "banners": {
+      "collection": "banner",
+      "via": "banner_category"
+    }
+  }
+}

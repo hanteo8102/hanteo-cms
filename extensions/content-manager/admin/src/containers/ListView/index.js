@@ -370,6 +370,8 @@ function ListView({
         return '배너 광고'
       case 'Categories':
         return '카테고리'
+      case 'BannerCategories':
+        return '배너 카테고리'
       case 'NewsContents':
         return '뉴스'
       case 'NewsPapers':

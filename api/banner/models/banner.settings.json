@@ -16,10 +16,6 @@
       "type": "string",
       "required": true
     },
-    "category": {
-      "model": "category",
-      "via": "banners"
-    },
     "main_banner_text": {
       "type": "text",
       "required": true
@@ -88,6 +84,10 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "banner_category": {
+      "via": "banners",
+      "model": "banner-categories"
     }
   }
 }

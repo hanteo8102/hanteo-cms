@@ -46,6 +46,8 @@ const LeftMenuLinksSection = ({
         return '한터 신문'
       case 'Banners':
         return '배너 광고'
+      case 'BannerCategories':
+        return '배너 카테고리'
       default:
         return defaultLabel
     }

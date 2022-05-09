@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "popups",
+  "info": {
+    "name": "popup",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "link": {
+      "type": "string",
+      "required": false
+    },
+    "is_link": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "bg_color": {
+      "type": "string",
+      "default": "#FFFFFF",
+      "required": true
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true,
+      "pluginOptions": {}
+    },
+    "width": {
+      "type": "integer",
+      "default": 1440,
+      "required": true
+    },
+    "height": {
+      "type": "integer",
+      "default": 152,
+      "required": true
+    }
+  }
+}

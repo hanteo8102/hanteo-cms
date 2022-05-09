@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "banner_categories",
   "info": {
-    "name": "BannerCategories",
+    "name": "bannerCategories",
     "description": ""
   },
   "options": {

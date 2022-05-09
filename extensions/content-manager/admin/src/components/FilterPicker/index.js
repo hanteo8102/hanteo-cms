@@ -125,6 +125,8 @@ function FilterPicker({
         return '카테고리'
       case 'BannerCategories':
         return '배너 카테고리'
+      case 'Popups':
+        return '팝업'
       case 'NewsContents':
         return '뉴스'
       case 'NewsPapers':

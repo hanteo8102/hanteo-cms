@@ -48,6 +48,8 @@ const LeftMenuLinksSection = ({
         return '배너 광고'
       case 'BannerCategories':
         return '배너 카테고리'
+      case 'Popups':
+        return '팝업'
       default:
         return defaultLabel
     }

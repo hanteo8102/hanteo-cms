@@ -613,6 +613,9 @@
               }
             }
           },
+          "thumbnail_path": {
+            "type": "string"
+          },
           "is_public": {
             "type": "boolean",
             "default": true
@@ -683,6 +686,14 @@
           "priority": {
             "type": "integer",
             "default": "0"
+          },
+          "like": {
+            "type": "integer",
+            "default": "0"
+          },
+          "hate": {
+            "type": "integer",
+            "default": "0"
           }
         }
       },
@@ -699,6 +710,9 @@
             "type": "string"
           },
           "contents": {
+            "type": "string"
+          },
+          "thumbnail_path": {
             "type": "string"
           },
           "is_public": {
@@ -725,6 +739,14 @@
             ]
           },
           "priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "like": {
+            "type": "integer",
+            "default": "0"
+          },
+          "hate": {
             "type": "integer",
             "default": "0"
           },

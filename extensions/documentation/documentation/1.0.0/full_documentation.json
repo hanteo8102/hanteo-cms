@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/25/2022 7:26:36 PM"
+    "x-generation-date": "06/25/2022 8:55:44 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -7000,6 +7000,24 @@
                 "type": "string"
               }
             }
+          },
+          "writing_type": {
+            "type": "string",
+            "default": "normal",
+            "enum": [
+              "일반 게시물",
+              "공지",
+              "필독"
+            ]
+          },
+          "color_type": {
+            "type": "string",
+            "default": "blue",
+            "enum": [
+              "파랑(#2f6fd4)",
+              "빨강(#ff6666)",
+              "검정(#333333)"
+            ]
           }
         }
       },
@@ -7030,6 +7048,24 @@
           },
           "category": {
             "type": "string"
+          },
+          "writing_type": {
+            "type": "string",
+            "default": "normal",
+            "enum": [
+              "일반 게시물",
+              "공지",
+              "필독"
+            ]
+          },
+          "color_type": {
+            "type": "string",
+            "default": "blue",
+            "enum": [
+              "파랑(#2f6fd4)",
+              "빨강(#ff6666)",
+              "검정(#333333)"
+            ]
           },
           "created_by": {
             "type": "string"
@@ -7086,6 +7122,22 @@
                 },
                 "category": {
                   "type": "string"
+                },
+                "writing_type": {
+                  "type": "string",
+                  "enum": [
+                    "일반 게시물",
+                    "공지",
+                    "필독"
+                  ]
+                },
+                "color_type": {
+                  "type": "string",
+                  "enum": [
+                    "파랑(#2f6fd4)",
+                    "빨강(#ff6666)",
+                    "검정(#333333)"
+                  ]
                 },
                 "created_by": {
                   "type": "string"
@@ -8238,6 +8290,22 @@
                 },
                 "category": {
                   "type": "string"
+                },
+                "writing_type": {
+                  "type": "string",
+                  "enum": [
+                    "일반 게시물",
+                    "공지",
+                    "필독"
+                  ]
+                },
+                "color_type": {
+                  "type": "string",
+                  "enum": [
+                    "파랑(#2f6fd4)",
+                    "빨강(#ff6666)",
+                    "검정(#333333)"
+                  ]
                 },
                 "created_by": {
                   "type": "string"

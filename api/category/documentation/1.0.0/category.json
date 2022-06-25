@@ -562,6 +562,22 @@
                 "category": {
                   "type": "string"
                 },
+                "writing_type": {
+                  "type": "string",
+                  "enum": [
+                    "일반 게시물",
+                    "공지",
+                    "필독"
+                  ]
+                },
+                "color_type": {
+                  "type": "string",
+                  "enum": [
+                    "파랑(#2f6fd4)",
+                    "빨강(#ff6666)",
+                    "검정(#333333)"
+                  ]
+                },
                 "created_by": {
                   "type": "string"
                 },

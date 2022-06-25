@@ -38,6 +38,24 @@
     "category": {
       "via": "boards",
       "model": "category"
+    },
+    "writing_type": {
+      "type": "enumeration",
+      "enum": [
+        "일반 게시물",
+        "공지",
+        "필독"
+      ],
+      "default": "normal"
+    },
+    "color_type": {
+      "type": "enumeration",
+      "enum": [
+        "파랑(#2f6fd4)",
+        "빨강(#ff6666)",
+        "검정(#333333)"
+      ],
+      "default": "blue"
     }
   }
 }

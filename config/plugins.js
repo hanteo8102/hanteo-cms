@@ -22,8 +22,9 @@ module.exports = ({ env }) => {
         },
       },
       settings: {
-        defaultFrom: '한일생활정보 한터 <mck9191@gmail.com>',
-        defaultReplyTo: '한일생활정보 한터 <mck9191@gmail.com>',
+        defaultFrom: env('EMAIL_FROM'),
+        defaultReplyTo: env('EMAIL_REPLYTO'),
+        testAddress: env('EMAIL_TEST_ADDRESS'),
       },
     },
   }

@@ -33,6 +33,10 @@
       "required": false,
       "pluginOptions": {}
     },
+    "small_thumbnail_path": {
+      "type": "string",
+      "required": false
+    },
     "big_banner_image": {
       "model": "file",
       "via": "related",
@@ -42,6 +46,10 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "big_thumbnail_path": {
+      "type": "string",
+      "required": false
     },
     "site_url": {
       "type": "string"

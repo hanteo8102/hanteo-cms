@@ -12,10 +12,10 @@
   "attributes": {
     "username": {
       "type": "string",
-      "minLength": 3,
-      "unique": true,
+      "minLength": 2,
+      "unique": false,
       "configurable": false,
-      "required": true
+      "required": false
     },
     "email": {
       "type": "email",
@@ -59,21 +59,32 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "first_name": {
-      "type": "string"
-    },
-    "last_name": {
-      "type": "string"
-    },
     "gender": {
       "type": "enumeration",
       "enum": [
-        "남자",
-        "여자"
+        "남성",
+        "여성"
       ]
     },
     "birth_day": {
       "type": "date"
+    },
+    "post": {
+      "type": "string"
+    },
+    "country": {
+      "type": "enumeration",
+      "enum": [
+        "한국",
+        "일본",
+        "기타 국가"
+      ],
+      "required": false
+    },
+    "nick_name": {
+      "type": "string",
+      "minLength": 2,
+      "unique": true
     },
     "boards": {
       "via": "writer",

@@ -201,7 +201,7 @@
   "Users.filter.field.name.updated_at": "갱신일",
   "Users.filter.field.name.email": "이메일",
   "Users.filter.field.name.password": "비밀번호",
-  "Users.filter.field.name.username": "닉네임",
+  "Users.filter.field.name.username": "아이디",
   "Users.filter.field.name.last_name": "성",
   "Users.filter.field.name.first_name": "이름",
   "Users.filter.field.name.gender": "성별",

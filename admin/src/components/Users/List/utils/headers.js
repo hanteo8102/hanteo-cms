@@ -26,7 +26,7 @@ const headers = [
     value: 'roles',
   },
   {
-    name: '닉네임',
+    name: '아이디',
     value: 'username',
   },
   {

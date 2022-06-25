@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "05/10/2022 10:49:55 AM"
+    "x-generation-date": "06/25/2022 7:26:36 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6441,7 +6441,13 @@
                 "small_banner_image": {
                   "type": "string"
                 },
+                "small_thumbnail_path": {
+                  "type": "string"
+                },
                 "big_banner_image": {
+                  "type": "string"
+                },
+                "big_thumbnail_path": {
                   "type": "string"
                 },
                 "site_url": {
@@ -6600,6 +6606,9 @@
               }
             }
           },
+          "small_thumbnail_path": {
+            "type": "string"
+          },
           "big_banner_image": {
             "required": [
               "id",
@@ -6666,6 +6675,9 @@
                 "type": "string"
               }
             }
+          },
+          "big_thumbnail_path": {
+            "type": "string"
           },
           "site_url": {
             "type": "string"
@@ -6810,6 +6822,12 @@
           "sub_banner_text": {
             "type": "string"
           },
+          "small_thumbnail_path": {
+            "type": "string"
+          },
+          "big_thumbnail_path": {
+            "type": "string"
+          },
           "site_url": {
             "type": "string"
           },
@@ -6868,7 +6886,6 @@
           "writer": {
             "required": [
               "id",
-              "username",
               "email"
             ],
             "properties": {
@@ -6902,20 +6919,28 @@
               "role": {
                 "type": "string"
               },
-              "first_name": {
-                "type": "string"
-              },
-              "last_name": {
-                "type": "string"
-              },
               "gender": {
                 "type": "string",
                 "enum": [
-                  "남자",
-                  "여자"
+                  "남성",
+                  "여성"
                 ]
               },
               "birth_day": {
+                "type": "string"
+              },
+              "post": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string",
+                "enum": [
+                  "한국",
+                  "일본",
+                  "기타 국가"
+                ]
+              },
+              "nick_name": {
                 "type": "string"
               },
               "boards": {
@@ -7981,7 +8006,6 @@
             "items": {
               "required": [
                 "id",
-                "username",
                 "email"
               ],
               "properties": {
@@ -8015,20 +8039,28 @@
                 "role": {
                   "type": "string"
                 },
-                "first_name": {
-                  "type": "string"
-                },
-                "last_name": {
-                  "type": "string"
-                },
                 "gender": {
                   "type": "string",
                   "enum": [
-                    "남자",
-                    "여자"
+                    "남성",
+                    "여성"
                   ]
                 },
                 "birth_day": {
+                  "type": "string"
+                },
+                "post": {
+                  "type": "string"
+                },
+                "country": {
+                  "type": "string",
+                  "enum": [
+                    "한국",
+                    "일본",
+                    "기타 국가"
+                  ]
+                },
+                "nick_name": {
                   "type": "string"
                 },
                 "boards": {
@@ -8086,7 +8118,6 @@
       "UsersPermissionsUser": {
         "required": [
           "id",
-          "username",
           "email"
         ],
         "properties": {
@@ -8095,7 +8126,7 @@
           },
           "username": {
             "type": "string",
-            "minLength": 3
+            "minLength": 2
           },
           "email": {
             "type": "string",
@@ -8150,22 +8181,31 @@
               }
             }
           },
-          "first_name": {
-            "type": "string"
-          },
-          "last_name": {
-            "type": "string"
-          },
           "gender": {
             "type": "string",
             "enum": [
-              "남자",
-              "여자"
+              "남성",
+              "여성"
             ]
           },
           "birth_day": {
             "type": "string",
             "format": "date"
+          },
+          "post": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "한국",
+              "일본",
+              "기타 국가"
+            ]
+          },
+          "nick_name": {
+            "type": "string",
+            "minLength": 2
           },
           "boards": {
             "type": "array",
@@ -8212,13 +8252,12 @@
       },
       "NewUsersPermissionsUser": {
         "required": [
-          "username",
           "email"
         ],
         "properties": {
           "username": {
             "type": "string",
-            "minLength": 3
+            "minLength": 2
           },
           "email": {
             "type": "string",
@@ -8249,22 +8288,31 @@
           "role": {
             "type": "string"
           },
-          "first_name": {
-            "type": "string"
-          },
-          "last_name": {
-            "type": "string"
-          },
           "gender": {
             "type": "string",
             "enum": [
-              "남자",
-              "여자"
+              "남성",
+              "여성"
             ]
           },
           "birth_day": {
             "type": "string",
             "format": "date"
+          },
+          "post": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "한국",
+              "일본",
+              "기타 국가"
+            ]
+          },
+          "nick_name": {
+            "type": "string",
+            "minLength": 2
           },
           "boards": {
             "type": "array",

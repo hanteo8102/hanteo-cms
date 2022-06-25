@@ -135,6 +135,12 @@ function FilterPicker({
         return '공지'
       case 'Users':
         return '회원'
+      case 'ArticleElements':
+        return '리액션'
+      case 'Comments':
+        return '댓글'
+      case 'ReComments':
+        return '대댓글'
       default:
         return name
     }

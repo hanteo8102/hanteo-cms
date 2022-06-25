@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "re_comments",
+  "info": {
+    "name": "reComments",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "contents": {
+      "type": "text"
+    },
+    "hash_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "comment": {
+      "via": "re_comments",
+      "model": "comments"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "news",
+        "board"
+      ]
+    },
+    "type_id": {
+      "type": "integer"
+    },
+    "is_delete": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "article_elements",
+  "info": {
+    "name": "articleElements"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "expression": {
+      "type": "boolean"
+    },
+    "complain": {
+      "type": "boolean",
+      "default": false
+    },
+    "scrap": {
+      "type": "boolean",
+      "default": false
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "news",
+        "board",
+        "comment"
+      ]
+    },
+    "type_id": {
+      "type": "integer"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

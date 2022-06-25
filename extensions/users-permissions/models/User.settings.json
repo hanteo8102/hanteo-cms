@@ -85,10 +85,6 @@
       "type": "string",
       "minLength": 2,
       "unique": true
-    },
-    "boards": {
-      "via": "writer",
-      "collection": "board"
     }
   }
 }

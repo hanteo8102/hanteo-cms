@@ -50,6 +50,12 @@ const LeftMenuLinksSection = ({
         return '배너 카테고리'
       case 'Popups':
         return '팝업'
+      case 'ArticleElements':
+        return '리액션'
+      case 'Comments':
+        return '댓글'
+      case 'ReComments':
+        return '대댓글'
       default:
         return defaultLabel
     }

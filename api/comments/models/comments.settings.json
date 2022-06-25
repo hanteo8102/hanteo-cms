@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "name": "comments",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "contents": {
+      "type": "text"
+    },
+    "re_comments": {
+      "via": "comment",
+      "collection": "re-comments"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "news",
+        "board"
+      ]
+    },
+    "type_id": {
+      "type": "integer"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "is_delete": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

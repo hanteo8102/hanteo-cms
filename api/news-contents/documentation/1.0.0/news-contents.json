@@ -686,14 +686,6 @@
           "priority": {
             "type": "integer",
             "default": "0"
-          },
-          "like": {
-            "type": "integer",
-            "default": "0"
-          },
-          "hate": {
-            "type": "integer",
-            "default": "0"
           }
         }
       },
@@ -739,14 +731,6 @@
             ]
           },
           "priority": {
-            "type": "integer",
-            "default": "0"
-          },
-          "like": {
-            "type": "integer",
-            "default": "0"
-          },
-          "hate": {
             "type": "integer",
             "default": "0"
           },

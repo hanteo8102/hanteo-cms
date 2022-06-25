@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/re-comments",
+      "handler": "re-comments.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/re-comments/count",
+      "handler": "re-comments.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/re-comments/:id",
+      "handler": "re-comments.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/re-comments",
+      "handler": "re-comments.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/re-comments/:id",
+      "handler": "re-comments.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/re-comments/:id",
+      "handler": "re-comments.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

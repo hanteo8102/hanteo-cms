@@ -19,15 +19,6 @@
     "sub_category": {
       "type": "string",
       "required": true
-    },
-    "boards": {
-      "via": "category",
-      "collection": "board"
-    },
-    "notices": {
-      "collection": "notice",
-      "via": "categories",
-      "dominant": true
     }
   }
 }

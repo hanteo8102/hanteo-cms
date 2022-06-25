@@ -64,16 +64,6 @@
       "type": "biginteger",
       "default": "0",
       "min": "0"
-    },
-    "like": {
-      "type": "biginteger",
-      "default": "0",
-      "min": "0"
-    },
-    "hate": {
-      "type": "biginteger",
-      "default": "0",
-      "min": "0"
     }
   }
 }

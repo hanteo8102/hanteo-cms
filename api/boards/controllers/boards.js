@@ -15,37 +15,75 @@ module.exports = {
    */
 
   async find(ctx) {
-    let query = ''
+    let categoryQuery = ''
+    let startQuery = ''
+    let limitQuery = ''
     if (ctx.query.category) {
-      query = `AND boards.category = ${ctx.query.category}`
+      categoryQuery = `AND boards.category = ${ctx.query.category}`
+    }
+    if (ctx.query.start) {
+      startQuery = `offset ${ctx.query.start}`
+    }
+    if (ctx.query.limit) {
+      limitQuery = `LIMIT ${ctx.query.limit}`
     }
 
     let sql = `
-      select boards.*,
-             (select count(1)
-              from 'article_elements'
-              where boards.id = article_elements.type_id
-                AND type = 'board'
-                AND expression = true)  AS like_count,
-             (select count(1)
-              from article_elements
-              where boards.id = article_elements.type_id
-                AND type = 'board'
-                AND expression = false) AS hate_count,
-             (select count(1)
-              from comments
-              where boards.id = comments.type_id
-                AND type = 'board')     AS comment_count,
-             (select count(1)
-              from re_comments
-              where boards.id = re_comments.type_id
-                AND type = 'board')     AS re_comment_count,
-             U.nick_name
-      from boards
-             INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
-      WHERE boards.is_delete = false
-        ${query}
-      ORDER BY boards.created_at DESC
+      select a.*
+      from (select boards.*,
+                   (select count(1)
+                    from article_elements
+                    where boards.id = article_elements.type_id
+                      AND type = 'board'
+                      AND expression = true)  AS like_count,
+                   (select count(1)
+                    from article_elements
+                    where boards.id = article_elements.type_id
+                      AND type = 'board'
+                      AND expression = false) AS hate_count,
+                   (select count(1)
+                    from comments
+                    where boards.id = comments.type_id
+                      AND type = 'board')     AS comment_count,
+                   (select count(1)
+                    from re_comments
+                    where boards.id = re_comments.type_id
+                      AND type = 'board')     AS re_comment_count,
+                   U.nick_name
+            from boards
+                   INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
+            WHERE boards.is_delete = false
+              AND boards.writing_type != N'일반 게시물'
+              ${categoryQuery}
+            ORDER BY boards.created_at DESC) as a
+      UNION ALL
+      select b.*
+      from (select boards.*,
+                   (select count(1)
+                    from article_elements
+                    where boards.id = article_elements.type_id
+                      AND type = 'board'
+                      AND expression = true)  AS like_count,
+                   (select count(1)
+                    from article_elements
+                    where boards.id = article_elements.type_id
+                      AND type = 'board'
+                      AND expression = false) AS hate_count,
+                   (select count(1)
+                    from comments
+                    where boards.id = comments.type_id
+                      AND type = 'board')     AS comment_count,
+                   (select count(1)
+                    from re_comments
+                    where boards.id = re_comments.type_id
+                      AND type = 'board')     AS re_comment_count,
+                   U.nick_name
+            from boards
+                   INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
+            WHERE boards.is_delete = false
+              AND boards.writing_type = N'일반 게시물'
+              ${categoryQuery}
+            ORDER BY boards.created_at DESC ${startQuery} ${limitQuery}) as b
     `
 
     let result = await strapi.connections.default.raw(sql)

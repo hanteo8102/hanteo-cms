@@ -535,7 +535,7 @@
           "id": {
             "type": "string"
           },
-          "like": {
+          "good": {
             "type": "boolean",
             "default": false
           },
@@ -637,7 +637,7 @@
       },
       "NewArticle-elements": {
         "properties": {
-          "like": {
+          "good": {
             "type": "boolean",
             "default": false
           },

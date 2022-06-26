@@ -179,7 +179,7 @@
   "NewsContents.filter.field.name.reporter": "리포터",
   "NewsContents.filter.field.name.source_type": "뉴스 출처",
   "NewsContents.filter.field.name.thumbnail_path": "자동 썸네일",
-  "NewsContents.filter.field.name.like": "좋아요",
+  "NewsContents.filter.field.name.good": "좋아요",
   "NewsContents.filter.field.name.hate": "싫어요",
   "NewsPapers.filter.field.name.id": "id",
   "NewsPapers.filter.field.name.created_at": "작성일",

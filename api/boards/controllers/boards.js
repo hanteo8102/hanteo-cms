@@ -39,7 +39,7 @@ module.exports = {
                     from article_elements
                     where boards.id = article_elements.type_id
                       AND type = 'board'
-                      AND 'like' = true)  AS like_count,
+                      AND good = true)  AS good_count,
                    (select count(1)
                     from article_elements
                     where boards.id = article_elements.type_id
@@ -67,7 +67,7 @@ module.exports = {
                     from article_elements
                     where boards.id = article_elements.type_id
                       AND type = 'board'
-                      AND 'like' = true)  AS like_count,
+                      AND good = true)  AS good_count,
                    (select count(1)
                     from article_elements
                     where boards.id = article_elements.type_id
@@ -102,9 +102,9 @@ module.exports = {
     const entity = await strapi.services['boards'].findOne({ id })
 
     // 좋아요 카운트
-    entity.like_count = await strapi
+    entity.good_count = await strapi
       .query('article-elements')
-      .count({ type_eq: 'board', type_id_eq: id, like: true })
+      .count({ type_eq: 'board', type_id_eq: id, good: true })
     // 싫어요 카운트
     entity.hate_count = await strapi
       .query('article-elements')

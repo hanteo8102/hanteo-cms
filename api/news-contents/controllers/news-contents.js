@@ -20,13 +20,13 @@ module.exports = {
     const entity = await strapi.services['news-contents'].findOne({ id })
 
     // 좋아요 카운트
-    entity.like_count = await strapi
+    entity.good_count = await strapi
       .query('article-elements')
-      .count({ type_eq: 'news', type_id_eq: id, expression: true })
+      .count({ type_eq: 'news', type_id_eq: id, good: true })
     // 싫어요 카운트
     entity.hate_count = await strapi
       .query('article-elements')
-      .count({ type_eq: 'news', type_id_eq: id, expression: false })
+      .count({ type_eq: 'news', type_id_eq: id, hate: true })
     // 코멘트 카운트
     const commentCount = await strapi
       .query('comments')

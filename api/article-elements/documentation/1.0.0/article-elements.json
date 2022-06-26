@@ -535,8 +535,9 @@
           "id": {
             "type": "string"
           },
-          "expression": {
-            "type": "boolean"
+          "like": {
+            "type": "boolean",
+            "default": false
           },
           "complain": {
             "type": "boolean",
@@ -617,6 +618,9 @@
               "nick_name": {
                 "type": "string"
               },
+              "visitor_count": {
+                "type": "integer"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -624,13 +628,18 @@
                 "type": "string"
               }
             }
+          },
+          "hate": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
       "NewArticle-elements": {
         "properties": {
-          "expression": {
-            "type": "boolean"
+          "like": {
+            "type": "boolean",
+            "default": false
           },
           "complain": {
             "type": "boolean",
@@ -653,6 +662,10 @@
           },
           "user": {
             "type": "string"
+          },
+          "hate": {
+            "type": "boolean",
+            "default": false
           },
           "created_by": {
             "type": "string"

@@ -590,6 +590,9 @@
               "nick_name": {
                 "type": "string"
               },
+              "visitor_count": {
+                "type": "integer"
+              },
               "created_by": {
                 "type": "string"
               },

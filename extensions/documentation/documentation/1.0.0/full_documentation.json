@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/26/2022 4:04:52 AM"
+    "x-generation-date": "06/26/2022 10:40:06 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -7457,8 +7457,9 @@
           "id": {
             "type": "string"
           },
-          "expression": {
-            "type": "boolean"
+          "like": {
+            "type": "boolean",
+            "default": false
           },
           "complain": {
             "type": "boolean",
@@ -7539,6 +7540,9 @@
               "nick_name": {
                 "type": "string"
               },
+              "visitor_count": {
+                "type": "integer"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -7546,13 +7550,18 @@
                 "type": "string"
               }
             }
+          },
+          "hate": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
       "NewArticle-elements": {
         "properties": {
-          "expression": {
-            "type": "boolean"
+          "like": {
+            "type": "boolean",
+            "default": false
           },
           "complain": {
             "type": "boolean",
@@ -7575,6 +7584,10 @@
           },
           "user": {
             "type": "string"
+          },
+          "hate": {
+            "type": "boolean",
+            "default": false
           },
           "created_by": {
             "type": "string"
@@ -8124,6 +8137,9 @@
               "nick_name": {
                 "type": "string"
               },
+              "visitor_count": {
+                "type": "integer"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -8389,6 +8405,9 @@
               },
               "nick_name": {
                 "type": "string"
+              },
+              "visitor_count": {
+                "type": "integer"
               },
               "created_by": {
                 "type": "string"
@@ -9054,6 +9073,9 @@
               "nick_name": {
                 "type": "string"
               },
+              "visitor_count": {
+                "type": "integer"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -9274,6 +9296,9 @@
                 "nick_name": {
                   "type": "string"
                 },
+                "visitor_count": {
+                  "type": "integer"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -9411,6 +9436,10 @@
           "nick_name": {
             "type": "string",
             "minLength": 2
+          },
+          "visitor_count": {
+            "type": "integer",
+            "default": "0"
           }
         }
       },
@@ -9477,6 +9506,10 @@
           "nick_name": {
             "type": "string",
             "minLength": 2
+          },
+          "visitor_count": {
+            "type": "integer",
+            "default": "0"
           },
           "created_by": {
             "type": "string"

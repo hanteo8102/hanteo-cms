@@ -15,9 +15,13 @@ module.exports = {
    */
 
   async find(ctx) {
+    let writerQuery = ''
     let categoryQuery = ''
     let startQuery = ''
     let limitQuery = ''
+    if (ctx.query.writer) {
+      writerQuery = `AND boards.writer = ${ctx.query.writer}`
+    }
     if (ctx.query.category) {
       categoryQuery = `AND boards.category = ${ctx.query.category}`
     }
@@ -35,12 +39,12 @@ module.exports = {
                     from article_elements
                     where boards.id = article_elements.type_id
                       AND type = 'board'
-                      AND expression = true)  AS like_count,
+                      AND 'like' = true)  AS like_count,
                    (select count(1)
                     from article_elements
                     where boards.id = article_elements.type_id
                       AND type = 'board'
-                      AND expression = false) AS hate_count,
+                      AND hate = true) AS hate_count,
                    (select count(1)
                     from comments
                     where boards.id = comments.type_id
@@ -54,7 +58,7 @@ module.exports = {
                    INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
             WHERE boards.is_delete = false
               AND boards.writing_type != N'일반 게시물'
-              ${categoryQuery}
+              ${categoryQuery} ${writerQuery}
             ORDER BY boards.created_at DESC) as a
       UNION ALL
       select b.*
@@ -63,12 +67,12 @@ module.exports = {
                     from article_elements
                     where boards.id = article_elements.type_id
                       AND type = 'board'
-                      AND expression = true)  AS like_count,
+                      AND 'like' = true)  AS like_count,
                    (select count(1)
                     from article_elements
                     where boards.id = article_elements.type_id
                       AND type = 'board'
-                      AND expression = false) AS hate_count,
+                      AND hate = true) AS hate_count,
                    (select count(1)
                     from comments
                     where boards.id = comments.type_id
@@ -82,7 +86,7 @@ module.exports = {
                    INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
             WHERE boards.is_delete = false
               AND boards.writing_type = N'일반 게시물'
-              ${categoryQuery}
+              ${categoryQuery} ${writerQuery}
             ORDER BY boards.created_at DESC ${startQuery} ${limitQuery}) as b
     `
 
@@ -100,11 +104,11 @@ module.exports = {
     // 좋아요 카운트
     entity.like_count = await strapi
       .query('article-elements')
-      .count({ type_eq: 'board', type_id_eq: id, expression: true })
+      .count({ type_eq: 'board', type_id_eq: id, like: true })
     // 싫어요 카운트
     entity.hate_count = await strapi
       .query('article-elements')
-      .count({ type_eq: 'board', type_id_eq: id, expression: false })
+      .count({ type_eq: 'board', type_id_eq: id, hate: true })
     // 코멘트 카운트
     const commentCount = await strapi
       .query('comments')

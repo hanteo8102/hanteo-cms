@@ -85,6 +85,10 @@
       "type": "string",
       "minLength": 2,
       "unique": true
+    },
+    "visitor_count": {
+      "type": "biginteger",
+      "default": "0"
     }
   }
 }

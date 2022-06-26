@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "article_elements",
   "info": {
-    "name": "articleElements"
+    "name": "articleElements",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,8 +12,9 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "expression": {
-      "type": "boolean"
+    "like": {
+      "type": "boolean",
+      "default": false
     },
     "complain": {
       "type": "boolean",
@@ -36,6 +38,10 @@
     "user": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "hate": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

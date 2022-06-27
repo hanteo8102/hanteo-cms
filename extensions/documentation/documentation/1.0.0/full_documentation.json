@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/26/2022 11:24:10 PM"
+    "x-generation-date": "06/27/2022 10:10:16 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -8161,7 +8161,7 @@
             "type": "string",
             "default": "nothing",
             "enum": [
-              "없음(일반게시물)",
+              "없음(일반 게시물)",
               "파랑(#2f6fd4)",
               "빨강(#ff6666)",
               "검정(#333333)"
@@ -8225,7 +8225,7 @@
             "type": "string",
             "default": "nothing",
             "enum": [
-              "없음(일반게시물)",
+              "없음(일반 게시물)",
               "파랑(#2f6fd4)",
               "빨강(#ff6666)",
               "검정(#333333)"

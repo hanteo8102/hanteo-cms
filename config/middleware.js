@@ -3,6 +3,7 @@ module.exports = {
     cors: {
       enabled: true,
       origin: ['*'],
+      // origin: ['*'],
       headers: ['*'],
     },
   },

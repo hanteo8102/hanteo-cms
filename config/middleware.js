@@ -3,6 +3,7 @@ module.exports = {
     cors: {
       enabled: true,
       origin: ['https://hanteo.ga', 'https://api.hanteo.ga'],
+      headers: ['*'],
     },
   },
 }

@@ -647,6 +647,10 @@
                 "type": "string"
               }
             }
+          },
+          "view_count": {
+            "type": "integer",
+            "default": "0"
           }
         }
       },
@@ -690,6 +694,10 @@
           },
           "category": {
             "type": "string"
+          },
+          "view_count": {
+            "type": "integer",
+            "default": "0"
           },
           "created_by": {
             "type": "string"

@@ -686,6 +686,10 @@
           "priority": {
             "type": "integer",
             "default": "0"
+          },
+          "view_count": {
+            "type": "integer",
+            "default": "0"
           }
         }
       },
@@ -731,6 +735,10 @@
             ]
           },
           "priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "view_count": {
             "type": "integer",
             "default": "0"
           },

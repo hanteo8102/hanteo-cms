@@ -50,6 +50,11 @@
     },
     "category": {
       "model": "category"
+    },
+    "view_count": {
+      "type": "biginteger",
+      "default": "0",
+      "min": "0"
     }
   }
 }

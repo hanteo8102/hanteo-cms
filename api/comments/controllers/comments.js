@@ -61,7 +61,7 @@ module.exports = {
     let result = await strapi.connections.default.raw(sql)
 
     return result.rows.map((entity) =>
-      sanitizeEntity(entity, { model: strapi.models['article-elements'] })
+      sanitizeEntity(entity, { model: strapi.models['comments'] })
     )
   },
 }

@@ -47,6 +47,30 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/article-elements/me/boards",
+      "handler": "article-elements.findMeBoards",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/article-elements/me/comments",
+      "handler": "article-elements.findMeComments",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/article-elements/me/good",
+      "handler": "article-elements.findMeGood",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

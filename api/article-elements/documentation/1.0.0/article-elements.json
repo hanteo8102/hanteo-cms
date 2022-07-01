@@ -558,7 +558,7 @@
           "type_id": {
             "type": "integer"
           },
-          "user": {
+          "writer": {
             "required": [
               "id",
               "email"
@@ -660,7 +660,7 @@
           "type_id": {
             "type": "integer"
           },
-          "user": {
+          "writer": {
             "type": "string"
           },
           "hate": {

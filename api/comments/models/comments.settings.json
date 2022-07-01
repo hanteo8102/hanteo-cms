@@ -29,7 +29,7 @@
     "type_id": {
       "type": "integer"
     },
-    "user": {
+    "writer": {
       "plugin": "users-permissions",
       "model": "user"
     },

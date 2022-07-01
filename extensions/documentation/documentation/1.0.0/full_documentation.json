@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/30/2022 12:48:59 AM"
+    "x-generation-date": "07/01/2022 4:15:53 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -7480,7 +7480,7 @@
           "type_id": {
             "type": "integer"
           },
-          "user": {
+          "writer": {
             "required": [
               "id",
               "email"
@@ -7582,7 +7582,7 @@
           "type_id": {
             "type": "integer"
           },
-          "user": {
+          "writer": {
             "type": "string"
           },
           "hate": {
@@ -8335,6 +8335,9 @@
                 "is_delete": {
                   "type": "boolean"
                 },
+                "writer": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -8354,7 +8357,7 @@
           "type_id": {
             "type": "integer"
           },
-          "user": {
+          "writer": {
             "required": [
               "id",
               "email"
@@ -8452,7 +8455,7 @@
           "type_id": {
             "type": "integer"
           },
-          "user": {
+          "writer": {
             "type": "string"
           },
           "is_delete": {
@@ -9127,7 +9130,7 @@
               "type_id": {
                 "type": "integer"
               },
-              "user": {
+              "writer": {
                 "type": "string"
               },
               "is_delete": {
@@ -9154,6 +9157,77 @@
           "is_delete": {
             "type": "boolean",
             "default": false
+          },
+          "writer": {
+            "required": [
+              "id",
+              "email"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmationToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "gender": {
+                "type": "string",
+                "enum": [
+                  "남성",
+                  "여성"
+                ]
+              },
+              "birth_day": {
+                "type": "string"
+              },
+              "post": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string",
+                "enum": [
+                  "한국",
+                  "일본",
+                  "기타 국가"
+                ]
+              },
+              "nick_name": {
+                "type": "string"
+              },
+              "visitor_count": {
+                "type": "integer"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -9181,6 +9255,9 @@
           "is_delete": {
             "type": "boolean",
             "default": false
+          },
+          "writer": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

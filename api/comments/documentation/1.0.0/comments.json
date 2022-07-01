@@ -557,6 +557,9 @@
                 "is_delete": {
                   "type": "boolean"
                 },
+                "writer": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -576,7 +579,7 @@
           "type_id": {
             "type": "integer"
           },
-          "user": {
+          "writer": {
             "required": [
               "id",
               "email"
@@ -674,7 +677,7 @@
           "type_id": {
             "type": "integer"
           },
-          "user": {
+          "writer": {
             "type": "string"
           },
           "is_delete": {

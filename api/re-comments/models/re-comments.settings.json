@@ -36,6 +36,10 @@
     "is_delete": {
       "type": "boolean",
       "default": false
+    },
+    "writer": {
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

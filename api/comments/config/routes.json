@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/comments/all/type",
+      "handler": "comments.findByType",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

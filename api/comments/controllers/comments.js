@@ -64,4 +64,77 @@ module.exports = {
       sanitizeEntity(entity, { model: strapi.models['comments'] })
     )
   },
+
+  async findByType(ctx) {
+    let typeQuery = ''
+    let startQuery = ''
+    let limitQuery = ''
+    const type = ctx.query.type
+    const type_id = ctx.query.type_id
+    const start = ctx.query.start
+    const limit = ctx.query.limit
+
+    if (type && id) {
+      typeQuery = `AND comments.type = '${type}' AND comments.type_id = ${type_id}`
+    }
+
+    if (ctx.query.start) {
+      startQuery = `offset ${start}`
+    }
+
+    if (ctx.query.limit) {
+      limitQuery = `LIMIT ${limit}`
+    }
+
+    let sql = `
+      SELECT t1.*,
+             (SELECT COUNT(*)
+              FROM article_elements st1
+              WHERE st1.type = 'comment'
+                AND st1.type_id = t1.id
+                AND st1.good = TRUE)     AS GOOD_COUNT,
+             (SELECT COUNT(*)
+              FROM article_elements st1
+              WHERE st1.type = 'comment'
+                AND st1.type_id = t1.id
+                AND st1.hate = TRUE)     AS HATE_COUNT,
+             (SELECT COUNT(*)
+              FROM re_comments st1
+              WHERE st1.type = t1.type
+                AND st1.type_id = t1.type_id
+                AND st1.comment = t1.id) AS RE_COMMENT_COUNT,
+             t2.id                       as wrtier,
+             t2.username,
+             t2.nick_name
+      FROM comments t1
+             INNER JOIN "users-permissions_user" t2 ON t1.writer = t2.id
+      WHERE is_delete = FALSE
+        ${typeQuery}
+      ORDER BY t1.created_at DESC ${startQuery} ${limitQuery}
+    `
+
+    let sql2 = `
+      SELECT t1.*,
+             t2.id as wrtier,
+             t2.username,
+             t2.nick_name
+      FROM re_comments t1
+             INNER JOIN "users-permissions_user" t2 ON t1.writer = t2.id
+      WHERE is_delete = FALSE
+        ${typeQuery}
+      ORDER BY t1.created_at DESC
+    `
+
+    let result = await strapi.connections.default.raw(sql)
+    let result2 = await strapi.connections.default.raw(sql2)
+
+    return {
+      commentList: result.rows.map((entity) =>
+        sanitizeEntity(entity, { model: strapi.models['comments'] })
+      ),
+      reCommentList: result2.rows.map((entity) =>
+        sanitizeEntity(entity, { model: strapi.models['re-comments'] })
+      ),
+    }
+  },
 }

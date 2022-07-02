@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "block_user_lists",
+  "info": {
+    "name": "BlockUserList"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "integer"
+    },
+    "block_user_id": {
+      "type": "integer"
+    }
+  }
+}

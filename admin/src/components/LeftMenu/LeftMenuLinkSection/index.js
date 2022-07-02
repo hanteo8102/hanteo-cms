@@ -56,6 +56,10 @@ const LeftMenuLinksSection = ({
         return '댓글'
       case 'ReComments':
         return '대댓글'
+      case 'MessageBoards':
+        return '쪽지함'
+      case 'BlockUserLists':
+        return '차단리스트'
       default:
         return defaultLabel
     }

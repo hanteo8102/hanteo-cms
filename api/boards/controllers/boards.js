@@ -32,6 +32,11 @@ module.exports = {
       limitQuery = `LIMIT ${ctx.query.limit}`
     }
 
+    // 차단한 리스트를 어느 테이블에서 불러올꺼냐?
+    // 블랙리스트라는 테이블을 새로 만들지
+    // 누구의 블랙리스트 USER -> 유저퍼미션과 관계로 연결
+    // 누구를 블랙리스트 할지 BlockUser -> 유저퍼미션과 관계로 연결
+
     let sql = `
       select a.*
       from (select boards.*,

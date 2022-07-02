@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "message_boards",
+  "info": {
+    "name": "MessageBoard"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    },
+    "read_time": {
+      "type": "datetime"
+    },
+    "from_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "to_user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

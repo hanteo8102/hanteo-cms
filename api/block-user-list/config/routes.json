@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/block-user-lists",
+      "handler": "block-user-list.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/block-user-lists/count",
+      "handler": "block-user-list.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/block-user-lists/:id",
+      "handler": "block-user-list.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/block-user-lists",
+      "handler": "block-user-list.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/block-user-lists/:id",
+      "handler": "block-user-list.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/block-user-lists/:id",
+      "handler": "block-user-list.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

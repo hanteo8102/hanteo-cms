@@ -472,9 +472,168 @@ module.exports = {
         let result = await strapi.connections.default.raw(sql)
         let result2 = await strapi.connections.default.raw(sql2)
 
-        // return result.rows.map((entity) =>
-        //   sanitizeEntity(entity, { model: strapi.models['article-elements'] })
-        // )
+        return {
+          contents: result.rows.map((entity) =>
+            sanitizeEntity(entity, { model: strapi.models['article-elements'] })
+          ),
+          totalCount: result2.rows[0].count,
+        }
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  },
+  async findMeScrap(ctx) {
+    if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+      try {
+        let startQuery = ''
+        let limitQuery = ''
+        let start = ctx.query.start
+        let limit = ctx.query.limit
+
+        const { id: userId } = await strapi.plugins[
+          'users-permissions'
+        ].services.jwt.getToken(ctx)
+
+        if (start) {
+          startQuery = `OFFSET ${ctx.query.start}`
+        }
+
+        if (limit) {
+          limitQuery = `LIMIT ${ctx.query.limit}`
+        }
+
+        let sql = `
+          SELECT DISTINCT id,
+                          type,
+                          category,
+                          title,
+                          created_at,
+                          view_count,
+                          good_count,
+                          (comment_count + re_comment_count) AS comment_count
+          FROM (SELECT id
+                     , 'board'                     AS type
+                     , t1.category                 AS category
+                     , title
+                     , created_at
+                     , view_count
+                     , (SELECT COUNT(*)
+                        FROM article_elements st1
+                        WHERE st1.type = 'board'
+                          AND st1.type_id = t1.id
+                          AND scrap = true)         AS good_count
+                     , (SELECT COUNT(*)
+                        FROM comments st1
+                        WHERE st1.type = 'board'
+                          AND st1.type_id = t1.id) AS comment_count
+                     , (SELECT COUNT(*)
+                        FROM re_comments st1
+                        WHERE st1.type = 'board'
+                          AND st1.type_id = t1.id) AS re_comment_count
+                FROM boards t1
+                WHERE id IN
+                      (SELECT type_id
+                       FROM article_elements
+                       WHERE type = 'board'
+                         AND scrap = true
+                         AND writer = ${userId})
+                UNION ALL
+                SELECT id
+                     , 'news'                      AS type
+                     , 0                           AS category
+                     , title
+                     , created_at
+                     , view_count
+                     , (SELECT COUNT(*)
+                        FROM article_elements st1
+                        WHERE st1.type = 'news'
+                          AND st1.type_id = t1.id
+                          AND scrap = true)         AS good_count
+                     , (SELECT COUNT(*)
+                        FROM comments st1
+                        WHERE st1.type = 'news'
+                          AND st1.type_id = t1.id) AS comment_count
+                     , (SELECT COUNT(*)
+                        FROM re_comments st1
+                        WHERE st1.type = 'news'
+                          AND st1.type_id = t1.id) AS re_comment_count
+                FROM news_contents t1
+                WHERE id IN (SELECT type_id
+                             FROM article_elements
+                             WHERE type = 'news'
+                               AND scrap = true
+                               AND writer = ${userId})) AS a
+          ORDER BY created_at DESC ${startQuery} ${limitQuery}
+        `
+
+        let sql2 = `
+        SELECT COUNT(*) FROM
+          (SELECT DISTINCT id,
+                           type,
+                           category,
+                           title,
+                           created_at,
+                           view_count,
+                           good_count,
+                           (comment_count + re_comment_count) AS comment_count
+           FROM (SELECT id
+                      , 'board'                     AS type
+                      , t1.category                 AS category
+                      , title
+                      , created_at
+                      , view_count
+                      , (SELECT COUNT(*)
+                         FROM article_elements st1
+                         WHERE st1.type = 'board'
+                           AND st1.type_id = t1.id
+                           AND scrap = true)         AS good_count
+                      , (SELECT COUNT(*)
+                         FROM comments st1
+                         WHERE st1.type = 'board'
+                           AND st1.type_id = t1.id) AS comment_count
+                      , (SELECT COUNT(*)
+                         FROM re_comments st1
+                         WHERE st1.type = 'board'
+                           AND st1.type_id = t1.id) AS re_comment_count
+                 FROM boards t1
+                 WHERE id IN
+                       (SELECT type_id
+                        FROM article_elements
+                        WHERE type = 'board'
+                          AND scrap = true
+                          AND writer = ${userId})
+                 UNION ALL
+                 SELECT id
+                      , 'news'                      AS type
+                      , 0                           AS category
+                      , title
+                      , created_at
+                      , view_count
+                      , (SELECT COUNT(*)
+                         FROM article_elements st1
+                         WHERE st1.type = 'news'
+                           AND st1.type_id = t1.id
+                           AND scrap = true)         AS good_count
+                      , (SELECT COUNT(*)
+                         FROM comments st1
+                         WHERE st1.type = 'news'
+                           AND st1.type_id = t1.id) AS comment_count
+                      , (SELECT COUNT(*)
+                         FROM re_comments st1
+                         WHERE st1.type = 'news'
+                           AND st1.type_id = t1.id) AS re_comment_count
+                 FROM news_contents t1
+                 WHERE id IN (SELECT type_id
+                              FROM article_elements
+                              WHERE type = 'news'
+                                AND scrap = true
+                                AND writer = ${userId})) AS aa) AS a
+        `
+
+        let result = await strapi.connections.default.raw(sql)
+        let result2 = await strapi.connections.default.raw(sql2)
+
         return {
           contents: result.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['article-elements'] })

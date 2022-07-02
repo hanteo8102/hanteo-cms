@@ -1,12 +1,12 @@
 {
   "paths": {
-    "/article-elements": {
+    "/message-boards": {
       "get": {
         "deprecated": false,
-        "description": "Find all the article-elements's records",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Retrieve article-elements document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -52,7 +52,7 @@
         },
         "summary": "",
         "tags": [
-          "Article-elements"
+          "Message-board"
         ],
         "parameters": [
           {
@@ -195,10 +195,10 @@
       },
       "post": {
         "deprecated": false,
-        "description": "Create a new article-elements record",
+        "description": "Create a new record",
         "responses": {
           "200": {
-            "description": "Retrieve article-elements document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -244,7 +244,7 @@
         },
         "summary": "",
         "tags": [
-          "Article-elements"
+          "Message-board"
         ],
         "requestBody": {
           "description": "",
@@ -252,20 +252,20 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewArticle-elements"
+                "$ref": "#/components/schemas/NewMessage-board"
               }
             }
           }
         }
       }
     },
-    "/article-elements/count": {
+    "/message-boards/count": {
       "get": {
         "deprecated": false,
-        "description": "Retrieve the number of article-elements documents",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Retrieve article-elements document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -311,18 +311,18 @@
         },
         "summary": "",
         "tags": [
-          "Article-elements"
+          "Message-board"
         ],
         "parameters": []
       }
     },
-    "/article-elements/{id}": {
+    "/message-boards/{id}": {
       "get": {
         "deprecated": false,
-        "description": "Find one article-elements record",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Retrieve article-elements document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -368,7 +368,7 @@
         },
         "summary": "",
         "tags": [
-          "Article-elements"
+          "Message-board"
         ],
         "parameters": [
           {
@@ -385,10 +385,10 @@
       },
       "put": {
         "deprecated": false,
-        "description": "Update a single article-elements record",
+        "description": "Update a record",
         "responses": {
           "200": {
-            "description": "Retrieve article-elements document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -434,7 +434,7 @@
         },
         "summary": "",
         "tags": [
-          "Article-elements"
+          "Message-board"
         ],
         "requestBody": {
           "description": "",
@@ -442,7 +442,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewArticle-elements"
+                "$ref": "#/components/schemas/NewMessage-board"
               }
             }
           }
@@ -462,10 +462,10 @@
       },
       "delete": {
         "deprecated": false,
-        "description": "Delete a single article-elements record",
+        "description": "Delete a record",
         "responses": {
           "200": {
-            "description": "deletes a single article-elements based on the ID supplied",
+            "description": "deletes a single record based on the ID supplied",
             "content": {
               "application/json": {
                 "schema": {
@@ -508,7 +508,7 @@
         },
         "summary": "",
         "tags": [
-          "Article-elements"
+          "Message-board"
         ],
         "parameters": [
           {
@@ -524,13 +524,13 @@
         ]
       }
     },
-    "/article-elements/me/boards": {
+    "/message-boards/me/all": {
       "get": {
         "deprecated": false,
         "description": "",
         "responses": {
           "200": {
-            "description": "Retrieve article-elements document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -576,178 +576,7 @@
         },
         "summary": "",
         "tags": [
-          "Article-elements"
-        ],
-        "parameters": []
-      }
-    },
-    "/article-elements/me/comments": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "Retrieve article-elements document(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Article-elements"
-        ],
-        "parameters": []
-      }
-    },
-    "/article-elements/me/good": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "Retrieve article-elements document(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Article-elements"
-        ],
-        "parameters": []
-      }
-    },
-    "/article-elements/me/scrap": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "Retrieve article-elements document(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Article-elements"
+          "Message-board"
         ],
         "parameters": []
       }
@@ -755,7 +584,7 @@
   },
   "components": {
     "schemas": {
-      "Article-elements": {
+      "Message-board": {
         "required": [
           "id"
         ],
@@ -763,30 +592,17 @@
           "id": {
             "type": "string"
           },
-          "good": {
-            "type": "boolean",
-            "default": false
+          "title": {
+            "type": "string"
           },
-          "complain": {
-            "type": "boolean",
-            "default": false
+          "message": {
+            "type": "string"
           },
-          "scrap": {
-            "type": "boolean",
-            "default": false
-          },
-          "type": {
+          "read_time": {
             "type": "string",
-            "enum": [
-              "news",
-              "board",
-              "comment"
-            ]
+            "format": "date-time"
           },
-          "type_id": {
-            "type": "integer"
-          },
-          "writer": {
+          "from_user": {
             "required": [
               "id",
               "email"
@@ -857,43 +673,96 @@
               }
             }
           },
-          "hate": {
-            "type": "boolean",
-            "default": false
+          "to_user": {
+            "required": [
+              "id",
+              "email"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmationToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "gender": {
+                "type": "string",
+                "enum": [
+                  "남성",
+                  "여성"
+                ]
+              },
+              "birth_day": {
+                "type": "string"
+              },
+              "post": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string",
+                "enum": [
+                  "한국",
+                  "일본",
+                  "기타 국가"
+                ]
+              },
+              "nick_name": {
+                "type": "string"
+              },
+              "visitor_count": {
+                "type": "integer"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
-      "NewArticle-elements": {
+      "NewMessage-board": {
         "properties": {
-          "good": {
-            "type": "boolean",
-            "default": false
-          },
-          "complain": {
-            "type": "boolean",
-            "default": false
-          },
-          "scrap": {
-            "type": "boolean",
-            "default": false
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "news",
-              "board",
-              "comment"
-            ]
-          },
-          "type_id": {
-            "type": "integer"
-          },
-          "writer": {
+          "title": {
             "type": "string"
           },
-          "hate": {
-            "type": "boolean",
-            "default": false
+          "message": {
+            "type": "string"
+          },
+          "read_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "from_user": {
+            "type": "string"
+          },
+          "to_user": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

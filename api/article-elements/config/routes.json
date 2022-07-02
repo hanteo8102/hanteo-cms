@@ -71,6 +71,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/article-elements/me/scrap",
+      "handler": "article-elements.findMeScrap",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

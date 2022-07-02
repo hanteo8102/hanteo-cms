@@ -19,6 +19,7 @@ module.exports = {
     let categoryQuery = ''
     let startQuery = ''
     let limitQuery = ''
+
     if (ctx.query.writer) {
       writerQuery = `AND boards.writer = ${ctx.query.writer}`
     }
@@ -32,32 +33,43 @@ module.exports = {
       limitQuery = `LIMIT ${ctx.query.limit}`
     }
 
-    // 차단한 리스트를 어느 테이블에서 불러올꺼냐?
-    // 블랙리스트라는 테이블을 새로 만들지
-    // 누구의 블랙리스트 USER -> 유저퍼미션과 관계로 연결
-    // 누구를 블랙리스트 할지 BlockUser -> 유저퍼미션과 관계로 연결
-
     let sql = `
       select a.*
-      from (select boards.*,
+      from (select boards.id,
+                   boards.title,
+                   boards.contents,
+                   boards.writer,
+                   boards.is_delete,
+                   boards.category,
+                   boards.writing_type,
+                   boards.color_type,
+                   boards.view_count,
+                   boards.created_by,
+                   boards.updated_by,
+                   boards.created_at,
+                   boards.updated_at,
+                   0 < (SELECT COUNT(*)
+                        FROM block_user_lists
+                        WHERE user_id = ${ctx.query.userId}
+                          AND boards.writer = block_user_id) AS isBlock,
                    (select count(1)
                     from article_elements
                     where boards.id = article_elements.type_id
                       AND type = 'board'
-                      AND good = true)  AS good_count,
+                      AND good = true)                       AS good_count,
                    (select count(1)
                     from article_elements
                     where boards.id = article_elements.type_id
                       AND type = 'board'
-                      AND hate = true) AS hate_count,
+                      AND hate = true)                       AS hate_count,
                    (select count(1)
                     from comments
                     where boards.id = comments.type_id
-                      AND type = 'board')     AS comment_count,
+                      AND type = 'board')                    AS comment_count,
                    (select count(1)
                     from re_comments
                     where boards.id = re_comments.type_id
-                      AND type = 'board')     AS re_comment_count,
+                      AND type = 'board')                    AS re_comment_count,
                    U.nick_name
             from boards
                    INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
@@ -67,25 +79,55 @@ module.exports = {
             ORDER BY boards.created_at DESC) as a
       UNION ALL
       select b.*
-      from (select boards.*,
+      from (select boards.id,
+                   CASE
+                     WHEN 0 < (SELECT COUNT(*)
+                               FROM block_user_lists
+                               WHERE user_id = ${ctx.query.userId}
+                                 AND boards.writer = block_user_id)
+                       THEN N'차단된 멤버의 게시글입니다.'
+                     ELSE boards.title
+                     END                                     AS title,
+                   CASE
+                     WHEN 0 < (SELECT COUNT(*)
+                               FROM block_user_lists
+                               WHERE user_id = ${ctx.query.userId}
+                                 AND boards.writer = block_user_id)
+                       THEN ''
+                     ELSE boards.contents
+                     END                                     AS contents,
+                   boards.writer,
+                   boards.is_delete,
+                   boards.category,
+                   boards.writing_type,
+                   boards.color_type,
+                   boards.view_count,
+                   boards.created_by,
+                   boards.updated_by,
+                   boards.created_at,
+                   boards.updated_at,
+                   0 < (SELECT COUNT(*)
+                        FROM block_user_lists
+                        WHERE user_id = ${ctx.query.userId}
+                          AND boards.writer = block_user_id) AS isBlock,
                    (select count(1)
                     from article_elements
                     where boards.id = article_elements.type_id
                       AND type = 'board'
-                      AND good = true)  AS good_count,
+                      AND good = true)                       AS good_count,
                    (select count(1)
                     from article_elements
                     where boards.id = article_elements.type_id
                       AND type = 'board'
-                      AND hate = true) AS hate_count,
+                      AND hate = true)                       AS hate_count,
                    (select count(1)
                     from comments
                     where boards.id = comments.type_id
-                      AND type = 'board')     AS comment_count,
+                      AND type = 'board')                    AS comment_count,
                    (select count(1)
                     from re_comments
                     where boards.id = re_comments.type_id
-                      AND type = 'board')     AS re_comment_count,
+                      AND type = 'board')                    AS re_comment_count,
                    U.nick_name
             from boards
                    INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
@@ -103,32 +145,94 @@ module.exports = {
   },
   async findOne(ctx) {
     const { id } = ctx.params
+    const { userId } = ctx.query
 
-    const entity = await strapi.services['boards'].findOne({ id })
+    let sql = `
+      SELECT boards.id,
+             CASE
+               WHEN 0 < (SELECT COUNT(*)
+                         FROM block_user_lists
+                         WHERE user_id = ${userId}
+                           AND boards.writer = block_user_id)
+                 THEN N'차단된 멤버의 게시글입니다.'
+               ELSE boards.title
+               END                                     AS title,
+             CASE
+               WHEN 0 < (SELECT COUNT(*)
+                         FROM block_user_lists
+                         WHERE user_id = ${userId}
+                           AND boards.writer = block_user_id)
+                 THEN ''
+               ELSE boards.contents
+               END                                     AS contents,
+             boards.writer,
+             boards.is_delete,
+             boards.category,
+             boards.writing_type,
+             boards.color_type,
+             boards.view_count,
+             boards.created_by,
+             boards.updated_by,
+             boards.created_at,
+             boards.updated_at,
+             0 < (SELECT COUNT(*)
+                  FROM block_user_lists
+                  WHERE user_id = ${userId}
+                    AND boards.writer = block_user_id) AS isBlock,
+             (select count(1)
+              from article_elements
+              where boards.id = article_elements.type_id
+                AND type = 'board'
+                AND good = true)                       AS good_count,
+             (select count(1)
+              from article_elements
+              where boards.id = article_elements.type_id
+                AND type = 'board'
+                AND hate = true)                       AS hate_count,
+             (select count(1)
+              from comments
+              where boards.id = comments.type_id
+                AND type = 'board')                    AS comment_count,
+             (select count(1)
+              from re_comments
+              where boards.id = re_comments.type_id
+                AND type = 'board')                    AS re_comment_count,
+             U.nick_name
+      from boards
+             INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
+      WHERE boards.is_delete = false
+        AND boards.id = ${id}
+    `
 
-    // 좋아요 카운트
-    entity.good_count = await strapi
-      .query('article-elements')
-      .count({ type_eq: 'board', type_id_eq: id, good: true })
-    // 싫어요 카운트
-    entity.hate_count = await strapi
-      .query('article-elements')
-      .count({ type_eq: 'board', type_id_eq: id, hate: true })
-    // 코멘트 카운트
-    const commentCount = await strapi
-      .query('comments')
-      .count({ type_eq: 'board', type_id_eq: id })
+    let result = await strapi.connections.default.raw(sql)
 
-    const reCommentCount = await strapi
-      .query('re-comments')
-      .count({ type_eq: 'board', type_id_eq: id })
+    return sanitizeEntity(result.rows[0], { model: strapi.models['boards'] })
 
-    entity.comment_count = commentCount + reCommentCount
-    // 1차 댓글
-    entity.comment = await strapi
-      .query('comments')
-      .find({ type_eq: 'board', type_id_eq: id })
-
-    return sanitizeEntity(entity, { model: strapi.models['boards'] })
+    // const entity = await strapi.services['boards'].findOne({ id })
+    //
+    // // 좋아요 카운트
+    // entity.good_count = await strapi
+    //   .query('article-elements')
+    //   .count({ type_eq: 'board', type_id_eq: id, good: true })
+    // // 싫어요 카운트
+    // entity.hate_count = await strapi
+    //   .query('article-elements')
+    //   .count({ type_eq: 'board', type_id_eq: id, hate: true })
+    // // 코멘트 카운트
+    // const commentCount = await strapi
+    //   .query('comments')
+    //   .count({ type_eq: 'board', type_id_eq: id })
+    //
+    // const reCommentCount = await strapi
+    //   .query('re-comments')
+    //   .count({ type_eq: 'board', type_id_eq: id })
+    //
+    // entity.comment_count = commentCount + reCommentCount
+    // // 1차 댓글
+    // entity.comment = await strapi
+    //   .query('comments')
+    //   .find({ type_eq: 'board', type_id_eq: id })
+    //
+    // return sanitizeEntity(entity, { model: strapi.models['boards'] })
   },
 }

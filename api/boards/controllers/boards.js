@@ -170,7 +170,7 @@ module.exports = {
              boards.category,
              boards.writing_type,
              boards.color_type,
-             boards.view_count,
+             CAST(boards.view_count AS INT),
              boards.created_by,
              boards.updated_by,
              boards.created_at,
@@ -179,24 +179,24 @@ module.exports = {
                   FROM block_user_lists
                   WHERE user_id = ${userId}
                     AND boards.writer = block_user_id) AS isBlock,
-             (select count(1)
+             CAST((select count(1)
               from article_elements
               where boards.id = article_elements.type_id
                 AND type = 'board'
-                AND good = true)                       AS good_count,
-             (select count(1)
+                AND good = true) AS INT)                       AS good_count,
+             CAST((select count(1)
               from article_elements
               where boards.id = article_elements.type_id
                 AND type = 'board'
-                AND hate = true)                       AS hate_count,
-             (select count(1)
+                AND hate = true) AS INT)                       AS hate_count,
+             CAST((select count(1)
               from comments
               where boards.id = comments.type_id
-                AND type = 'board')                    AS comment_count,
-             (select count(1)
+                AND type = 'board') AS INT)                    AS comment_count,
+             CAST((select count(1)
               from re_comments
               where boards.id = re_comments.type_id
-                AND type = 'board')                    AS re_comment_count,
+                AND type = 'board') AS INT)                    AS re_comment_count,
              U.nick_name
       from boards
              INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)

@@ -110,7 +110,7 @@ module.exports = {
              INNER JOIN "users-permissions_user" t2 ON t1.writer = t2.id
       WHERE is_delete = FALSE
         ${typeQuery}
-      ORDER BY t1.created_at DESC ${startQuery} ${limitQuery}
+      ORDER BY t1.created_at ASC ${startQuery} ${limitQuery}
     `
 
     let sql2 = `
@@ -122,7 +122,7 @@ module.exports = {
              INNER JOIN "users-permissions_user" t2 ON t1.writer = t2.id
       WHERE is_delete = FALSE
         ${typeQuery}
-      ORDER BY t1.created_at DESC
+      ORDER BY t1.created_at ASC
     `
 
     let result = await strapi.connections.default.raw(sql)

@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/address-lists",
+      "handler": "address-list.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/address-lists/count",
+      "handler": "address-list.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/address-lists/:id",
+      "handler": "address-list.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/address-lists",
+      "handler": "address-list.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/address-lists/:id",
+      "handler": "address-list.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/address-lists/:id",
+      "handler": "address-list.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

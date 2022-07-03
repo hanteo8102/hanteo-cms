@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "address_books",
+  "info": {
+    "name": "AddressBook",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "address_lists": {
+      "via": "address_book",
+      "collection": "address-list"
+    },
+    "address_groups": {
+      "via": "address_book",
+      "collection": "address-group"
+    },
+    "description": {
+      "type": "text"
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true
+    },
+    "priority": {
+      "type": "integer",
+      "min": 0,
+      "default": 0
+    }
+  }
+}

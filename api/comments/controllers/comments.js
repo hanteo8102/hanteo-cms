@@ -74,7 +74,7 @@ module.exports = {
     const start = ctx.query.start
     const limit = ctx.query.limit
 
-    if (type && id) {
+    if (type && type_id) {
       typeQuery = `AND comments.type = '${type}' AND comments.type_id = ${type_id}`
     }
 

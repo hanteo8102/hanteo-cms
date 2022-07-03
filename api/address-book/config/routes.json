@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/address-books",
+      "handler": "address-book.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/address-books/count",
+      "handler": "address-book.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/address-books/:id",
+      "handler": "address-book.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/address-books",
+      "handler": "address-book.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/address-books/:id",
+      "handler": "address-book.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/address-books/:id",
+      "handler": "address-book.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

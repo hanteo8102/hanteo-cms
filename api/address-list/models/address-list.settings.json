@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "address_lists",
+  "info": {
+    "name": "addressList",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "company": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "thumbnail": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "site_url": {
+      "type": "string"
+    },
+    "contact_info": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "premium": {
+      "type": "boolean",
+      "default": false
+    },
+    "address_group": {
+      "via": "address_lists",
+      "model": "address-group"
+    },
+    "address_book": {
+      "via": "address_lists",
+      "model": "address-book"
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true
+    },
+    "priority": {
+      "type": "integer",
+      "min": 0,
+      "default": 0
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "address_groups",
+  "info": {
+    "name": "AddressGroup",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "group_name": {
+      "type": "string"
+    },
+    "address_lists": {
+      "via": "address_group",
+      "collection": "address-list"
+    },
+    "address_book": {
+      "via": "address_groups",
+      "model": "address-book"
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true,
+      "required": false
+    },
+    "priority": {
+      "type": "integer",
+      "min": 0,
+      "default": 0
+    }
+  }
+}

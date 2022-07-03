@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/address-groups",
+      "handler": "address-group.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/address-groups/count",
+      "handler": "address-group.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/address-groups/:id",
+      "handler": "address-group.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/address-groups",
+      "handler": "address-group.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/address-groups/:id",
+      "handler": "address-group.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/address-groups/:id",
+      "handler": "address-group.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

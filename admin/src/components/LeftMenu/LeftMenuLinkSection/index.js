@@ -59,7 +59,13 @@ const LeftMenuLinksSection = ({
       case 'MessageBoards':
         return '쪽지함'
       case 'BlockUserLists':
-        return '차단리스트'
+        return '차단 리스트'
+      case 'AddressBooks':
+        return '주소록 카테고리'
+      case 'AddressGroups':
+        return '주소록 그룹'
+      case 'AddressLists':
+        return '주소록 리스트'
       default:
         return defaultLabel
     }

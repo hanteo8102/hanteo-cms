@@ -175,6 +175,10 @@ module.exports = {
              boards.updated_by,
              boards.created_at,
              boards.updated_at,
+             (SELECT MAX(id) FROM boards AS BBB WHERE BBB.id < boards.id AND BBB.category = boards.category AND BBB.writing_type = '일반 게시물') AS prev,
+             (SELECT MIN(id) FROM boards AS BBB WHERE BBB.id > boards.id AND BBB.category = boards.category AND BBB.writing_type = '일반 게시물') AS next,
+             (SELECT MAX(id) FROM boards AS BBB WHERE BBB.id < boards.id AND BBB.category = boards.category AND BBB.writing_type != '일반 게시물') AS notice_prev,
+             (SELECT MIN(id) FROM boards AS BBB WHERE BBB.id > boards.id AND BBB.category = boards.category AND BBB.writing_type != '일반 게시물') AS notice_next,
              0 < (SELECT COUNT(*)
                   FROM block_user_lists
                   WHERE user_id = ${userId}

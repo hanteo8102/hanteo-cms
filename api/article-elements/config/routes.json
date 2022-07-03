@@ -87,6 +87,30 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/article-elements/user/:id/comments",
+      "handler": "article-elements.findAnotherUserComments",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/article-elements/user/:id/good",
+      "handler": "article-elements.findAnotherUserGood",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/article-elements/user/:id",
+      "handler": "article-elements.updateVisitorCountAnotherUser",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

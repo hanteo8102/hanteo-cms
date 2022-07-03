@@ -103,7 +103,6 @@ module.exports = {
               WHERE st1.type = t1.type
                 AND st1.type_id = t1.type_id
                 AND st1.comment = t1.id) AS RE_COMMENT_COUNT,
-             t2.id                       as wrtier,
              t2.username,
              t2.nick_name
       FROM comments t1
@@ -115,9 +114,9 @@ module.exports = {
 
     let sql2 = `
       SELECT t1.*,
-             t2.id as wrtier,
              t2.username,
-             t2.nick_name
+             t2.nick_name,
+             (SELECT nick_name FROM "users-permissions_user" AS t3 WHERE t1.hash_user = t3.id) AS hash_user_nick_name
       FROM re_comments t1
              INNER JOIN "users-permissions_user" t2 ON t1.writer = t2.id
       WHERE is_delete = FALSE

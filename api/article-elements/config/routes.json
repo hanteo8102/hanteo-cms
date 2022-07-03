@@ -79,6 +79,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/article-elements/user/:id/boards",
+      "handler": "article-elements.findAnotherUserBoards",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

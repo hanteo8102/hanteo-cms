@@ -645,4 +645,88 @@ module.exports = {
       }
     }
   },
+  async findAnotherUserBoards(ctx) {
+    let startQuery = ''
+    let limitQuery = ''
+    let start = ctx.query.start
+    let limit = ctx.query.limit
+    let userId = ctx.params.id
+
+    if (start) {
+      startQuery = `OFFSET ${ctx.query.start}`
+    }
+
+    if (limit) {
+      limitQuery = `LIMIT ${ctx.query.limit}`
+    }
+
+    let sql = `
+          SELECT boards.*,
+                 (SELECT count(1)
+                  FROM article_elements
+                  WHERE boards.id = article_elements.type_id
+                    AND type = 'board'
+                    AND good = true)    AS good_count,
+                 (SELECT count(1)
+                  FROM article_elements
+                  WHERE boards.id = article_elements.type_id
+                    AND type = 'board'
+                    AND hate = true)    AS hate_count,
+                 (SELECT count(1)
+                  FROM comments
+                  WHERE boards.id = comments.type_id
+                    AND type = 'board') AS comment_count,
+                 (SELECT count(1)
+                  FROM re_comments
+                  WHERE boards.id = re_comments.type_id
+                    AND type = 'board') AS re_comment_count,
+                 U.nick_name
+          FROM boards
+                 INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
+          WHERE boards.is_delete = false
+            AND boards.writing_type = N'일반 게시물'
+            AND boards.writer = ${userId}
+          ORDER BY boards.created_at DESC
+            ${startQuery} ${limitQuery}
+        `
+
+    let sql2 = `
+        SELECT COUNT(*) FROM
+          (SELECT boards.*,
+                 (SELECT count(1)
+                  FROM article_elements
+                  WHERE boards.id = article_elements.type_id
+                    AND type = 'board'
+                    AND good = true)    AS good_count,
+                 (SELECT count(1)
+                  FROM article_elements
+                  WHERE boards.id = article_elements.type_id
+                    AND type = 'board'
+                    AND hate = true)    AS hate_count,
+                 (SELECT count(1)
+                  FROM comments
+                  WHERE boards.id = comments.type_id
+                    AND type = 'board') AS comment_count,
+                 (SELECT count(1)
+                  FROM re_comments
+                  WHERE boards.id = re_comments.type_id
+                    AND type = 'board') AS re_comment_count,
+                 U.nick_name
+          FROM boards
+                 INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
+          WHERE boards.is_delete = false
+            AND boards.writing_type = N'일반 게시물'
+            AND boards.writer = ${userId}) AS a
+        `
+
+    let result = await strapi.connections.default.raw(sql)
+    let result2 = await strapi.connections.default.raw(sql2)
+
+    return {
+      contents: result.rows.map((entity) =>
+        sanitizeEntity(entity, { model: strapi.models['boards'] })
+      ),
+      totalCount: result2.rows[0].count,
+    }
+  },
 }

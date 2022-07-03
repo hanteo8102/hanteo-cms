@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "DELETE",
+      "path": "/block-user-lists/custom/delete",
+      "handler": "block-user-list.customDelete",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

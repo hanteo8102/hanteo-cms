@@ -55,6 +55,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/message-boards/me/remove/checked",
+      "handler": "message-board.removeChecked",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

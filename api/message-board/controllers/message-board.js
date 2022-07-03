@@ -5,7 +5,7 @@
  * to customize this controller
  */
 
-const { sanitizeEntity } = require('strapi-utils')
+const { parseMultipartData, sanitizeEntity } = require('strapi-utils')
 const _ = require('lodash')
 
 module.exports = {
@@ -32,7 +32,7 @@ module.exports = {
         let sql = `
           SELECT M.*, U.nick_name
           FROM message_boards M
-                 INNER JOIN "users-permissions_user" AS U ON (M.from_user = U.id)
+                 INNER JOIN "users-permissions_user" AS U ON (M.to_user = U.id)
           WHERE from_user = ${userId}
           ORDER BY created_at DESC ${startQuery} ${limitQuery}
         `
@@ -40,7 +40,7 @@ module.exports = {
         let sql2 = `
           SELECT M.*, U.nick_name
           FROM message_boards M
-                 INNER JOIN "users-permissions_user" AS U ON (M.to_user = U.id)
+                 INNER JOIN "users-permissions_user" AS U ON (M.from_user = U.id)
           WHERE to_user = ${userId}
           ORDER BY created_at DESC ${startQuery} ${limitQuery}
         `
@@ -82,5 +82,37 @@ module.exports = {
         console.log(err.message)
       }
     }
+  },
+  async removeChecked(ctx) {
+    if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+      try {
+        const { body } = ctx.request
+
+        let sql = `
+          DELETE FROM message_boards WHERE id IN (${body.map((item) =>
+            item.checked === true ? item.messageId : ''
+          )});
+        `
+
+        let result = await strapi.connections.default.raw(sql)
+
+        return sanitizeEntity(result, { model: strapi.models['message-board'] })
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  },
+  async update(ctx) {
+    const { id } = ctx.params
+    const updateData = {
+      read_time: new Date(),
+    }
+
+    let entity = await strapi.services['message-board'].update(
+      { id },
+      updateData
+    )
+
+    return sanitizeEntity(entity, { model: strapi.models['message-board'] })
   },
 }

@@ -88,17 +88,17 @@ module.exports = {
 
     let sql = `
       SELECT t1.*,
-             (SELECT COUNT(*)
+             (SELECT CAST(COUNT(*) AS INT)
               FROM article_elements st1
               WHERE st1.type = 'comment'
                 AND st1.type_id = t1.id
                 AND st1.good = TRUE)     AS GOOD_COUNT,
-             (SELECT COUNT(*)
+             (SELECT CAST(COUNT(*) AS INT)
               FROM article_elements st1
               WHERE st1.type = 'comment'
                 AND st1.type_id = t1.id
                 AND st1.hate = TRUE)     AS HATE_COUNT,
-             (SELECT COUNT(*)
+             (SELECT CAST(COUNT(*) AS INT)
               FROM re_comments st1
               WHERE st1.type = t1.type
                 AND st1.type_id = t1.type_id

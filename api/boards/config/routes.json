@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "PUT",
+      "path": "/boards/view/:id",
+      "handler": "boards.updateViewCount",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

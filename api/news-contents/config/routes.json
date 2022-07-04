@@ -47,6 +47,22 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/search",
+      "handler": "news-contents.search",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/news-contents/view/:id",
+      "handler": "news-contents.updateViewCount",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

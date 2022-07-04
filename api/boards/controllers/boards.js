@@ -239,4 +239,10 @@ module.exports = {
     //
     // return sanitizeEntity(entity, { model: strapi.models['boards'] })
   },
+  async updateViewCount(ctx) {
+    let boardId = ctx.params.id
+    let sql = `UPDATE boards SET view_count = view_count + 1 WHERE id = ${boardId}`
+    await strapi.connections.default.raw(sql)
+    return 'OK'
+  },
 }

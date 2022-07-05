@@ -211,33 +211,6 @@ module.exports = {
     let result = await strapi.connections.default.raw(sql)
 
     return sanitizeEntity(result.rows[0], { model: strapi.models['boards'] })
-
-    // const entity = await strapi.services['boards'].findOne({ id })
-    //
-    // // 좋아요 카운트
-    // entity.good_count = await strapi
-    //   .query('article-elements')
-    //   .count({ type_eq: 'board', type_id_eq: id, good: true })
-    // // 싫어요 카운트
-    // entity.hate_count = await strapi
-    //   .query('article-elements')
-    //   .count({ type_eq: 'board', type_id_eq: id, hate: true })
-    // // 코멘트 카운트
-    // const commentCount = await strapi
-    //   .query('comments')
-    //   .count({ type_eq: 'board', type_id_eq: id })
-    //
-    // const reCommentCount = await strapi
-    //   .query('re-comments')
-    //   .count({ type_eq: 'board', type_id_eq: id })
-    //
-    // entity.comment_count = commentCount + reCommentCount
-    // // 1차 댓글
-    // entity.comment = await strapi
-    //   .query('comments')
-    //   .find({ type_eq: 'board', type_id_eq: id })
-    //
-    // return sanitizeEntity(entity, { model: strapi.models['boards'] })
   },
   async updateViewCount(ctx) {
     let boardId = ctx.params.id

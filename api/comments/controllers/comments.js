@@ -69,10 +69,7 @@ module.exports = {
     let typeQuery = ''
     let startQuery = ''
     let limitQuery = ''
-    const type = ctx.query.type
-    const type_id = ctx.query.type_id
-    const start = ctx.query.start
-    const limit = ctx.query.limit
+    const { userId, type, type_id, start, limit } = ctx.query
 
     if (type && type_id) {
       typeQuery = `AND t1.type = '${type}' AND t1.type_id = ${type_id}`
@@ -87,22 +84,42 @@ module.exports = {
     }
 
     let sql = `
-      SELECT t1.*,
+      SELECT t1.id,
+             CASE
+               WHEN 0 < (SELECT COUNT(*)
+                         FROM block_user_lists
+                         WHERE user_id = ${userId}
+                           AND t1.writer = block_user_id)
+                 THEN N'차단된 멤버의 댓글입니다.'
+               ELSE t1.contents
+               END                                 AS contents,
+             t1.created_by,
+             t1.updated_by,
+             t1.created_at,
+             t1.updated_at,
+             t1.type,
+             t1.type_id,
+             t1.is_delete,
+             t1.writer,
+             0 < (SELECT COUNT(*)
+                  FROM block_user_lists
+                  WHERE user_id = ${userId}
+                    AND t1.writer = block_user_id) AS is_block,
              (SELECT CAST(COUNT(*) AS INT)
               FROM article_elements st1
               WHERE st1.type = 'comment'
                 AND st1.type_id = t1.id
-                AND st1.good = TRUE)     AS GOOD_COUNT,
+                AND st1.good = TRUE)               AS GOOD_COUNT,
              (SELECT CAST(COUNT(*) AS INT)
               FROM article_elements st1
               WHERE st1.type = 'comment'
                 AND st1.type_id = t1.id
-                AND st1.hate = TRUE)     AS HATE_COUNT,
+                AND st1.hate = TRUE)               AS HATE_COUNT,
              (SELECT CAST(COUNT(*) AS INT)
               FROM re_comments st1
               WHERE st1.type = t1.type
                 AND st1.type_id = t1.type_id
-                AND st1.comment = t1.id) AS RE_COMMENT_COUNT,
+                AND st1.comment = t1.id)           AS RE_COMMENT_COUNT,
              t2.username,
              t2.nick_name
       FROM comments t1
@@ -113,7 +130,25 @@ module.exports = {
     `
 
     let sql2 = `
-      SELECT t1.*,
+      SELECT t1.id,
+             CASE
+               WHEN 0 < (SELECT COUNT(*)
+                         FROM block_user_lists
+                         WHERE user_id = ${userId}
+                           AND t1.writer = block_user_id)
+                 THEN N'차단된 멤버의 댓글입니다.'
+               ELSE t1.contents
+               END                                 AS contents,
+             t1.comment,
+             t1.created_by,
+             t1.updated_by,
+             t1.created_at,
+             t1.updated_at,
+             t1.hash_user,
+             t1.type,
+             t1.type_id,
+             t1.is_delete,
+             t1.writer,
              t2.username,
              t2.nick_name,
              (SELECT nick_name FROM "users-permissions_user" AS t3 WHERE t1.hash_user = t3.id) AS hash_user_nick_name

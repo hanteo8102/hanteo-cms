@@ -17,32 +17,36 @@ module.exports = {
   async findOne(ctx) {
     const { id } = ctx.params
 
-    const entity = await strapi.services['news-contents'].findOne({ id })
+    let sql = `
+      SELECT news_contents.*,
+             CAST((SELECT count(1)
+              FROM article_elements
+              WHERE news_contents.id = article_elements.type_id
+                AND type = 'news'
+                AND good = true) AS INT)                       AS good_count,
+             CAST((SELECT count(1)
+              FROM article_elements
+              WHERE news_contents.id = article_elements.type_id
+                AND type = 'news'
+                AND hate = true) AS INT)                       AS hate_count,
+             CAST((SELECT count(1)
+              FROM comments
+              WHERE news_contents.id = comments.type_id
+                AND type = 'news') AS INT)                    AS comment_count,
+             CAST((SELECT count(1)
+              FROM re_comments
+              WHERE news_contents.id = re_comments.type_id
+                AND type = 'news') AS INT)                    AS re_comment_count
+      FROM news_contents
+      WHERE news_contents.is_public = true
+        AND news_contents.id = ${id}
+    `
 
-    // 좋아요 카운트
-    entity.good_count = await strapi
-      .query('article-elements')
-      .count({ type_eq: 'news', type_id_eq: id, good: true })
-    // 싫어요 카운트
-    entity.hate_count = await strapi
-      .query('article-elements')
-      .count({ type_eq: 'news', type_id_eq: id, hate: true })
-    // 코멘트 카운트
-    const commentCount = await strapi
-      .query('comments')
-      .count({ type_eq: 'news', type_id_eq: id })
+    let result = await strapi.connections.default.raw(sql)
 
-    const reCommentCount = await strapi
-      .query('re-comments')
-      .count({ type_eq: 'news', type_id_eq: id })
-
-    entity.comment_count = commentCount + reCommentCount
-    // 1차 댓글
-    entity.comment = await strapi
-      .query('comments')
-      .find({ type_eq: 'news', type_id_eq: 1178 })
-
-    return sanitizeEntity(entity, { model: strapi.models['news-contents'] })
+    return sanitizeEntity(result.rows[0], {
+      model: strapi.models['news-contents'],
+    })
   },
   async search(ctx) {
     let startQuery = ''

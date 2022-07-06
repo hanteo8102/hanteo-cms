@@ -37,20 +37,20 @@ module.exports = {
                    FROM article_elements
                    WHERE news_contents.id = article_elements.type_id
                      AND type = 'news'
-                     AND good = true) AS INT)   AS good_count,
+                     AND good = true) AS INT)              AS good_count,
              CAST((SELECT count(1)
                    FROM article_elements
                    WHERE news_contents.id = article_elements.type_id
                      AND type = 'news'
-                     AND hate = true) AS INT)   AS hate_count,
+                     AND hate = true) AS INT)              AS hate_count,
              CAST((SELECT count(1)
                    FROM comments
                    WHERE news_contents.id = comments.type_id
-                     AND type = 'news') AS INT) AS comment_count,
+                     AND type = 'news') AS INT)            AS comment_count,
              CAST((SELECT count(1)
                    FROM re_comments
                    WHERE news_contents.id = re_comments.type_id
-                     AND type = 'news') AS INT) AS re_comment_count
+                     AND type = 'news') AS INT)            AS re_comment_count
       FROM news_contents
       WHERE news_contents.is_public = true
         AND news_contents.id = ${id}
@@ -87,8 +87,30 @@ module.exports = {
                               WHERE is_public = true
                                 AND title LIKE '%${keyword}%'
                                  OR contents LIKE '%${keyword}%') AS a`
-    let bannerListSql = `SELECT *
-                         FROM banners
+    let bannerListSql = `SELECT B.id,
+                                B.company_name,
+                                B.created_by,
+                                B.updated_by,
+                                B.created_at,
+                                B.updated_at,
+                                B.main_banner_text,
+                                B.sub_banner_text,
+                                B.site_url,
+                                B.contents,
+                                B.position,
+                                B.is_public,
+                                B.contact_info,
+                                B.priority,
+                                B.small_thumbnail_path,
+                                B.big_thumbnail_path,
+                                B.banner_category,
+                                UF.url AS small_banner_image
+                         FROM banners B
+                                LEFT JOIN upload_file AS UF ON UF.id = (SELECT upload_file_id
+                                                                        FROM upload_file_morph AS UFM
+                                                                        WHERE UFM.related_id = B.id
+                                                                          AND UFM.related_type = 'banners'
+                                                                          AND UFM.field = 'small_banner_image')
                          WHERE is_public = true
                            AND position = N'카테고리 페이지 상단'
                            AND (company_name LIKE '%${keyword}%'

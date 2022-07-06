@@ -18,25 +18,39 @@ module.exports = {
     const { id } = ctx.params
 
     let sql = `
-      SELECT news_contents.*,
+      SELECT news_contents.id,
+             news_contents.title,
+             REPLACE(news_contents.contents, '&nbsp;', '') AS contents,
+             news_contents.is_public,
+             news_contents.news_expected_date,
+             news_contents.reporter,
+             news_contents.is_public_reporter_email,
+             news_contents.source_type,
+             news_contents.priority,
+             news_contents.created_by,
+             news_contents.updated_by,
+             news_contents.created_at,
+             news_contents.updated_at,
+             news_contents.thumbnail_path,
+             news_contents.view_count,
              CAST((SELECT count(1)
-              FROM article_elements
-              WHERE news_contents.id = article_elements.type_id
-                AND type = 'news'
-                AND good = true) AS INT)                       AS good_count,
+                   FROM article_elements
+                   WHERE news_contents.id = article_elements.type_id
+                     AND type = 'news'
+                     AND good = true) AS INT)   AS good_count,
              CAST((SELECT count(1)
-              FROM article_elements
-              WHERE news_contents.id = article_elements.type_id
-                AND type = 'news'
-                AND hate = true) AS INT)                       AS hate_count,
+                   FROM article_elements
+                   WHERE news_contents.id = article_elements.type_id
+                     AND type = 'news'
+                     AND hate = true) AS INT)   AS hate_count,
              CAST((SELECT count(1)
-              FROM comments
-              WHERE news_contents.id = comments.type_id
-                AND type = 'news') AS INT)                    AS comment_count,
+                   FROM comments
+                   WHERE news_contents.id = comments.type_id
+                     AND type = 'news') AS INT) AS comment_count,
              CAST((SELECT count(1)
-              FROM re_comments
-              WHERE news_contents.id = re_comments.type_id
-                AND type = 'news') AS INT)                    AS re_comment_count
+                   FROM re_comments
+                   WHERE news_contents.id = re_comments.type_id
+                     AND type = 'news') AS INT) AS re_comment_count
       FROM news_contents
       WHERE news_contents.is_public = true
         AND news_contents.id = ${id}
@@ -89,7 +103,7 @@ module.exports = {
                                 WHERE is_public = true
                                   AND position = N'카테고리 페이지 상단'
                                   AND (company_name LIKE '%${keyword}%'
-                                  AND main_banner_text LIKE '%${keyword}%'
+                                         AND main_banner_text LIKE '%${keyword}%'
                                   OR sub_banner_text LIKE '%${keyword}%'
                                   OR site_url LIKE '%${keyword}%'
                                   OR contact_info LIKE '%${keyword}%')) AS a`
@@ -138,7 +152,9 @@ module.exports = {
   },
   async updateViewCount(ctx) {
     let newsId = ctx.params.id
-    let sql = `UPDATE news_contents SET view_count = view_count + 1 WHERE id = ${newsId}`
+    let sql = `UPDATE news_contents
+               SET view_count = view_count + 1
+               WHERE id = ${newsId}`
     await strapi.connections.default.raw(sql)
     return 'OK'
   },

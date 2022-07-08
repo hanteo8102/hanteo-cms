@@ -1,1 +1,13 @@
-{"web":{"client_id":"260923122114-dfn4lihs70su7d1ls469ospumddirje0.apps.googleusercontent.com","project_id":"hanteo-web","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"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","redirect_uris":["https://developers.google.com/oauthplayground"]}}
+{
+  "web": {
+    "client_id": "260923122114-dfn4lihs70su7d1ls469ospumddirje0.apps.googleusercontent.com",
+    "project_id": "hanteo-web",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_secret": "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",
+    "redirect_uris": [
+      "https://developers.google.com/oauthplayground"
+    ]
+  }
+}

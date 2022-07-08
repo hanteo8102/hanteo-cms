@@ -2,8 +2,8 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/site/init",
-      "handler": "init.findAll",
+      "path": "/user-contents/me/init",
+      "handler": "userContents.initByMe.",
       "config": {
         "policies": []
       }

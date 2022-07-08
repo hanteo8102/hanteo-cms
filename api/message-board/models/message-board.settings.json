@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "message_boards",
   "info": {
-    "name": "MessageBoard"
+    "name": "MessageBoard",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -27,6 +28,19 @@
     "to_user": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "is_from_delete": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "is_to_delete": {
+      "type": "boolean",
+      "default": false
+    },
+    "is_keep": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

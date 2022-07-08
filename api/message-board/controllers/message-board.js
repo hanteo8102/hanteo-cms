@@ -29,53 +29,94 @@ module.exports = {
           limitQuery = `LIMIT ${ctx.query.limit}`
         }
 
-        let sql = `
+        let fromListSql = `
           SELECT M.*, U.nick_name
           FROM message_boards M
                  INNER JOIN "users-permissions_user" AS U ON (M.to_user = U.id)
           WHERE from_user = ${userId}
+            AND is_from_delete = false
           ORDER BY created_at DESC ${startQuery} ${limitQuery}
         `
 
-        let sql2 = `
+        let toListSql = `
           SELECT M.*, U.nick_name
           FROM message_boards M
                  INNER JOIN "users-permissions_user" AS U ON (M.from_user = U.id)
           WHERE to_user = ${userId}
+            AND is_to_delete = false
+            AND is_keep = false
           ORDER BY created_at DESC ${startQuery} ${limitQuery}
         `
 
-        let sql3 = `
+        let keepListSql = `
+          SELECT M.*, U.nick_name
+          FROM message_boards M
+                 INNER JOIN "users-permissions_user" AS U ON (M.from_user = U.id)
+          WHERE to_user = ${userId}
+            AND is_keep = true
+          ORDER BY created_at DESC ${startQuery} ${limitQuery}
+        `
+
+        let formCountSql = `
           SELECT COUNT(*)
           FROM (SELECT *
                 FROM message_boards
-                WHERE from_user = ${userId}) AS a
+                WHERE from_user = ${userId}
+                  AND is_from_delete = false) AS a
         `
 
-        let sql4 = `
+        let toCountSql = `
           SELECT COUNT(*)
           FROM (SELECT *
                 FROM message_boards
-                WHERE to_user = ${userId}) AS a
+                WHERE to_user = ${userId}
+                  AND is_to_delete = false
+                  AND is_keep = false) AS a
         `
 
-        let result = await strapi.connections.default.raw(sql)
-        let result2 = await strapi.connections.default.raw(sql2)
-        let result3 = await strapi.connections.default.raw(sql3)
-        let result4 = await strapi.connections.default.raw(sql4)
+        let keepCountSql = `
+          SELECT COUNT(*)
+          FROM (SELECT *
+                FROM message_boards
+                WHERE to_user = ${userId}
+                  AND is_keep = true) AS a
+        `
+
+        let notReadCountSql = `
+          SELECT COUNT(*)-COUNT(read_time) AS count
+          FROM message_boards
+          WHERE to_user = ${userId}
+            AND is_to_delete = false
+            AND is_keep = false
+        `
+
+        let fromList = await strapi.connections.default.raw(fromListSql)
+        let toList = await strapi.connections.default.raw(toListSql)
+        let keepList = await strapi.connections.default.raw(keepListSql)
+        let fromCount = await strapi.connections.default.raw(formCountSql)
+        let toCount = await strapi.connections.default.raw(toCountSql)
+        let keepCount = await strapi.connections.default.raw(keepCountSql)
+        let notReadCount = await strapi.connections.default.raw(notReadCountSql)
 
         return {
+          notReadCount: notReadCount.rows[0].count,
           from: {
-            contents: result.rows.map((entity) =>
+            contents: fromList.rows.map((entity) =>
               sanitizeEntity(entity, { model: strapi.models['message-board'] })
             ),
-            totalCount: result3.rows[0].count,
+            totalCount: fromCount.rows[0].count,
           },
           to: {
-            contents: result2.rows.map((entity) =>
+            contents: toList.rows.map((entity) =>
               sanitizeEntity(entity, { model: strapi.models['message-board'] })
             ),
-            totalCount: result4.rows[0].count,
+            totalCount: toCount.rows[0].count,
+          },
+          keep: {
+            contents: keepList.rows.map((entity) =>
+              sanitizeEntity(entity, { model: strapi.models['message-board'] })
+            ),
+            totalCount: keepCount.rows[0].count,
           },
         }
       } catch (err) {
@@ -86,10 +127,53 @@ module.exports = {
   async removeChecked(ctx) {
     if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
       try {
-        const { body } = ctx.request
+        const { removeList, removeTab } = ctx.request.body
+
+        let sql = ``
+
+        if (removeTab === 'FROM') {
+          sql = `
+            UPDATE message_boards
+            SET is_from_delete = true
+            WHERE id IN (${removeList.map((item) =>
+              item.checked === true ? item.messageId : ''
+            )});
+          `
+        } else if (removeTab === 'TO') {
+          sql = `
+            UPDATE message_boards
+            SET is_to_delete = true
+            WHERE id IN (${removeList.map((item) =>
+              item.checked === true ? item.messageId : ''
+            )});
+          `
+        } else {
+          sql = `
+            UPDATE message_boards
+            SET is_keep = false
+            WHERE id IN (${removeList.map((item) =>
+              item.checked === true ? item.messageId : ''
+            )});
+          `
+        }
+
+        let result = await strapi.connections.default.raw(sql)
+
+        return sanitizeEntity(result, { model: strapi.models['message-board'] })
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  },
+  async keepChecked(ctx) {
+    if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+      try {
+        const { keepList } = ctx.request.body
 
         let sql = `
-          DELETE FROM message_boards WHERE id IN (${body.map((item) =>
+          UPDATE message_boards
+          SET is_keep = true, is_to_delete = true
+          WHERE id IN (${keepList.map((item) =>
             item.checked === true ? item.messageId : ''
           )});
         `
@@ -102,17 +186,25 @@ module.exports = {
       }
     }
   },
-  async update(ctx) {
+  async readTimeUpdate(ctx) {
     const { id } = ctx.params
+    const { userId } = ctx.request.body
+    console.log(ctx.request.body경)
     const updateData = {
       read_time: new Date(),
     }
 
-    let entity = await strapi.services['message-board'].update(
-      { id },
-      updateData
-    )
+    await strapi.services['message-board'].update({ id }, updateData)
 
-    return sanitizeEntity(entity, { model: strapi.models['message-board'] })
+    let notReadCountSql = `
+          SELECT COUNT(*)-COUNT(read_time) AS count
+          FROM message_boards
+          WHERE to_user = ${userId}
+            AND is_to_delete = false
+            AND is_keep = false
+        `
+
+    let notReadCount = await strapi.connections.default.raw(notReadCountSql)
+    return notReadCount.rows[0].count
   },
 }

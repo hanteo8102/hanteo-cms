@@ -63,6 +63,22 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/message-boards/me/keep/checked",
+      "handler": "message-board.keepChecked",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/message-boards/read-time/:id",
+      "handler": "message-board.readTimeUpdate",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

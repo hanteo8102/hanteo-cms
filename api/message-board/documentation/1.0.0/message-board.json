@@ -890,6 +890,9 @@
               "visitor_count": {
                 "type": "integer"
               },
+              "attendance": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -960,6 +963,9 @@
               },
               "visitor_count": {
                 "type": "integer"
+              },
+              "attendance": {
+                "type": "string"
               },
               "created_by": {
                 "type": "string"

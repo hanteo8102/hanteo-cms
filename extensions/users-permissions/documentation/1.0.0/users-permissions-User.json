@@ -1279,6 +1279,10 @@
           "visitor_count": {
             "type": "integer",
             "default": "0"
+          },
+          "attendance": {
+            "type": "string",
+            "format": "date"
           }
         }
       },
@@ -1349,6 +1353,10 @@
           "visitor_count": {
             "type": "integer",
             "default": "0"
+          },
+          "attendance": {
+            "type": "string",
+            "format": "date"
           },
           "created_by": {
             "type": "string"

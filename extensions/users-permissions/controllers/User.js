@@ -93,4 +93,27 @@ module.exports = {
 
     ctx.send(data)
   },
+  async getMe(ctx) {
+    if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+      const { id: userId } = await strapi.plugins[
+        'users-permissions'
+      ].services.jwt.getToken(ctx)
+
+      try {
+        let sql = `
+        SELECT *
+        FROM "users-permissions_user"
+        WHERE id = ${userId}
+      `
+
+        const result = await strapi.connections.default.raw(sql)
+
+        return sanitizeEntity(result.rows[0], {
+          model: strapi.models['users-permissions_user'],
+        })
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  },
 }

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "07/07/2022 3:18:05 AM"
+    "x-generation-date": "07/12/2022 11:16:51 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4272,21 +4272,16 @@
     "/boards": {
       "get": {
         "deprecated": false,
-        "description": "",
+        "description": "Find all the boards's records",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve boards document(s)",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Boards"
-                  },
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
                   }
                 }
               }
@@ -4325,7 +4320,7 @@
         },
         "summary": "",
         "tags": [
-          "Unclassified"
+          "Boards"
         ],
         "parameters": [
           {
@@ -4468,19 +4463,14 @@
       },
       "post": {
         "deprecated": false,
-        "description": "Create a new record",
+        "description": "Create a new boards record",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve boards document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Boards",
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Boards"
                 }
               }
             }
@@ -4518,7 +4508,7 @@
         },
         "summary": "",
         "tags": [
-          "Unclassified"
+          "Boards"
         ],
         "requestBody": {
           "description": "",
@@ -4526,7 +4516,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewUnclassified"
+                "$ref": "#/components/schemas/NewBoards"
               }
             }
           }
@@ -4536,19 +4526,16 @@
     "/boards/count": {
       "get": {
         "deprecated": false,
-        "description": "",
+        "description": "Retrieve the number of boards documents",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve boards document(s)",
             "content": {
               "application/json": {
                 "schema": {
                   "properties": {
                     "count": {
                       "type": "integer"
-                    },
-                    "foo": {
-                      "type": "string"
                     }
                   }
                 }
@@ -4588,7 +4575,7 @@
         },
         "summary": "",
         "tags": [
-          "Unclassified"
+          "Boards"
         ],
         "parameters": []
       }
@@ -4596,19 +4583,14 @@
     "/boards/{id}": {
       "get": {
         "deprecated": false,
-        "description": "",
+        "description": "Find one boards record",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve boards document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Boards",
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Boards"
                 }
               }
             }
@@ -4646,7 +4628,7 @@
         },
         "summary": "",
         "tags": [
-          "Unclassified"
+          "Boards"
         ],
         "parameters": [
           {
@@ -4663,19 +4645,14 @@
       },
       "put": {
         "deprecated": false,
-        "description": "Update a record",
+        "description": "Update a single boards record",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve boards document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Boards",
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Boards"
                 }
               }
             }
@@ -4713,7 +4690,7 @@
         },
         "summary": "",
         "tags": [
-          "Unclassified"
+          "Boards"
         ],
         "requestBody": {
           "description": "",
@@ -4721,7 +4698,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewUnclassified"
+                "$ref": "#/components/schemas/NewBoards"
               }
             }
           }
@@ -4741,10 +4718,10 @@
       },
       "delete": {
         "deprecated": false,
-        "description": "Delete a record",
+        "description": "Delete a single boards record",
         "responses": {
           "200": {
-            "description": "deletes a single record based on the ID supplied",
+            "description": "deletes a single boards based on the ID supplied",
             "content": {
               "application/json": {
                 "schema": {
@@ -4787,7 +4764,7 @@
         },
         "summary": "",
         "tags": [
-          "Unclassified"
+          "Boards"
         ],
         "parameters": [
           {
@@ -4806,10 +4783,10 @@
     "/boards/view/{id}": {
       "put": {
         "deprecated": false,
-        "description": "Update a record",
+        "description": "Update a single boards record",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve boards document(s)",
             "content": {
               "application/json": {
                 "schema": {
@@ -4855,7 +4832,7 @@
         },
         "summary": "",
         "tags": [
-          "Unclassified"
+          "Boards"
         ],
         "requestBody": {
           "description": "",
@@ -6022,6 +5999,63 @@
         "parameters": []
       }
     },
+    "/user-contents/me/init": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Unclassified"
+        ],
+        "parameters": []
+      }
+    },
     "/message-boards": {
       "get": {
         "deprecated": false,
@@ -6672,6 +6706,160 @@
             }
           }
         }
+      }
+    },
+    "/message-boards/me/keep/checked": {
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Message-board"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/message-boards/read-time/{id}": {
+      "put": {
+        "deprecated": false,
+        "description": "Update a record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Message-board"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/news-contents": {
@@ -11733,6 +11921,9 @@
               "visitor_count": {
                 "type": "integer"
               },
+              "attendance": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -12362,6 +12553,9 @@
               "visitor_count": {
                 "type": "integer"
               },
+              "attendance": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -12642,6 +12836,9 @@
               "visitor_count": {
                 "type": "integer"
               },
+              "attendance": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -12773,6 +12970,9 @@
               "visitor_count": {
                 "type": "integer"
               },
+              "attendance": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -12844,6 +13044,9 @@
               "visitor_count": {
                 "type": "integer"
               },
+              "attendance": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -12851,6 +13054,18 @@
                 "type": "string"
               }
             }
+          },
+          "is_from_delete": {
+            "type": "boolean",
+            "default": false
+          },
+          "is_to_delete": {
+            "type": "boolean",
+            "default": false
+          },
+          "is_keep": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -12871,6 +13086,18 @@
           },
           "to_user": {
             "type": "string"
+          },
+          "is_from_delete": {
+            "type": "boolean",
+            "default": false
+          },
+          "is_to_delete": {
+            "type": "boolean",
+            "default": false
+          },
+          "is_keep": {
+            "type": "boolean",
+            "default": false
           },
           "created_by": {
             "type": "string"
@@ -13505,6 +13732,9 @@
               "visitor_count": {
                 "type": "integer"
               },
+              "attendance": {
+                "type": "string"
+              },
               "created_by": {
                 "type": "string"
               },
@@ -13630,6 +13860,9 @@
               },
               "visitor_count": {
                 "type": "integer"
+              },
+              "attendance": {
+                "type": "string"
               },
               "created_by": {
                 "type": "string"
@@ -13802,6 +14035,9 @@
                 "visitor_count": {
                   "type": "integer"
                 },
+                "attendance": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },
@@ -13943,6 +14179,10 @@
           "visitor_count": {
             "type": "integer",
             "default": "0"
+          },
+          "attendance": {
+            "type": "string",
+            "format": "date"
           }
         }
       },
@@ -14013,6 +14253,10 @@
           "visitor_count": {
             "type": "integer",
             "default": "0"
+          },
+          "attendance": {
+            "type": "string",
+            "format": "date"
           },
           "created_by": {
             "type": "string"

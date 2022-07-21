@@ -55,7 +55,7 @@ module.exports = {
       FROM comments
              INNER JOIN "users-permissions_user" AS U ON (comments.writer = U.id)
       WHERE comments.is_delete = false ${query} ${writerQuery}
-      ORDER BY comments.created_at
+      ORDER BY comments.created_at DESC
     `
 
     let result = await strapi.connections.default.raw(sql)
@@ -126,7 +126,7 @@ module.exports = {
              INNER JOIN "users-permissions_user" t2 ON t1.writer = t2.id
       WHERE is_delete = FALSE
         ${typeQuery}
-      ORDER BY t1.created_at ASC ${startQuery} ${limitQuery}
+      ORDER BY t1.created_at DESC ${startQuery} ${limitQuery}
     `
 
     let sql2 = `
@@ -156,7 +156,7 @@ module.exports = {
              INNER JOIN "users-permissions_user" t2 ON t1.writer = t2.id
       WHERE is_delete = FALSE
         ${typeQuery}
-      ORDER BY t1.created_at ASC
+      ORDER BY t1.created_at DESC
     `
 
     let result = await strapi.connections.default.raw(sql)

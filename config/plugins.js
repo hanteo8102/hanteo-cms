@@ -11,6 +11,18 @@ module.exports = ({ env }) => {
         },
       },
     },
+    // email: {
+    //   provider: 'gmail-2lo',
+    //   providerOptions: {
+    //     username: 'myemail@example.com',
+    //     clientId: env('EMAIL_OAUTH2_CLIENT_ID'),
+    //     privateKey: env('EMAIL_OAUTH2_PRIVATE_KEY').replace(/\\n/g, '\n'),
+    //   },
+    //   settings: {
+    //     defaultFrom: env('EMAIL_FROM'),
+    //     defaultReplyTo: env('EMAIL_REPLYTO'),
+    //   },
+    // },
     email: {
       provider: 'gmail-api',
       providerOptions: {

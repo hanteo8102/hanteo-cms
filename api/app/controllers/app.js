@@ -47,10 +47,10 @@ module.exports = {
                    WHERE NC.id = re_comments.type_id
                      AND type = 'news') AS INT)            AS re_comment_count
       FROM news_contents AS NC
-             INNER JOIN upload_file_morph AS UFM
+             LEFT JOIN upload_file_morph AS UFM
                         ON (NC.id = UFM.related_id AND related_type = 'news_contents' AND field = 'thumbnail')
       WHERE NC.is_public = true
-      ORDER BY NC.created_at DESC
+      ORDER BY NC.created_at DESC, NC.priority DESC
         ${query}
     `
 

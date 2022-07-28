@@ -60,4 +60,21 @@ module.exports = {
       sanitizeEntity(entity, { model: strapi.models['news-contents'] })
     )
   },
+  async confirmCheck(ctx) {
+    if (ctx.query.email) {
+      let sql = `
+        SELECT confirmed
+        FROM "users-permissions_user"
+        WHERE email = '${ctx.query.email}'
+      `
+      const result = await strapi.connections.default.raw(sql)
+      if (result.length) {
+        return result.rows[0]
+      } else {
+        return ctx.notFound()
+      }
+    } else {
+      return ctx.notFound()
+    }
+  },
 }

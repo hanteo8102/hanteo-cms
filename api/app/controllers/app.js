@@ -69,10 +69,8 @@ module.exports = {
         WHERE email = '${ctx.query.email}'
       `
         const result = await strapi.connections.default.raw(sql)
-        if (result.length) {
+        if (result.rows.length) {
           return result.rows[0]
-        } else if (result.confirm === null) {
-          return { confirm: false }
         } else {
           return ctx.notFound()
         }
@@ -83,10 +81,8 @@ module.exports = {
         WHERE username = '${ctx.query.identifier}'
       `
         const result = await strapi.connections.default.raw(sql)
-        if (result.length) {
+        if (result.rows.length) {
           return result.rows[0]
-        } else if (result.confirm === null) {
-          return { confirm: false }
         } else {
           return ctx.notFound()
         }

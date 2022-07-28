@@ -64,7 +64,7 @@ module.exports = {
     if (ctx.query.email || ctx.query.identifier) {
       if (ctx.query.email) {
         let sql = `
-        SELECT confirmed
+        SELECT *
         FROM "users-permissions_user"
         WHERE email = '${ctx.query.email}'
       `
@@ -76,7 +76,7 @@ module.exports = {
         }
       } else if (ctx.query.identifier) {
         let sql = `
-        SELECT confirmed
+        SELECT *
         FROM "users-permissions_user"
         WHERE username = '${ctx.query.identifier}'
       `

@@ -71,6 +71,8 @@ module.exports = {
         const result = await strapi.connections.default.raw(sql)
         if (result.length) {
           return result.rows[0]
+        } else if (result.confirm === null) {
+          return { confirm: false }
         } else {
           return ctx.notFound()
         }
@@ -83,6 +85,8 @@ module.exports = {
         const result = await strapi.connections.default.raw(sql)
         if (result.length) {
           return result.rows[0]
+        } else if (result.confirm === null) {
+          return { confirm: false }
         } else {
           return ctx.notFound()
         }

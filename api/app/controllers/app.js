@@ -1,6 +1,11 @@
 'use strict'
 
 const { sanitizeEntity } = require('strapi-utils')
+const _ = require('lodash')
+
+const formatError = (error) => [
+  { messages: [{ id: error.id, message: error.message, field: error.field }] },
+]
 
 module.exports = {
   async findNewsContents(ctx) {
@@ -92,5 +97,18 @@ module.exports = {
     } else {
       return ctx.notFound()
     }
+  },
+  async updateProfile(ctx) {
+    const { id } = ctx.request.body
+    const updateData = {
+      ...ctx.request.body,
+    }
+
+    const data = await strapi.plugins['users-permissions'].services.user.edit(
+      { id },
+      updateData
+    )
+
+    ctx.send(data)
   },
 }

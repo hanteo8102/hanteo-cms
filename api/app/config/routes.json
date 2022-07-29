@@ -15,7 +15,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/apps/auth/update-profile",
+      "handler": "app.updateProfile",
+      "config": {
+        "policies": []
+      }
     }
-
   ]
 }

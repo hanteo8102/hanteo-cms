@@ -9882,6 +9882,11 @@ strapi-plugin-i18n@3.6.9:
     pluralize "8.0.0"
     strapi-utils "3.6.9"
 
+strapi-plugin-passwordless@v3:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/strapi-plugin-passwordless/-/strapi-plugin-passwordless-3.0.1.tgz#51e3d19701eb5e664386f8e9b5b502c7117a7e11"
+  integrity sha512-r9nhMoYewmhyX2XNNEnR3BG2vwH+q5wq4s9c9dZjwO/OJtShBEd6rp8iXmFg5ygll5n2IkwJQzJuDQwm1hYf3w==
+
 strapi-plugin-upload@3.6.9:
   version "3.6.9"
   resolved "https://registry.yarnpkg.com/strapi-plugin-upload/-/strapi-plugin-upload-3.6.9.tgz#40c6c8b02acc2da51938fbf72098cae02a7035fe"

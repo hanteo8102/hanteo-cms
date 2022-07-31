@@ -1,4 +1,4 @@
-export const querySelector = (category, user) => {
+const querySelector = (category, user) => {
   return `
     select a.*
     from (select boards.id,
@@ -106,11 +106,16 @@ export const querySelector = (category, user) => {
   `
 }
 
-export const handleCount = (category) => {
+const handleCount = (category) => {
   return `
     SELECT COUNT(*)
     FROM boards
     WHERE boards.is_delete = FALSE
       AND boards.writing_type = N'일반 게시물'
       AND boards.category = ${category}`
+}
+
+module.exports = {
+  querySelector,
+  handleCount,
 }

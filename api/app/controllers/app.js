@@ -207,13 +207,13 @@ module.exports = {
           contents: jobLContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: jobLCount,
+          totalCount: jobLCount.rows[0].count,
         },
         right: {
           contents: jobRContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: jobRCount,
+          totalCount: jobRCount.rows[0].count,
         },
       },
       property: {
@@ -221,13 +221,13 @@ module.exports = {
           contents: propertyLContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: propertyLCount,
+          totalCount: propertyLCount.rows[0].count,
         },
         right: {
           contents: propertyRContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: propertyRCount,
+          totalCount: propertyRCount.rows[0].count,
         },
       },
       shopping: {
@@ -235,13 +235,13 @@ module.exports = {
           contents: shoppingLContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: shoppingLCount,
+          totalCount: shoppingLCount.rows[0].count,
         },
         right: {
           contents: shoppingRContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: shoppingRCount,
+          totalCount: shoppingRCount.rows[0].count,
         },
       },
       service: {
@@ -249,13 +249,13 @@ module.exports = {
           contents: serviceLContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: serviceLCount,
+          totalCount: serviceLCount.rows[0].count,
         },
         right: {
           contents: serviceRContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: serviceRCount,
+          totalCount: serviceRCount.rows[0].count,
         },
       },
       education: {
@@ -263,13 +263,13 @@ module.exports = {
           contents: educationLContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: educationLCount,
+          totalCount: educationLCount.rows[0].count,
         },
         right: {
           contents: educationRContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: educationRCount,
+          totalCount: educationRCount.rows[0].count,
         },
       },
       trip: {
@@ -277,13 +277,13 @@ module.exports = {
           contents: tripLContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: tripLCount,
+          totalCount: tripLCount.rows[0].count,
         },
         right: {
           contents: tripRContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: tripRCount,
+          totalCount: tripRCount.rows[0].count,
         },
       },
       medical: {
@@ -291,13 +291,13 @@ module.exports = {
           contents: medicalLContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: medicalLCount,
+          totalCount: medicalLCount.rows[0].count,
         },
         right: {
           contents: medicalRContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: medicalRCount,
+          totalCount: medicalRCount.rows[0].count,
         },
       },
       law: {
@@ -305,13 +305,13 @@ module.exports = {
           contents: lawLContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: lawLCount,
+          totalCount: lawLCount.rows[0].count,
         },
         right: {
           contents: lawRContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: lawRCount,
+          totalCount: lawRCount.rows[0].count,
         },
       },
       club: {
@@ -319,13 +319,13 @@ module.exports = {
           contents: clubLContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: clubLCount,
+          totalCount: clubLCount.rows[0].count,
         },
         right: {
           contents: clubRContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: clubRCount,
+          totalCount: clubRCount.rows[0].count,
         },
       },
       address: {
@@ -337,7 +337,7 @@ module.exports = {
           contents: addressRContents.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['boards'] })
           ),
-          totalCount: addressRCount,
+          totalCount: addressRCount.rows[0].count,
         },
       },
     }

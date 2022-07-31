@@ -10,6 +10,14 @@
     },
     {
       "method": "GET",
+      "path": "/apps/boards",
+      "handler": "app.findAllBoard",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/apps/auth/confirm-check",
       "handler": "app.confirmCheck",
       "config": {

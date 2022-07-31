@@ -36,7 +36,6 @@
     "strapi-plugin-documentation": "3.6.9",
     "strapi-plugin-email": "3.6.9",
     "strapi-plugin-i18n": "3.6.9",
-    "strapi-plugin-passwordless": "v3",
     "strapi-plugin-upload": "3.6.9",
     "strapi-plugin-users-permissions": "3.6.9",
     "strapi-provider-email-gmail-2lo": "^3.5.1",

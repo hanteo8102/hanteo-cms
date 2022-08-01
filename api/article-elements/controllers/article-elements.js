@@ -152,6 +152,13 @@ module.exports = {
                            FROM boards st1
                            WHERE st1.id = comments.type_id)
                    END                                     AS category,
+                 CASE
+                   WHEN comments.type = 'news' then 0
+                   WHEN comments.type = 'board'
+                     THEN (SELECT view_count
+                           FROM boards st1
+                           WHERE st1.id = comments.type_id)
+                   END                                     AS view_count,
                  (SELECT CAST(count(1) AS INT)
                   FROM comments
                   WHERE comments.is_delete = false

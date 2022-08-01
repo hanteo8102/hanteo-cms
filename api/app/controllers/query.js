@@ -185,6 +185,13 @@ const querySelectorUserContentsComment = (user) => {
                      FROM boards st1
                      WHERE st1.id = comments.type_id)
              END                                     AS category,
+           CASE
+             WHEN comments.type = 'news' then 0
+             WHEN comments.type = 'board'
+               THEN (SELECT view_count
+                     FROM boards st1
+                     WHERE st1.id = comments.type_id)
+             END                                     AS view_count,
            (SELECT CAST(count(1) AS INT)
             FROM comments
             WHERE comments.is_delete = false
@@ -200,37 +207,10 @@ const querySelectorUserContentsComment = (user) => {
 
 const handleCountUserContentsComment = (user) => {
   return `
-    SELECT COUNT(*) FROM
-      (SELECT comments.*,
-              (SELECT count(1)
-               FROM article_elements
-               WHERE comments.id = article_elements.type_id
-                 AND type = 'comment'
-                 AND good = true)                       AS good_count,
-              (SELECT count(1)
-               FROM article_elements
-               WHERE comments.id = article_elements.type_id
-                 AND type = 'comment'
-                 AND hate = false)                      AS hate_count,
-              (SELECT count(1)
-               FROM re_comments
-               WHERE comments.id = re_comments.comment) AS re_comment_count,
-              U.nick_name,
-              CASE
-                WHEN comments.type = 'news' then 0
-                WHEN comments.type = 'board'
-                  THEN (SELECT category
-                        FROM boards st1
-                        WHERE st1.id = comments.type_id)
-                END                                     AS category,
-              (SELECT CAST(count(1) AS INT)
-               FROM comments
-               WHERE comments.is_delete = false
-                 AND comments.writer = ${user})       AS total_count
-       FROM comments
-              INNER JOIN "users-permissions_user" AS U ON (comments.writer = U.id)
-       WHERE comments.is_delete = false
-         AND comments.writer = ${user}) AS a
+    SELECT COUNT(*)
+    FROM comments
+    WHERE comments.is_delete = false
+      AND comments.writer = ${user}
   `
 }
 
@@ -499,7 +479,7 @@ const querySelectorUserContentsScrap = (user) => {
                   FROM article_elements st1
                   WHERE st1.type = 'board'
                     AND st1.type_id = t1.id
-                    AND scrap = true)         AS good_count
+                    AND scrap = true)        AS good_count
                , (SELECT COUNT(*)
                   FROM comments st1
                   WHERE st1.type = 'board'
@@ -526,7 +506,7 @@ const querySelectorUserContentsScrap = (user) => {
                   FROM article_elements st1
                   WHERE st1.type = 'news'
                     AND st1.type_id = t1.id
-                    AND scrap = true)         AS good_count
+                    AND scrap = true)        AS good_count
                , (SELECT COUNT(*)
                   FROM comments st1
                   WHERE st1.type = 'news'
@@ -541,73 +521,74 @@ const querySelectorUserContentsScrap = (user) => {
                        WHERE type = 'news'
                          AND scrap = true
                          AND writer = ${user})) AS a
-    ORDER BY created_at DESC OFFSET 0 LIMIT 15
+    ORDER BY created_at DESC
+    OFFSET 0 LIMIT 15
   `
 }
 
 const handleCountUserContentsScrap = (user) => {
   return `
-    SELECT COUNT(*) FROM
-      (SELECT DISTINCT id,
-                       type,
-                       category,
-                       title,
-                       created_at,
-                       view_count,
-                       good_count,
-                       (comment_count + re_comment_count) AS comment_count
-       FROM (SELECT id
-                  , 'board'                     AS type
-                  , t1.category                 AS category
-                  , title
-                  , created_at
-                  , view_count
-                  , (SELECT COUNT(*)
-                     FROM article_elements st1
-                     WHERE st1.type = 'board'
-                       AND st1.type_id = t1.id
-                       AND scrap = true)         AS good_count
-                  , (SELECT COUNT(*)
-                     FROM comments st1
-                     WHERE st1.type = 'board'
-                       AND st1.type_id = t1.id) AS comment_count
-                  , (SELECT COUNT(*)
-                     FROM re_comments st1
-                     WHERE st1.type = 'board'
-                       AND st1.type_id = t1.id) AS re_comment_count
-             FROM boards t1
-             WHERE id IN
-                   (SELECT type_id
-                    FROM article_elements
-                    WHERE type = 'board'
-                      AND scrap = true
-                      AND writer = ${user})
-             UNION ALL
-             SELECT id
-                  , 'news'                      AS type
-                  , 0                           AS category
-                  , title
-                  , created_at
-                  , view_count
-                  , (SELECT COUNT(*)
-                     FROM article_elements st1
-                     WHERE st1.type = 'news'
-                       AND st1.type_id = t1.id
-                       AND scrap = true)         AS good_count
-                  , (SELECT COUNT(*)
-                     FROM comments st1
-                     WHERE st1.type = 'news'
-                       AND st1.type_id = t1.id) AS comment_count
-                  , (SELECT COUNT(*)
-                     FROM re_comments st1
-                     WHERE st1.type = 'news'
-                       AND st1.type_id = t1.id) AS re_comment_count
-             FROM news_contents t1
-             WHERE id IN (SELECT type_id
-                          FROM article_elements
-                          WHERE type = 'news'
-                            AND scrap = true
-                            AND writer = ${user})) AS aa) AS a
+    SELECT COUNT(*)
+    FROM (SELECT DISTINCT id,
+                          type,
+                          category,
+                          title,
+                          created_at,
+                          view_count,
+                          good_count,
+                          (comment_count + re_comment_count) AS comment_count
+          FROM (SELECT id
+                     , 'board'                     AS type
+                     , t1.category                 AS category
+                     , title
+                     , created_at
+                     , view_count
+                     , (SELECT COUNT(*)
+                        FROM article_elements st1
+                        WHERE st1.type = 'board'
+                          AND st1.type_id = t1.id
+                          AND scrap = true)        AS good_count
+                     , (SELECT COUNT(*)
+                        FROM comments st1
+                        WHERE st1.type = 'board'
+                          AND st1.type_id = t1.id) AS comment_count
+                     , (SELECT COUNT(*)
+                        FROM re_comments st1
+                        WHERE st1.type = 'board'
+                          AND st1.type_id = t1.id) AS re_comment_count
+                FROM boards t1
+                WHERE id IN
+                      (SELECT type_id
+                       FROM article_elements
+                       WHERE type = 'board'
+                         AND scrap = true
+                         AND writer = ${user})
+                UNION ALL
+                SELECT id
+                     , 'news'                      AS type
+                     , 0                           AS category
+                     , title
+                     , created_at
+                     , view_count
+                     , (SELECT COUNT(*)
+                        FROM article_elements st1
+                        WHERE st1.type = 'news'
+                          AND st1.type_id = t1.id
+                          AND scrap = true)        AS good_count
+                     , (SELECT COUNT(*)
+                        FROM comments st1
+                        WHERE st1.type = 'news'
+                          AND st1.type_id = t1.id) AS comment_count
+                     , (SELECT COUNT(*)
+                        FROM re_comments st1
+                        WHERE st1.type = 'news'
+                          AND st1.type_id = t1.id) AS re_comment_count
+                FROM news_contents t1
+                WHERE id IN (SELECT type_id
+                             FROM article_elements
+                             WHERE type = 'news'
+                               AND scrap = true
+                               AND writer = ${user})) AS aa) AS a
   `
 }
 

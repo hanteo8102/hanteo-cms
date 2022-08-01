@@ -2,7 +2,18 @@
 
 const { sanitizeEntity } = require('strapi-utils')
 const _ = require('lodash')
-const { querySelector, handleCount } = require('./query')
+const {
+  querySelectorBoard,
+  handleCountBoard,
+  querySelectorUserContentsBoard,
+  handleCountUserContentsBoard,
+  querySelectorUserContentsComment,
+  handleCountUserContentsComment,
+  querySelectorUserContentsGood,
+  handleCountUserContentsGood,
+  querySelectorUserContentsScrap,
+  handleCountUserContentsScrap,
+} = require('./query')
 
 const formatError = (error) => [
   { messages: [{ id: error.id, message: error.message, field: error.field }] },
@@ -114,92 +125,120 @@ module.exports = {
   },
   async findAllBoard(ctx) {
     const jobLContents = await strapi.connections.default.raw(
-      querySelector(1, ctx.query.userId)
+      querySelectorBoard(1, ctx.query.userId)
     )
-    const jobLCount = await strapi.connections.default.raw(handleCount(1))
+    const jobLCount = await strapi.connections.default.raw(handleCountBoard(1))
     const jobRContents = await strapi.connections.default.raw(
-      querySelector(2, ctx.query.userId)
+      querySelectorBoard(2, ctx.query.userId)
     )
-    const jobRCount = await strapi.connections.default.raw(handleCount(2))
+    const jobRCount = await strapi.connections.default.raw(handleCountBoard(2))
 
     const propertyLContents = await strapi.connections.default.raw(
-      querySelector(3, ctx.query.userId)
+      querySelectorBoard(3, ctx.query.userId)
     )
-    const propertyLCount = await strapi.connections.default.raw(handleCount(3))
+    const propertyLCount = await strapi.connections.default.raw(
+      handleCountBoard(3)
+    )
     const propertyRContents = await strapi.connections.default.raw(
-      querySelector(4, ctx.query.userId)
+      querySelectorBoard(4, ctx.query.userId)
     )
-    const propertyRCount = await strapi.connections.default.raw(handleCount(4))
+    const propertyRCount = await strapi.connections.default.raw(
+      handleCountBoard(4)
+    )
 
     const shoppingLContents = await strapi.connections.default.raw(
-      querySelector(5, ctx.query.userId)
+      querySelectorBoard(5, ctx.query.userId)
     )
-    const shoppingLCount = await strapi.connections.default.raw(handleCount(5))
+    const shoppingLCount = await strapi.connections.default.raw(
+      handleCountBoard(5)
+    )
     const shoppingRContents = await strapi.connections.default.raw(
-      querySelector(6, ctx.query.userId)
+      querySelectorBoard(6, ctx.query.userId)
     )
-    const shoppingRCount = await strapi.connections.default.raw(handleCount(6))
+    const shoppingRCount = await strapi.connections.default.raw(
+      handleCountBoard(6)
+    )
 
     const serviceLContents = await strapi.connections.default.raw(
-      querySelector(7, ctx.query.userId)
+      querySelectorBoard(7, ctx.query.userId)
     )
-    const serviceLCount = await strapi.connections.default.raw(handleCount(7))
+    const serviceLCount = await strapi.connections.default.raw(
+      handleCountBoard(7)
+    )
     const serviceRContents = await strapi.connections.default.raw(
-      querySelector(8, ctx.query.userId)
+      querySelectorBoard(8, ctx.query.userId)
     )
-    const serviceRCount = await strapi.connections.default.raw(handleCount(8))
+    const serviceRCount = await strapi.connections.default.raw(
+      handleCountBoard(8)
+    )
 
     const educationLContents = await strapi.connections.default.raw(
-      querySelector(9, ctx.query.userId)
+      querySelectorBoard(9, ctx.query.userId)
     )
-    const educationLCount = await strapi.connections.default.raw(handleCount(9))
+    const educationLCount = await strapi.connections.default.raw(
+      handleCountBoard(9)
+    )
     const educationRContents = await strapi.connections.default.raw(
-      querySelector(10, ctx.query.userId)
+      querySelectorBoard(10, ctx.query.userId)
     )
     const educationRCount = await strapi.connections.default.raw(
-      handleCount(10)
+      handleCountBoard(10)
     )
 
     const tripLContents = await strapi.connections.default.raw(
-      querySelector(11, ctx.query.userId)
+      querySelectorBoard(11, ctx.query.userId)
     )
-    const tripLCount = await strapi.connections.default.raw(handleCount(11))
+    const tripLCount = await strapi.connections.default.raw(
+      handleCountBoard(11)
+    )
     const tripRContents = await strapi.connections.default.raw(
-      querySelector(12, ctx.query.userId)
+      querySelectorBoard(12, ctx.query.userId)
     )
-    const tripRCount = await strapi.connections.default.raw(handleCount(12))
+    const tripRCount = await strapi.connections.default.raw(
+      handleCountBoard(12)
+    )
 
     const medicalLContents = await strapi.connections.default.raw(
-      querySelector(13, ctx.query.userId)
+      querySelectorBoard(13, ctx.query.userId)
     )
-    const medicalLCount = await strapi.connections.default.raw(handleCount(13))
+    const medicalLCount = await strapi.connections.default.raw(
+      handleCountBoard(13)
+    )
     const medicalRContents = await strapi.connections.default.raw(
-      querySelector(14, ctx.query.userId)
+      querySelectorBoard(14, ctx.query.userId)
     )
-    const medicalRCount = await strapi.connections.default.raw(handleCount(14))
+    const medicalRCount = await strapi.connections.default.raw(
+      handleCountBoard(14)
+    )
 
     const lawLContents = await strapi.connections.default.raw(
-      querySelector(15, ctx.query.userId)
+      querySelectorBoard(15, ctx.query.userId)
     )
-    const lawLCount = await strapi.connections.default.raw(handleCount(15))
+    const lawLCount = await strapi.connections.default.raw(handleCountBoard(15))
     const lawRContents = await strapi.connections.default.raw(
-      querySelector(16, ctx.query.userId)
+      querySelectorBoard(16, ctx.query.userId)
     )
-    const lawRCount = await strapi.connections.default.raw(handleCount(16))
+    const lawRCount = await strapi.connections.default.raw(handleCountBoard(16))
 
     const clubLContents = await strapi.connections.default.raw(
-      querySelector(17, ctx.query.userId)
+      querySelectorBoard(17, ctx.query.userId)
     )
-    const clubLCount = await strapi.connections.default.raw(handleCount(17))
+    const clubLCount = await strapi.connections.default.raw(
+      handleCountBoard(17)
+    )
     const clubRContents = await strapi.connections.default.raw(
-      querySelector(18, ctx.query.userId)
+      querySelectorBoard(18, ctx.query.userId)
     )
-    const clubRCount = await strapi.connections.default.raw(handleCount(18))
+    const clubRCount = await strapi.connections.default.raw(
+      handleCountBoard(18)
+    )
 
     const addressRContents = await strapi.connections.default.raw(
-      querySelector(19, ctx.query.userId)
+      querySelectorBoard(19, ctx.query.userId)
     )
-    const addressRCount = await strapi.connections.default.raw(handleCount(19))
+    const addressRCount = await strapi.connections.default.raw(
+      handleCountBoard(19)
+    )
 
     return {
       job: {
@@ -340,6 +379,65 @@ module.exports = {
           totalCount: addressRCount.rows[0].count,
         },
       },
+    }
+  },
+  async findAllUserContents(ctx) {
+    try {
+      const user = ctx.query.userId
+
+      let board = await strapi.connections.default.raw(
+        querySelectorUserContentsBoard(user)
+      )
+      let boardCount = await strapi.connections.default.raw(
+        handleCountUserContentsBoard(user)
+      )
+      let comment = await strapi.connections.default.raw(
+        querySelectorUserContentsComment(user)
+      )
+      let commentCount = await strapi.connections.default.raw(
+        handleCountUserContentsComment(user)
+      )
+      let good = await strapi.connections.default.raw(
+        querySelectorUserContentsGood(user)
+      )
+      let goodCount = await strapi.connections.default.raw(
+        handleCountUserContentsGood(user)
+      )
+      let scrap = await strapi.connections.default.raw(
+        querySelectorUserContentsScrap(user)
+      )
+      let scrapCount = await strapi.connections.default.raw(
+        handleCountUserContentsScrap(user)
+      )
+
+      return {
+        board: {
+          contents: board.rows.map((entity) =>
+            sanitizeEntity(entity, { model: strapi.models['boards'] })
+          ),
+          totalCount: boardCount.rows[0].count,
+        },
+        comment: {
+          contents: comment.rows.map((entity) =>
+            sanitizeEntity(entity, { model: strapi.models['comments'] })
+          ),
+          totalCount: commentCount.rows[0].count,
+        },
+        good: {
+          contents: good.rows.map((entity) =>
+            sanitizeEntity(entity, { model: strapi.models['article-elements'] })
+          ),
+          totalCount: goodCount.rows[0].count,
+        },
+        scrap: {
+          contents: scrap.rows.map((entity) =>
+            sanitizeEntity(entity, { model: strapi.models['article-elements'] })
+          ),
+          totalCount: scrapCount.rows[0].count,
+        },
+      }
+    } catch (err) {
+      console.log(err.message)
     }
   },
 }

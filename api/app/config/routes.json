@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/apps/me/user-contents",
+      "handler": "app.findAllUserContents",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/apps/auth/confirm-check",
       "handler": "app.confirmCheck",
       "config": {

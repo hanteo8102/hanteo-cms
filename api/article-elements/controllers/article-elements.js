@@ -248,12 +248,16 @@ module.exports = {
                           created_at,
                           view_count,
                           good_count,
+                          writing_type,
+                          nick_name,
                           (comment_count + re_comment_count) AS comment_count
-          FROM (SELECT id
+          FROM (SELECT t1.id
                      , 'board'                     AS type
                      , t1.category                 AS category
                      , title
-                     , created_at
+                     , t1.created_at
+                     , writing_type
+                     , U.nick_name AS nick_name
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
@@ -269,7 +273,8 @@ module.exports = {
                         WHERE st1.type = 'board'
                           AND st1.type_id = t1.id) AS re_comment_count
                 FROM boards t1
-                WHERE id IN
+                       INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
+                WHERE t1.id IN
                       (SELECT type_id
                        FROM article_elements
                        WHERE type = 'board'
@@ -281,6 +286,8 @@ module.exports = {
                      , 0                           AS category
                      , title
                      , created_at
+                     , N'뉴스' as writing_type
+                     , source_type as nick_name
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
@@ -307,6 +314,8 @@ module.exports = {
                      , t1.category                 AS category
                      , t1.title
                      , t1.created_at
+                     , writing_type
+                     , U.nick_name AS nick_name
                      , t1.view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
@@ -323,6 +332,7 @@ module.exports = {
                           AND st1.type_id = t1.id) AS re_comment_count
                 FROM boards t1
                        INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'board'
+                       INNER JOIN "users-permissions_user" AS U ON (t2.writer = U.id)
                 WHERE t2.id IN (SELECT type_id
                                 FROM article_elements t3
                                 WHERE type = 'comment'
@@ -334,6 +344,8 @@ module.exports = {
                      , 0                 AS category
                      , t1.title
                      , t1.created_at
+                     , 'news' as writing_type
+                     , source_type AS nick_name
                      , t1.view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
@@ -518,12 +530,16 @@ module.exports = {
                           created_at,
                           view_count,
                           good_count,
+                          writing_type,
+                          nick_name,
                           (comment_count + re_comment_count) AS comment_count
-          FROM (SELECT id
+          FROM (SELECT t1.id
                      , 'board'                     AS type
                      , t1.category                 AS category
                      , title
-                     , created_at
+                     , t1.created_at
+                     , writing_type
+                     , U.nick_name AS nick_name
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
@@ -539,7 +555,8 @@ module.exports = {
                         WHERE st1.type = 'board'
                           AND st1.type_id = t1.id) AS re_comment_count
                 FROM boards t1
-                WHERE id IN
+                       INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
+                WHERE t1.id IN
                       (SELECT type_id
                        FROM article_elements
                        WHERE type = 'board'
@@ -551,6 +568,8 @@ module.exports = {
                      , 0                           AS category
                      , title
                      , created_at
+                     , N'뉴스' as writing_type
+                     , source_type as nick_name
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1

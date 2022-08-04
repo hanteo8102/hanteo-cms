@@ -245,6 +245,7 @@ module.exports = {
                           type,
                           category,
                           title,
+                          contents,
                           created_at,
                           view_count,
                           good_count,
@@ -255,6 +256,7 @@ module.exports = {
                      , 'board'                     AS type
                      , t1.category                 AS category
                      , title
+                     , contents
                      , t1.created_at
                      , writing_type
                      , U.nick_name AS nick_name
@@ -285,6 +287,7 @@ module.exports = {
                      , 'news'                      AS type
                      , 0                           AS category
                      , title
+                     , contents
                      , created_at
                      , N'뉴스' as writing_type
                      , source_type as nick_name
@@ -313,6 +316,7 @@ module.exports = {
                      , 'board'                     AS type
                      , t1.category                 AS category
                      , t1.title
+                     , t1.contents
                      , t1.created_at
                      , writing_type
                      , U.nick_name AS nick_name
@@ -343,6 +347,7 @@ module.exports = {
                      , 'news'                     AS type
                      , 0                 AS category
                      , t1.title
+                     , t1.contents
                      , t1.created_at
                      , 'news' as writing_type
                      , source_type AS nick_name
@@ -527,6 +532,7 @@ module.exports = {
                           type,
                           category,
                           title,
+                          contents,
                           created_at,
                           view_count,
                           good_count,
@@ -537,6 +543,7 @@ module.exports = {
                      , 'board'                     AS type
                      , t1.category                 AS category
                      , title
+                     , contents
                      , t1.created_at
                      , writing_type
                      , U.nick_name AS nick_name
@@ -567,6 +574,7 @@ module.exports = {
                      , 'news'                      AS type
                      , 0                           AS category
                      , title
+                     , contents
                      , created_at
                      , N'뉴스' as writing_type
                      , source_type as nick_name

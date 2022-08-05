@@ -1146,6 +1146,26 @@
           "hate": {
             "type": "boolean",
             "default": false
+          },
+          "complain_type": {
+            "required": [
+              "id",
+              "name"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -1176,6 +1196,9 @@
           "hate": {
             "type": "boolean",
             "default": false
+          },
+          "complain_type": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

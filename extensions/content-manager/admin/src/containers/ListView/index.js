@@ -398,6 +398,8 @@ function ListView({
         return '주소록 그룹'
       case 'AddressLists':
         return '주소록 리스트'
+      case 'ComplainTypes':
+        return '신고 유형'
       default:
         return label
     }

@@ -38,6 +38,9 @@
     "hate": {
       "type": "boolean",
       "default": false
+    },
+    "complain_type": {
+      "model": "complain-type"
     }
   }
 }

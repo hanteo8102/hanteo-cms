@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "complain_types",
+  "info": {
+    "name": "ComplainType"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

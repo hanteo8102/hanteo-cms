@@ -16,10 +16,6 @@
       "type": "boolean",
       "default": false
     },
-    "complain": {
-      "type": "boolean",
-      "default": false
-    },
     "scrap": {
       "type": "boolean",
       "default": false

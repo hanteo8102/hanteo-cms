@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/complain-types",
+      "handler": "complain-type.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/complain-types/count",
+      "handler": "complain-type.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/complain-types/:id",
+      "handler": "complain-type.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/complain-types",
+      "handler": "complain-type.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/complain-types/:id",
+      "handler": "complain-type.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/complain-types/:id",
+      "handler": "complain-type.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

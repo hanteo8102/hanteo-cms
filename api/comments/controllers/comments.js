@@ -138,7 +138,7 @@ module.exports = {
                            AND t1.writer = block_user_id)
                  THEN N'차단된 멤버의 댓글입니다.'
                ELSE t1.contents
-               END                                 AS contents,
+               END                                                                             AS contents,
              t1.comment,
              t1.created_by,
              t1.updated_by,
@@ -169,6 +169,43 @@ module.exports = {
       reCommentList: result2.rows.map((entity) =>
         sanitizeEntity(entity, { model: strapi.models['re-comments'] })
       ),
+    }
+  },
+  async customRemove(ctx) {
+    if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+      try {
+        const { id: contentsId } = ctx.params
+        const { id: userId } = await strapi.plugins[
+          'users-permissions'
+        ].services.jwt.getToken(ctx)
+
+        if (userId) {
+          let sql = `
+            UPDATE comments
+            SET is_delete = TRUE
+            WHERE id = ${contentsId};
+            UPDATE re_comments
+            SET is_delete = TRUE
+            WHERE comment = ${contentsId};
+            UPDATE article_elements
+            SET is_delete = TRUE
+            WHERE type = 'comment'
+              AND type_id = ${contentsId};
+            UPDATE article_elements
+            SET is_delete = TRUE
+            WHERE type = 're-comment'
+              AND type_id IN (SELECT id FROM re_comments WHERE comment = ${contentsId});
+          `
+
+          await strapi.connections.default.raw(sql)
+
+          return 'OK'
+        } else {
+          return ctx.notFound()
+        }
+      } catch (err) {
+        return ctx.notFound(err)
+      }
     }
   },
 }

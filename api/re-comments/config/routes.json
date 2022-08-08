@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "DELETE",
+      "path": "/re-comments/custom/:id",
+      "handler": "re-comments.customRemove",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

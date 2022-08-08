@@ -271,9 +271,9 @@ module.exports = {
             AND type_id IN (SELECT id FROM re_comments WHERE type = 'board' AND type_id = ${contentsId});
         `
 
-          let result = await strapi.connections.default.raw(sql)
+          await strapi.connections.default.raw(sql)
 
-          return sanitizeEntity(result, { model: strapi.models['boards'] })
+          return 'OK'
         } else {
           return ctx.notFound()
         }

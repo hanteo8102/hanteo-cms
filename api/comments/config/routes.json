@@ -55,6 +55,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "DELETE",
+      "path": "/comments/custom/:id",
+      "handler": "comments.customRemove",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

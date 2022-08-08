@@ -175,32 +175,48 @@ module.exports = {
              boards.updated_by,
              boards.created_at,
              boards.updated_at,
-             (SELECT MAX(id) FROM boards AS BBB WHERE BBB.id < boards.id AND BBB.category = boards.category AND BBB.writing_type = '일반 게시물') AS prev,
-             (SELECT MIN(id) FROM boards AS BBB WHERE BBB.id > boards.id AND BBB.category = boards.category AND BBB.writing_type = '일반 게시물') AS next,
-             (SELECT MAX(id) FROM boards AS BBB WHERE BBB.id < boards.id AND BBB.category = boards.category AND BBB.writing_type != '일반 게시물') AS notice_prev,
-             (SELECT MIN(id) FROM boards AS BBB WHERE BBB.id > boards.id AND BBB.category = boards.category AND BBB.writing_type != '일반 게시물') AS notice_next,
+             (SELECT MAX(id)
+              FROM boards AS BBB
+              WHERE BBB.id < boards.id
+                AND BBB.category = boards.category
+                AND BBB.writing_type = '일반 게시물')       AS prev,
+             (SELECT MIN(id)
+              FROM boards AS BBB
+              WHERE BBB.id > boards.id
+                AND BBB.category = boards.category
+                AND BBB.writing_type = '일반 게시물')       AS next,
+             (SELECT MAX(id)
+              FROM boards AS BBB
+              WHERE BBB.id < boards.id
+                AND BBB.category = boards.category
+                AND BBB.writing_type != '일반 게시물')      AS notice_prev,
+             (SELECT MIN(id)
+              FROM boards AS BBB
+              WHERE BBB.id > boards.id
+                AND BBB.category = boards.category
+                AND BBB.writing_type != '일반 게시물')      AS notice_next,
              0 < (SELECT COUNT(*)
                   FROM block_user_lists
                   WHERE user_id = ${userId}
                     AND boards.writer = block_user_id) AS isBlock,
              CAST((select count(1)
-              from article_elements
-              where boards.id = article_elements.type_id
-                AND type = 'board'
-                AND good = true) AS INT)                       AS good_count,
+                   from article_elements
+                   where boards.id = article_elements.type_id
+                     AND type = 'board'
+                     AND good = true) AS INT)          AS good_count,
              CAST((select count(1)
-              from article_elements
-              where boards.id = article_elements.type_id
-                AND type = 'board'
-                AND hate = true) AS INT)                       AS hate_count,
+                   from article_elements
+                   where boards.id = article_elements.type_id
+                     AND type = 'board'
+                     AND hate = true) AS INT)          AS hate_count,
              CAST((select count(1)
-              from comments
-              where boards.id = comments.type_id
-                AND type = 'board') AS INT)                    AS comment_count,
+                   from comments
+                   where boards.id = comments.type_id
+                     AND type = 'board') AS INT)       AS comment_count,
              CAST((select count(1)
-              from re_comments
-              where boards.id = re_comments.type_id
-                AND type = 'board') AS INT)                    AS re_comment_count,
+                   from re_comments
+                   where boards.id = re_comments.type_id
+                     AND type = 'board') AS INT)       AS re_comment_count,
              U.nick_name
       from boards
              INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
@@ -214,8 +230,56 @@ module.exports = {
   },
   async updateViewCount(ctx) {
     let boardId = ctx.params.id
-    let sql = `UPDATE boards SET view_count = view_count + 1 WHERE id = ${boardId}`
+    let sql = `UPDATE boards
+               SET view_count = view_count + 1
+               WHERE id = ${boardId}`
     await strapi.connections.default.raw(sql)
     return 'OK'
+  },
+  async customRemove(ctx) {
+    if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+      try {
+        const { id: contentsId } = ctx.params
+        const { id: userId } = await strapi.plugins[
+          'users-permissions'
+        ].services.jwt.getToken(ctx)
+
+        if (userId) {
+          let sql = `
+          UPDATE boards
+          SET is_delete = TRUE
+          WHERE id = ${contentsId};
+          UPDATE comments
+          SET is_delete = TRUE
+          WHERE type = 'board'
+            AND type_id = ${contentsId};
+          UPDATE re_comments
+          SET is_delete = TRUE
+          WHERE type = 'board'
+            AND type_id = ${contentsId};
+          UPDATE article_elements
+          SET is_delete = TRUE
+          WHERE type = 'board'
+            AND type_id = ${contentsId};
+          UPDATE article_elements
+          SET is_delete = TRUE
+          WHERE type = 'comment'
+            AND type_id IN (SELECT id FROM comments WHERE type = 'board' AND type_id = ${contentsId});
+          UPDATE article_elements
+          SET is_delete = true
+          WHERE type = 're-comment'
+            AND type_id IN (SELECT id FROM re_comments WHERE type = 'board' AND type_id = ${contentsId});
+        `
+
+          let result = await strapi.connections.default.raw(sql)
+
+          return sanitizeEntity(result, { model: strapi.models['boards'] })
+        } else {
+          return ctx.notFound()
+        }
+      } catch (err) {
+        return ctx.notFound(err)
+      }
+    }
   },
 }

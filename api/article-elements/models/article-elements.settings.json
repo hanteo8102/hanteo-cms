@@ -25,7 +25,8 @@
       "enum": [
         "news",
         "board",
-        "comment"
+        "comment",
+        "re-comment"
       ]
     },
     "type_id": {
@@ -41,6 +42,10 @@
     },
     "complain_type": {
       "model": "complain-type"
+    },
+    "is_delete": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

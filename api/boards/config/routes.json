@@ -55,6 +55,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "DELETE",
+      "path": "/boards/custom/:id",
+      "handler": "boards.customRemove",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

@@ -593,6 +593,71 @@
           }
         ]
       }
+    },
+    "/boards/custom/{id}": {
+      "delete": {
+        "deprecated": false,
+        "description": "Delete a single boards record",
+        "responses": {
+          "200": {
+            "description": "deletes a single boards based on the ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Boards"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -701,9 +766,11 @@
             "default": "nothing",
             "enum": [
               "없음(일반 게시물)",
+              "주황(#ff6f1e)",
               "파랑(#2f6fd4)",
               "빨강(#ff6666)",
-              "검정(#333333)"
+              "회색(#9a9a9a)",
+              "검정(#000000)"
             ]
           },
           "is_delete": {
@@ -769,9 +836,11 @@
             "default": "nothing",
             "enum": [
               "없음(일반 게시물)",
+              "주황(#ff6f1e)",
               "파랑(#2f6fd4)",
               "빨강(#ff6666)",
-              "검정(#333333)"
+              "회색(#9a9a9a)",
+              "검정(#000000)"
             ]
           },
           "is_delete": {

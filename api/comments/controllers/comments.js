@@ -35,15 +35,18 @@ module.exports = {
               FROM article_elements
               WHERE comments.id = article_elements.type_id
                 AND type = 'comment'
+                AND article_elements.is_delete = false
                 AND good = true)                       AS good_count,
              (SELECT count(1)
               FROM article_elements
               WHERE comments.id = article_elements.type_id
                 AND type = 'comment'
+                AND article_elements.is_delete = false
                 AND hate = false)                      AS hate_count,
              (SELECT count(1)
               FROM re_comments
-              WHERE comments.id = re_comments.comment) AS re_comment_count,
+              WHERE comments.id = re_comments.comment
+                AND re_comments.is_delete = false) AS re_comment_count,
              U.nick_name,
              CASE
                WHEN comments.type = 'news' then 0

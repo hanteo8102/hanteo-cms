@@ -77,16 +77,16 @@ module.exports = {
     let newsListSql = `SELECT *
                        FROM news_contents
                        WHERE is_public = true
-                         AND title LIKE '%${keyword}%'
-                          OR contents LIKE '%${keyword}%'
+                         AND (title LIKE '%${keyword}%'
+                         OR contents LIKE '%${keyword}%')
                        ORDER BY created_at DESC
                          ${startQuery} ${limitQuery}`
     let newsCountSql = `SELECT COUNT(*)
                         FROM (SELECT *
                               FROM news_contents
                               WHERE is_public = true
-                                AND title LIKE '%${keyword}%'
-                                 OR contents LIKE '%${keyword}%') AS a`
+                                AND (title LIKE '%${keyword}%'
+                                OR contents LIKE '%${keyword}%')) AS a`
     let bannerListSql = `SELECT B.id,
                                 B.company_name,
                                 B.created_by,
@@ -125,24 +125,33 @@ module.exports = {
                                 WHERE is_public = true
                                   AND position = N'카테고리 페이지 상단'
                                   AND (company_name LIKE '%${keyword}%'
-                                         AND main_banner_text LIKE '%${keyword}%'
+                                  OR main_banner_text LIKE '%${keyword}%'
                                   OR sub_banner_text LIKE '%${keyword}%'
                                   OR site_url LIKE '%${keyword}%'
                                   OR contact_info LIKE '%${keyword}%')) AS a`
-    let boardListSql = `SELECT t1.*, U.nick_name
+    let boardListSql = `SELECT t1.*
+                             , U.nick_name
+                             , (SELECT COUNT(*)
+                                FROM comments st1
+                                WHERE st1.type = 'board'
+                                  AND st1.type_id = t1.id) AS comment_count
+                             , (SELECT COUNT(*)
+                                FROM re_comments st1
+                                WHERE st1.type = 'board'
+                                  AND st1.type_id = t1.id) AS re_comment_count
                         FROM boards t1
                                INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
                         WHERE is_delete = false
-                          AND title LIKE '%${keyword}%'
-                           OR contents LIKE '%${keyword}%'
+                          AND (title LIKE '%${keyword}%'
+                          OR contents LIKE '%${keyword}%')
                         ORDER BY t1.created_at DESC
                           ${startQuery} ${limitQuery}`
     let boardCountSql = `SELECT COUNT(*)
                          FROM (SELECT *
                                FROM boards
                                WHERE is_delete = false
-                                 AND title LIKE '%${keyword}%'
-                                  OR contents LIKE '%${keyword}%') AS a`
+                                 AND (title LIKE '%${keyword}%'
+                                 OR contents LIKE '%${keyword}%')) AS a`
 
     let newsList = await strapi.connections.default.raw(newsListSql)
     let newsCount = await strapi.connections.default.raw(newsCountSql)

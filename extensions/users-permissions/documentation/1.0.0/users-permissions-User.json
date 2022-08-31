@@ -1283,6 +1283,45 @@
           "attendance": {
             "type": "string",
             "format": "date"
+          },
+          "complain_histories": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "complain_type": {
+                  "type": "string"
+                },
+                "reported_user": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "board",
+                    "comment",
+                    "re-comment"
+                  ]
+                },
+                "type_id": {
+                  "type": "integer"
+                },
+                "complain": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       },
@@ -1357,6 +1396,12 @@
           "attendance": {
             "type": "string",
             "format": "date"
+          },
+          "complain_histories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "created_by": {
             "type": "string"

@@ -400,6 +400,10 @@ function ListView({
         return '주소록 리스트'
       case 'ComplainTypes':
         return '신고 유형'
+      case 'ComplainHistories':
+        return '신고 이력'
+      case 'Complains':
+        return '신고 관리'
       default:
         return label
     }

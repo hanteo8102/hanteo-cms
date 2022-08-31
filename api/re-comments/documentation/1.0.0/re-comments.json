@@ -669,6 +669,12 @@
               "attendance": {
                 "type": "string"
               },
+              "complain_histories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "created_by": {
                 "type": "string"
               },
@@ -797,6 +803,12 @@
               },
               "attendance": {
                 "type": "string"
+              },
+              "complain_histories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
               },
               "created_by": {
                 "type": "string"

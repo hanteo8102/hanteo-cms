@@ -92,6 +92,10 @@
     },
     "attendance": {
       "type": "date"
+    },
+    "complain_histories": {
+      "via": "reported_user",
+      "collection": "complain-history"
     }
   }
 }

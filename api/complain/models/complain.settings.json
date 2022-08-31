@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "complains",
+  "info": {
+    "name": "Complain"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "complain_histories": {
+      "collection": "complain-history",
+      "via": "complain"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "board",
+        "comment",
+        "re-comment"
+      ]
+    },
+    "type_id": {
+      "type": "biginteger"
+    },
+    "writer": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "contents": {
+      "type": "text"
+    }
+  }
+}

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "08/31/2022 4:27:35 PM"
+    "x-generation-date": "08/31/2022 4:51:27 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -16708,7 +16708,7 @@
           },
           "attendance": {
             "type": "string",
-            "format": "date"
+            "format": "date-time"
           },
           "complain_histories": {
             "type": "array",
@@ -16821,7 +16821,7 @@
           },
           "attendance": {
             "type": "string",
-            "format": "date"
+            "format": "date-time"
           },
           "complain_histories": {
             "type": "array",

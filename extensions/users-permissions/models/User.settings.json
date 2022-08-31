@@ -91,7 +91,7 @@
       "default": "0"
     },
     "attendance": {
-      "type": "date"
+      "type": "datetime"
     },
     "complain_histories": {
       "via": "reported_user",

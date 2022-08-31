@@ -1282,7 +1282,7 @@
           },
           "attendance": {
             "type": "string",
-            "format": "date"
+            "format": "date-time"
           },
           "complain_histories": {
             "type": "array",
@@ -1395,7 +1395,7 @@
           },
           "attendance": {
             "type": "string",
-            "format": "date"
+            "format": "date-time"
           },
           "complain_histories": {
             "type": "array",

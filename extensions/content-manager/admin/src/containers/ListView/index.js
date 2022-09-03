@@ -556,6 +556,7 @@ function ListView({
                     isBulkable={isBulkable}
                     setQuery={setQuery}
                     showLoader={isLoading}
+                    label={label}
                   />
                   <Footer count={total} params={query} onChange={setQuery} />
                 </div>

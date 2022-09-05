@@ -974,7 +974,7 @@ module.exports = {
                       color_type,
                       nick_name,
                       (comment_count + re_comment_count) AS comment_count
-      FROM (SELECT id
+      FROM (SELECT t1.id
                  , 'board'                     AS type
                  , t1.category                 AS category
                  , t1.title
@@ -1010,15 +1010,15 @@ module.exports = {
                      AND writer = ${userId})
               AND t1.is_delete = false
             UNION ALL
-            SELECT id
+            SELECT t1.id
                  , 'news'                      AS type
                  , 0                           AS category
-                 , title
-                 , created_at
+                 , t1.title
+                 , t1.created_at
                  , N'뉴스'                       as writing_type
                  , N'없음(일반 게시물)'               as color_type
-                 , source_type                 as nick_name
-                 , view_count
+                 , t1.source_type                 as nick_name
+                 , t1.view_count
                  , (SELECT COUNT(*)
                     FROM article_elements st1
                     WHERE st1.type = 'news'
@@ -1036,7 +1036,7 @@ module.exports = {
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id) AS re_comment_count
             FROM news_contents t1
-            WHERE id IN (SELECT type_id
+            WHERE t1.id IN (SELECT type_id
                          FROM article_elements
                          WHERE type = 'news'
                            AND good = true
@@ -1087,7 +1087,7 @@ module.exports = {
                  , t1.created_at
                  , 'news'                      as writing_type
                  , N'없음(일반 게시물)'               as color_type
-                 , source_type                 AS nick_name
+                 , t1.source_type                 AS nick_name
                  , t1.view_count
                  , (SELECT COUNT(*)
                     FROM article_elements st1

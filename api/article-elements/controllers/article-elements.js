@@ -967,6 +967,7 @@ module.exports = {
                       type,
                       category,
                       title,
+                      contents,
                       created_at,
                       view_count,
                       writing_type,
@@ -978,6 +979,7 @@ module.exports = {
                  , 'board'                     AS type
                  , t1.category                 AS category
                  , t1.title
+                 , t1.contents
                  , t1.created_at
                  , t1.view_count
                  , t1.writing_type
@@ -1014,6 +1016,7 @@ module.exports = {
                  , 'news'                      AS type
                  , 0                           AS category
                  , t1.title
+                 , contents
                  , t1.created_at
                  , t1.view_count
                  , N'뉴스'                       as writing_type
@@ -1048,6 +1051,7 @@ module.exports = {
                  , 'board'                     AS type
                  , t1.category                 AS category
                  , t1.title
+                 , t1.contents
                  , t1.created_at
                  , t1.view_count
                  , t1.writing_type
@@ -1084,6 +1088,7 @@ module.exports = {
                  , 'news'                      AS type
                  , 0                           AS category
                  , t1.title
+                 , t1.contents
                  , t1.created_at
                  , t1.view_count
                  , N'뉴스'                      as writing_type

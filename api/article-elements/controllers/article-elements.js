@@ -380,7 +380,7 @@ module.exports = {
                      , t1.title
                      , t1.contents
                      , t1.created_at
-                     , 'news'                      as writing_type
+                     , N'뉴스'                      as writing_type
                      , N'없음(일반 게시물)'               as color_type
                      , source_type                 AS nick_name
                      , t1.view_count
@@ -969,10 +969,10 @@ module.exports = {
                       title,
                       created_at,
                       view_count,
-                      good_count,
                       writing_type,
                       color_type,
                       nick_name,
+                      good_count,
                       (comment_count + re_comment_count) AS comment_count
       FROM (SELECT t1.id
                  , 'board'                     AS type
@@ -1015,10 +1015,10 @@ module.exports = {
                  , 0                           AS category
                  , t1.title
                  , t1.created_at
+                 , t1.view_count
                  , N'뉴스'                       as writing_type
                  , N'없음(일반 게시물)'               as color_type
                  , t1.source_type                 as nick_name
-                 , t1.view_count
                  , (SELECT COUNT(*)
                     FROM article_elements st1
                     WHERE st1.type = 'news'
@@ -1049,10 +1049,10 @@ module.exports = {
                  , t1.category                 AS category
                  , t1.title
                  , t1.created_at
+                 , t1.view_count
                  , t1.writing_type
                  , t1.color_type
                  , U.nick_name                 AS nick_name
-                 , t1.view_count
                  , (SELECT COUNT(*)
                     FROM article_elements st1
                     WHERE st1.type = 'board'
@@ -1085,10 +1085,10 @@ module.exports = {
                  , 0                           AS category
                  , t1.title
                  , t1.created_at
-                 , 'news'                      as writing_type
+                 , t1.view_count
+                 , N'뉴스'                      as writing_type
                  , N'없음(일반 게시물)'               as color_type
                  , t1.source_type                 AS nick_name
-                 , t1.view_count
                  , (SELECT COUNT(*)
                     FROM article_elements st1
                     WHERE st1.type = 'news'

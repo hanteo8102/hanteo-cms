@@ -122,7 +122,8 @@ module.exports = {
               FROM re_comments st1
               WHERE st1.type = t1.type
                 AND st1.type_id = t1.type_id
-                AND st1.comment = t1.id)           AS RE_COMMENT_COUNT,
+                AND st1.comment = t1.id
+                AND st1.is_delete = false)           AS RE_COMMENT_COUNT,
              t2.username,
              t2.nick_name
       FROM comments t1

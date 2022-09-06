@@ -62,7 +62,8 @@ module.exports = {
              CAST((SELECT count(1)
                    FROM re_comments
                    WHERE NC.id = re_comments.type_id
-                     AND type = 'news') AS INT) AS re_comment_count
+                     AND type = 'news'
+                     AND re_comments.is_delete = false) AS INT) AS re_comment_count
       FROM news_contents AS NC
              LEFT JOIN upload_file_morph AS UFM
                        ON (NC.id = UFM.related_id AND related_type = 'news_contents' AND field = 'thumbnail')

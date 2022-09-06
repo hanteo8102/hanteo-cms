@@ -138,7 +138,8 @@ module.exports = {
                              , (SELECT COUNT(*)
                                 FROM re_comments st1
                                 WHERE st1.type = 'board'
-                                  AND st1.type_id = t1.id) AS re_comment_count
+                                  AND st1.type_id = t1.id
+                                  AND st1.is_delete = false) AS re_comment_count
                         FROM boards t1
                                INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
                         WHERE is_delete = false

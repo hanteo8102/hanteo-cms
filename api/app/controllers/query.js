@@ -35,7 +35,8 @@ const querySelectorBoard = (category, user) => {
                  (select count(1)
                   from re_comments
                   where boards.id = re_comments.type_id
-                    AND type = 'board')                    AS re_comment_count,
+                    AND type = 'board'
+                    AND re_comments.is_delete = false)                    AS re_comment_count,
                  U.nick_name
           from boards
                  INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
@@ -94,7 +95,8 @@ const querySelectorBoard = (category, user) => {
                  (select count(1)
                   from re_comments
                   where boards.id = re_comments.type_id
-                    AND type = 'board')                    AS re_comment_count,
+                    AND type = 'board'
+                    AND re_comments.is_delete = false)                    AS re_comment_count,
                  U.nick_name
           from boards
                  INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
@@ -137,7 +139,8 @@ const querySelectorUserContentsBoard = (user) => {
            (SELECT count(1)
             FROM re_comments
             WHERE boards.id = re_comments.type_id
-              AND type = 'board') AS re_comment_count,
+              AND type = 'board'
+              AND re_comments.is_delete = false) AS re_comment_count,
            U.nick_name
     FROM boards
            INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
@@ -176,7 +179,7 @@ const querySelectorUserContentsComment = (user) => {
               AND hate = false)                      AS hate_count,
            (SELECT COUNT(1)
             FROM re_comments
-            WHERE comments.id = re_comments.comment) AS re_comment_count,
+            WHERE comments.id = re_comments.comment AND re_comments.is_delete = false) AS re_comment_count,
            U.nick_name,
            CASE
              WHEN comments.type = 'news' then 0
@@ -244,7 +247,8 @@ const querySelectorUserContentsGood = (user) => {
                , (SELECT COUNT(*)
                   FROM re_comments st1
                   WHERE st1.type = 'board'
-                    AND st1.type_id = t1.id) AS re_comment_count
+                    AND st1.type_id = t1.id
+                    AND st1.is_delete = false) AS re_comment_count
           FROM boards t1
           WHERE id IN
                 (SELECT type_id
@@ -271,7 +275,8 @@ const querySelectorUserContentsGood = (user) => {
                , (SELECT COUNT(*)
                   FROM re_comments st1
                   WHERE st1.type = 'news'
-                    AND st1.type_id = t1.id) AS re_comment_count
+                    AND st1.type_id = t1.id
+                    AND st1.is_delete = false) AS re_comment_count
           FROM news_contents t1
           WHERE id IN (SELECT type_id
                        FROM article_elements
@@ -297,7 +302,8 @@ const querySelectorUserContentsGood = (user) => {
                , (SELECT COUNT(*)
                   FROM re_comments st1
                   WHERE st1.type = 'board'
-                    AND st1.type_id = t1.id) AS re_comment_count
+                    AND st1.type_id = t1.id
+                    AND st1.is_delete = false) AS re_comment_count
           FROM boards t1
                  INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'board'
           WHERE t2.id IN (SELECT type_id
@@ -324,7 +330,8 @@ const querySelectorUserContentsGood = (user) => {
                , (SELECT COUNT(*)
                   FROM re_comments st1
                   WHERE st1.type = 'news'
-                    AND st1.type_id = t1.id) AS re_comment_count
+                    AND st1.type_id = t1.id
+                    AND st1.is_delete = false) AS re_comment_count
           FROM news_contents t1
                  INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'news'
           WHERE t2.id IN (SELECT type_id
@@ -366,7 +373,8 @@ const handleCountUserContentsGood = (user) => {
                      , (SELECT COUNT(*)
                         FROM re_comments st1
                         WHERE st1.type = 'board'
-                          AND st1.type_id = t1.id) AS re_comment_count
+                          AND st1.type_id = t1.id
+                          AND st1.is_delete = false) AS re_comment_count
                 FROM boards t1
                 WHERE id IN
                       (SELECT type_id
@@ -393,7 +401,8 @@ const handleCountUserContentsGood = (user) => {
                      , (SELECT COUNT(*)
                         FROM re_comments st1
                         WHERE st1.type = 'news'
-                          AND st1.type_id = t1.id) AS re_comment_count
+                          AND st1.type_id = t1.id
+                          AND st1.is_delete = false) AS re_comment_count
                 FROM news_contents t1
                 WHERE id IN (SELECT type_id
                              FROM article_elements
@@ -419,7 +428,8 @@ const handleCountUserContentsGood = (user) => {
                      , (SELECT COUNT(*)
                         FROM re_comments st1
                         WHERE st1.type = 'board'
-                          AND st1.type_id = t1.id) AS re_comment_count
+                          AND st1.type_id = t1.id
+                          AND st1.is_delete = false) AS re_comment_count
                 FROM boards t1
                        INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'board'
                 WHERE t2.id IN (SELECT type_id
@@ -446,7 +456,8 @@ const handleCountUserContentsGood = (user) => {
                      , (SELECT COUNT(*)
                         FROM re_comments st1
                         WHERE st1.type = 'news'
-                          AND st1.type_id = t1.id) AS re_comment_count
+                          AND st1.type_id = t1.id
+                          AND st1.is_delete = false) AS re_comment_count
                 FROM news_contents t1
                        INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'news'
                 WHERE t2.id IN (SELECT type_id
@@ -487,7 +498,8 @@ const querySelectorUserContentsScrap = (user) => {
                , (SELECT COUNT(*)
                   FROM re_comments st1
                   WHERE st1.type = 'board'
-                    AND st1.type_id = t1.id) AS re_comment_count
+                    AND st1.type_id = t1.id
+                    AND st1.is_delete = false) AS re_comment_count
           FROM boards t1
           WHERE id IN
                 (SELECT type_id
@@ -514,7 +526,8 @@ const querySelectorUserContentsScrap = (user) => {
                , (SELECT COUNT(*)
                   FROM re_comments st1
                   WHERE st1.type = 'news'
-                    AND st1.type_id = t1.id) AS re_comment_count
+                    AND st1.type_id = t1.id
+                    AND st1.is_delete = false) AS re_comment_count
           FROM news_contents t1
           WHERE id IN (SELECT type_id
                        FROM article_elements
@@ -555,7 +568,8 @@ const handleCountUserContentsScrap = (user) => {
                      , (SELECT COUNT(*)
                         FROM re_comments st1
                         WHERE st1.type = 'board'
-                          AND st1.type_id = t1.id) AS re_comment_count
+                          AND st1.type_id = t1.id
+                          AND st1.is_delete = false) AS re_comment_count
                 FROM boards t1
                 WHERE id IN
                       (SELECT type_id
@@ -582,7 +596,8 @@ const handleCountUserContentsScrap = (user) => {
                      , (SELECT COUNT(*)
                         FROM re_comments st1
                         WHERE st1.type = 'news'
-                          AND st1.type_id = t1.id) AS re_comment_count
+                          AND st1.type_id = t1.id
+                          AND st1.is_delete = false) AS re_comment_count
                 FROM news_contents t1
                 WHERE id IN (SELECT type_id
                              FROM article_elements

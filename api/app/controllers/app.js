@@ -466,49 +466,29 @@ module.exports = {
       strapi.connections.default.raw(querySelectorBoardBanners(9)),
       strapi.connections.default.raw(querySelectorBoardBanners(10)),
     ]).then((values) => {
-      jobBanners = values[0]
-      propertyBanners = values[1]
-      shoppingBanners = values[2]
-      serviceBanners = values[3]
-      lawBanners = values[4]
-      educationBanners = values[5]
-      medicalBanners = values[6]
-      tripBanners = values[7]
-      clubBanners = values[8]
-      addressBanners = values[9]
+      jobBanners = values[0].rows
+      propertyBanners = values[1].rows
+      shoppingBanners = values[2].rows
+      serviceBanners = values[3].rows
+      lawBanners = values[4].rows
+      educationBanners = values[5].rows
+      medicalBanners = values[6].rows
+      tripBanners = values[7].rows
+      clubBanners = values[8].rows
+      addressBanners = values[9].rows
     })
 
     return {
-      job: jobBanners.rows.map((entity) =>
-        sanitizeEntity(entity, { model: strapi.models['banners'] })
-      ),
-      property: propertyBanners.rows.map((entity) =>
-        sanitizeEntity(entity, { model: strapi.models['banners'] })
-      ),
-      shopping: shoppingBanners.rows.map((entity) =>
-        sanitizeEntity(entity, { model: strapi.models['banners'] })
-      ),
-      service: serviceBanners.rows.map((entity) =>
-        sanitizeEntity(entity, { model: strapi.models['banners'] })
-      ),
-      education: educationBanners.rows.map((entity) =>
-        sanitizeEntity(entity, { model: strapi.models['banners'] })
-      ),
-      trip: tripBanners.rows.map((entity) =>
-        sanitizeEntity(entity, { model: strapi.models['banners'] })
-      ),
-      medical: medicalBanners.rows.map((entity) =>
-        sanitizeEntity(entity, { model: strapi.models['banners'] })
-      ),
-      law: lawBanners.rows.map((entity) =>
-        sanitizeEntity(entity, { model: strapi.models['banners'] })
-      ),
-      club: clubBanners.rows.map((entity) =>
-        sanitizeEntity(entity, { model: strapi.models['banners'] })
-      ),
-      address: addressBanners.rows.map((entity) =>
-        sanitizeEntity(entity, { model: strapi.models['banners'] })
-      ),
+      job: jobBanners,
+      property: propertyBanners,
+      shopping: shoppingBanners,
+      service: serviceBanners,
+      education: educationBanners,
+      trip: tripBanners,
+      medical: medicalBanners,
+      law: lawBanners,
+      club: clubBanners,
+      address: addressBanners,
     }
   },
 }

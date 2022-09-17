@@ -13,6 +13,7 @@ const {
   handleCountUserContentsGood,
   querySelectorUserContentsScrap,
   handleCountUserContentsScrap,
+  querySelectorBoardBanners,
 } = require('./query')
 
 const formatError = (error) => [
@@ -439,6 +440,55 @@ module.exports = {
       }
     } catch (err) {
       console.log(err.message)
+    }
+  },
+  async findAllBoardBanners(ctx) {
+    let jobBanners
+    let propertyBanners
+    let shoppingBanners
+    let serviceBanners
+    let lawBanners
+    let educationBanners
+    let medicalBanners
+    let tripBanners
+    let clubBanners
+    let addressBanners
+
+    await Promise.all([
+      strapi.connections.default.raw(querySelectorBoardBanners(1)),
+      strapi.connections.default.raw(querySelectorBoardBanners(2)),
+      strapi.connections.default.raw(querySelectorBoardBanners(3)),
+      strapi.connections.default.raw(querySelectorBoardBanners(4)),
+      strapi.connections.default.raw(querySelectorBoardBanners(5)),
+      strapi.connections.default.raw(querySelectorBoardBanners(6)),
+      strapi.connections.default.raw(querySelectorBoardBanners(7)),
+      strapi.connections.default.raw(querySelectorBoardBanners(8)),
+      strapi.connections.default.raw(querySelectorBoardBanners(9)),
+      strapi.connections.default.raw(querySelectorBoardBanners(10)),
+    ]).then((values) => {
+      jobBanners = values[0]
+      propertyBanners = values[1]
+      shoppingBanners = values[2]
+      serviceBanners = values[3]
+      lawBanners = values[4]
+      educationBanners = values[5]
+      medicalBanners = values[6]
+      tripBanners = values[7]
+      clubBanners = values[8]
+      addressBanners = values[9]
+    })
+
+    return {
+      job: jobBanners,
+      property: propertyBanners,
+      shopping: shoppingBanners,
+      service: serviceBanners,
+      education: educationBanners,
+      trip: tripBanners,
+      medical: medicalBanners,
+      law: lawBanners,
+      club: clubBanners,
+      address: addressBanners,
     }
   },
 }

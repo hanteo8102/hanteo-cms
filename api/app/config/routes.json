@@ -39,6 +39,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/apps/board-banners",
+      "handler": "app.findAllBoardBanners",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

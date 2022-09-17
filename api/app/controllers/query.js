@@ -607,6 +607,18 @@ const handleCountUserContentsScrap = (user) => {
   `
 }
 
+const querySelectorBoardBanners = (bannerCategory) => {
+  return `
+          SELECT *
+          FROM banners
+          WHERE is_public = true
+            AND position = '카테고리 페이지 상단'
+            AND banner_category = bannerCategory
+          ORDER BY priority DESC, created_at DESC
+          LIMIT 16
+  `
+}
+
 // -------------------------------------------------------------------------------------- //
 
 module.exports = {
@@ -620,4 +632,5 @@ module.exports = {
   handleCountUserContentsGood,
   querySelectorUserContentsScrap,
   handleCountUserContentsScrap,
+  querySelectorBoardBanners,
 }

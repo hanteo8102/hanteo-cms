@@ -189,7 +189,7 @@ module.exports = {
       reCommentList: result2.rows.map((entity) =>
         sanitizeEntity(entity, { model: strapi.models['re-comments'] })
       ),
-      totalCount: result3.count + result4.count,
+      totalCount: Number(result3.rows[0].count) + Number(result4.rows[0].count),
     }
   },
   async customRemove(ctx) {

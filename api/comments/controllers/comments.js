@@ -164,14 +164,14 @@ module.exports = {
     `
 
     let sql3 = `
-      SELECT COUNT(*),
+      SELECT COUNT(*)
       FROM comments t1
       WHERE t1.is_delete = FALSE
         ${typeQuery}
     `
 
     let sql4 = `
-      SELECT COUNT(*),
+      SELECT COUNT(*)
       FROM re_comments t1
       WHERE t1.is_delete = FALSE
         ${typeQuery}

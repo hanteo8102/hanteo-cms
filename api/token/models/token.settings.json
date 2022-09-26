@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "token",
+  "info": {
+    "name": "Token",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "biginteger",
+      "required": false,
+      "unique": false
+    },
+    "token": {
+      "type": "text",
+      "required": true,
+      "unique": true
+    },
+    "device": {
+      "type": "enumeration",
+      "enum": [
+        "ANDROID",
+        "IOS"
+      ],
+      "required": true
+    }
+  }
+}

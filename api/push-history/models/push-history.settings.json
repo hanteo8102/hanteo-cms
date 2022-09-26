@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "push_histories",
+  "info": {
+    "name": "pushHistory",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "ANDROID",
+        "IOS"
+      ],
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "contents": {
+      "type": "text",
+      "maxLength": 3000
+    },
+    "url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}

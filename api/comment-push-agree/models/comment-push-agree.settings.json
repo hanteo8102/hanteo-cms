@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comment_push_agrees",
+  "info": {
+    "name": "commentPushAgree"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "biginteger",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "news",
+        "board"
+      ],
+      "default": "board",
+      "required": true
+    },
+    "type_id": {
+      "type": "biginteger",
+      "required": true
+    }
+  }
+}

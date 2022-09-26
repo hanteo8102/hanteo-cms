@@ -163,8 +163,24 @@ module.exports = {
       ORDER BY t1.created_at DESC
     `
 
+    let sql3 = `
+      SELECT COUNT(*),
+      FROM comments t1
+      WHERE t1.is_delete = FALSE
+        ${typeQuery}
+    `
+
+    let sql4 = `
+      SELECT COUNT(*),
+      FROM re_comments t1
+      WHERE t1.is_delete = FALSE
+        ${typeQuery}
+    `
+
     let result = await strapi.connections.default.raw(sql)
     let result2 = await strapi.connections.default.raw(sql2)
+    let result3 = await strapi.connections.default.raw(sql3)
+    let result4 = await strapi.connections.default.raw(sql4)
 
     return {
       commentList: result.rows.map((entity) =>
@@ -173,6 +189,7 @@ module.exports = {
       reCommentList: result2.rows.map((entity) =>
         sanitizeEntity(entity, { model: strapi.models['re-comments'] })
       ),
+      totalCount: result3.count + result4.count,
     }
   },
   async customRemove(ctx) {

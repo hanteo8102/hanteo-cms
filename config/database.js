@@ -1,5 +1,6 @@
 module.exports = ({ env }) => {
   if (env('NODE_ENV') === 'production' || env('NODE_ENV') === 'release') {
+  // if (env('NODE_ENV') === 'production' || env('NODE_ENV') === 'release' || env('NODE_ENV') === 'development') {
     return {
       defaultConnection: 'default',
       connections: {

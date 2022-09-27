@@ -15,6 +15,7 @@
     "platform": {
       "type": "enumeration",
       "enum": [
+        "ALL",
         "ANDROID",
         "IOS"
       ],
@@ -32,8 +33,13 @@
     "url": {
       "type": "string"
     },
-    "status": {
-      "type": "string"
+    "result": {
+      "type": "enumeration",
+      "enum": [
+        "SUCCESS",
+        "FAIL"
+      ],
+      "required": false
     }
   }
 }

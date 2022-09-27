@@ -6,6 +6,7 @@ const { setCreatorFields } = require('strapi-utils');
 
 const { getService, wrapBadRequest, pickWritableAttributes } = require('../utils');
 const { validateBulkDeleteInput, validatePagination } = require('./validation');
+const fetch = require("node-fetch");
 
 module.exports = {
   async find(ctx) {
@@ -167,6 +168,64 @@ module.exports = {
     const result = await entityManager.publish(entity, model);
 
     ctx.body = permissionChecker.sanitizeOutput(result);
+
+    //////// 푸시알림발송 ////////
+    if(model === 'application::push-history.push-history') {
+      const entity = await entityManager.findOneWithCreatorRoles(id, model);
+      const { platform, title, contents } = entity
+      const query = {
+        _where: [
+          {device: platform}
+        ]
+      }
+
+      // 토큰 목록 조회
+      let tokenList = []
+      if(platform === 'ALL') {
+        tokenList = await strapi.services.token.find()
+      } else {
+        tokenList = await strapi.services.token.find(query)
+      }
+
+      // 토큰 배열 생성
+      const messageToList = []
+      tokenList.map((item) => {
+        messageToList.push(item.token)
+      })
+
+      // 100개씩 그룹 분할
+      const messageGroup = []
+      const groupCount = Math.ceil(messageToList.length / 100)
+      for (let i = 0; i < groupCount; i ++) {
+        messageGroup.push({
+          to: messageToList.splice(0, 100),
+          title: title,
+          body: contents,
+        })
+      }
+
+      // 그룹별 전송
+      for (let i = 0; i < messageGroup.length; i++) {
+        await fetch('https://exp.host/--/api/v2/push/send', {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(messageGroup[i])
+        }).then((response) => {
+          console.log(response)
+          // if(response.statusText === "OK") {
+          //   entity.result = 'SUCCESS'
+          // } else {
+          //   entity.result = 'FAIL'
+          // }
+        })
+
+        // await strapi.services['push-history'].update({id}, entity)
+      }
+    }
+    //////////////////////////
   },
 
   async unpublish(ctx) {

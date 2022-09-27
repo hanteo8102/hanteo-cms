@@ -556,13 +556,6 @@
           "url": {
             "type": "string"
           },
-          "result": {
-            "type": "string",
-            "enum": [
-              "SUCCESS",
-              "FAIL"
-            ]
-          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -593,13 +586,6 @@
           },
           "url": {
             "type": "string"
-          },
-          "result": {
-            "type": "string",
-            "enum": [
-              "SUCCESS",
-              "FAIL"
-            ]
           },
           "published_at": {
             "type": "string",

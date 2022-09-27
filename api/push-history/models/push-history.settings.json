@@ -32,14 +32,6 @@
     },
     "url": {
       "type": "string"
-    },
-    "result": {
-      "type": "enumeration",
-      "enum": [
-        "SUCCESS",
-        "FAIL"
-      ],
-      "required": false
     }
   }
 }

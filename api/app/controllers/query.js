@@ -31,6 +31,7 @@ const querySelectorBoard = (category, user) => {
                  (select count(1)
                   from comments
                   where boards.id = comments.type_id
+                    AND comments.is_delete = false
                     AND type = 'board')                    AS comment_count,
                  (select count(1)
                   from re_comments
@@ -91,6 +92,7 @@ const querySelectorBoard = (category, user) => {
                  (select count(1)
                   from comments
                   where boards.id = comments.type_id
+                    AND comments.is_delete = false
                     AND type = 'board')                    AS comment_count,
                  (select count(1)
                   from re_comments
@@ -135,6 +137,7 @@ const querySelectorUserContentsBoard = (user) => {
            (SELECT count(1)
             FROM comments
             WHERE boards.id = comments.type_id
+              AND comments.is_delete = false
               AND type = 'board') AS comment_count,
            (SELECT count(1)
             FROM re_comments
@@ -243,6 +246,7 @@ const querySelectorUserContentsGood = (user) => {
                , (SELECT COUNT(*)
                   FROM comments st1
                   WHERE st1.type = 'board'
+                    AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
@@ -271,6 +275,7 @@ const querySelectorUserContentsGood = (user) => {
                , (SELECT COUNT(*)
                   FROM comments st1
                   WHERE st1.type = 'news'
+                    AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
@@ -298,6 +303,7 @@ const querySelectorUserContentsGood = (user) => {
                , (SELECT COUNT(*)
                   FROM comments st1
                   WHERE st1.type = 'board'
+                    AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
@@ -326,6 +332,7 @@ const querySelectorUserContentsGood = (user) => {
                , (SELECT COUNT(*)
                   FROM comments st1
                   WHERE st1.type = 'news'
+                    AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
@@ -369,6 +376,7 @@ const handleCountUserContentsGood = (user) => {
                      , (SELECT COUNT(*)
                         FROM comments st1
                         WHERE st1.type = 'board'
+                          AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
@@ -397,6 +405,7 @@ const handleCountUserContentsGood = (user) => {
                      , (SELECT COUNT(*)
                         FROM comments st1
                         WHERE st1.type = 'news'
+                          AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
@@ -424,6 +433,7 @@ const handleCountUserContentsGood = (user) => {
                      , (SELECT COUNT(*)
                         FROM comments st1
                         WHERE st1.type = 'board'
+                          AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
@@ -452,6 +462,7 @@ const handleCountUserContentsGood = (user) => {
                      , (SELECT COUNT(*)
                         FROM comments st1
                         WHERE st1.type = 'news'
+                          AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
@@ -494,6 +505,7 @@ const querySelectorUserContentsScrap = (user) => {
                , (SELECT COUNT(*)
                   FROM comments st1
                   WHERE st1.type = 'board'
+                    AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
@@ -522,6 +534,7 @@ const querySelectorUserContentsScrap = (user) => {
                , (SELECT COUNT(*)
                   FROM comments st1
                   WHERE st1.type = 'news'
+                    AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
@@ -564,6 +577,7 @@ const handleCountUserContentsScrap = (user) => {
                      , (SELECT COUNT(*)
                         FROM comments st1
                         WHERE st1.type = 'board'
+                          AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
@@ -592,6 +606,7 @@ const handleCountUserContentsScrap = (user) => {
                      , (SELECT COUNT(*)
                         FROM comments st1
                         WHERE st1.type = 'news'
+                          AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1

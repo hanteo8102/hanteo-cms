@@ -59,6 +59,7 @@ module.exports = {
              CAST((SELECT count(1)
                    FROM comments
                    WHERE NC.id = comments.type_id
+                     AND comments.is_delete = false
                      AND type = 'news') AS INT) AS comment_count,
              CAST((SELECT count(1)
                    FROM re_comments

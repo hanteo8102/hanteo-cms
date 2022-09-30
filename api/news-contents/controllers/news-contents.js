@@ -46,10 +46,12 @@ module.exports = {
              CAST((SELECT count(1)
                    FROM comments
                    WHERE news_contents.id = comments.type_id
+                     AND comments.is_delete = false
                      AND type = 'news') AS INT)            AS comment_count,
              CAST((SELECT count(1)
                    FROM re_comments
                    WHERE news_contents.id = re_comments.type_id
+                     AND re_comments.is_delete = false
                      AND type = 'news') AS INT)            AS re_comment_count
       FROM news_contents
       WHERE news_contents.is_public = true
@@ -134,6 +136,7 @@ module.exports = {
                              , (SELECT COUNT(*)
                                 FROM comments st1
                                 WHERE st1.type = 'board'
+                                  AND st1.is_delete = false
                                   AND st1.type_id = t1.id) AS comment_count
                              , (SELECT COUNT(*)
                                 FROM re_comments st1

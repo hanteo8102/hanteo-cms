@@ -20,6 +20,8 @@ const formatError = (error) => [
   { messages: [{ id: error.id, message: error.message, field: error.field }] },
 ]
 
+const fetch = require("node-fetch");
+
 module.exports = {
   async findNewsContents(ctx) {
     let query = ''
@@ -492,4 +494,51 @@ module.exports = {
       address: addressBanners,
     }
   },
+  // push 관련
+  async sendCommentPush(ctx) {
+    const { title, type, typeId, contents } = ctx.request.body
+
+
+    // 토큰 목록 조회
+    const agreeList = await strapi.services['comment-push-agree'].find({ _where: [{type, type_id: typeId}] })
+    const userList = []
+    agreeList.map((item) => {
+      userList.push(item.user_id)
+    })
+
+    const tokenList = await strapi.services.token.find({ _where: [{ user_id_in: userList }] })
+
+    // 토큰 배열 생성
+    const messageToList = []
+    tokenList.map((item) => {
+      messageToList.push(item.token)
+    })
+
+    // 100개씩 그룹 분할
+    const messageGroup = []
+    const groupCount = Math.ceil(messageToList.length / 100)
+    for (let i = 0; i < groupCount; i ++) {
+      messageGroup.push({
+        to: messageToList.splice(0, 100),
+        title: title,
+        body: contents,
+      })
+    }
+
+    // 그룹별 전송
+    for (let i = 0; i < messageGroup.length; i++) {
+      await fetch('https://exp.host/--/api/v2/push/send', {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(messageGroup[i])
+      })
+    }
+
+    return {
+      result: 'success'
+    }
+  }
 }

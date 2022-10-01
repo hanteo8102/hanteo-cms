@@ -214,7 +214,7 @@ module.exports = {
           },
           body: JSON.stringify(messageGroup[i])
         }).then((response) => {
-          console.log(response)
+          // console.log(response)
           // if(response.statusText === "OK") {
           //   entity.result = 'SUCCESS'
           // } else {

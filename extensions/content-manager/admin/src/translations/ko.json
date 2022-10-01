@@ -320,5 +320,25 @@
   "ComplainHistories.filter.field.name.reported_user": "신고자",
   "ComplainHistories.filter.field.name.id": "id",
   "ComplainHistories.filter.field.name.created_at": "등록일",
-  "ComplainHistories.filter.field.name.updated_at": "갱신일"
+  "ComplainHistories.filter.field.name.updated_at": "갱신일",
+  "PushHistories.filter.field.name.platform": "플랫폼",
+  "PushHistories.filter.field.name.title": "푸시알림 제목",
+  "PushHistories.filter.field.name.contents": "푸시알림 내용",
+  "PushHistories.filter.field.name.url": "연결 링크",
+  "PushHistories.filter.field.name.id": "id",
+  "PushHistories.filter.field.name.created_at": "등록일",
+  "PushHistories.filter.field.name.updated_at": "갱신일",
+  "CommentPushAgrees.filter.field.name.type": "유형",
+  "CommentPushAgrees.filter.field.name.type_id": "유형 아이디",
+  "CommentPushAgrees.filter.field.name.user_id": "회원",
+  "CommentPushAgrees.filter.field.name.id": "id",
+  "CommentPushAgrees.filter.field.name.created_at": "등록일",
+  "CommentPushAgrees.filter.field.name.updated_at": "갱신일",
+  "Tokens.filter.field.name.device": "플랫폼",
+  "Tokens.filter.field.name.token": "토큰",
+  "Tokens.filter.field.name.user_id": "회원",
+  "Tokens.filter.field.name.id": "id",
+  "Tokens.filter.field.name.created_at": "등록일",
+  "Tokens.filter.field.name.updated_at": "갱신일"
+
 }

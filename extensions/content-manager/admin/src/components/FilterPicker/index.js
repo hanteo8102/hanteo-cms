@@ -157,6 +157,12 @@ function FilterPicker({
         return '신고 이력'
       case 'Complains':
         return '신고 관리'
+      case 'CommentPushAgrees':
+        return '댓글알림 이력'
+      case 'PushHistories':
+        return '푸시알림 관리'
+      case 'Tokens':
+        return '토큰 관리'
       default:
         return name
     }

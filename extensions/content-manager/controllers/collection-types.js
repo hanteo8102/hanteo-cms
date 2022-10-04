@@ -231,7 +231,7 @@ module.exports = {
             body: contents,
             data: { url },
           }])
-        }).then((response) => {
+        }).then(() => {
           // console.log(response)
           // if(response.statusText === "OK") {
           //   entity.result = 'SUCCESS'

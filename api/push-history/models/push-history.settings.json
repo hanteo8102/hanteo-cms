@@ -29,6 +29,17 @@
     "contents": {
       "type": "text",
       "maxLength": 3000
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "board",
+        "banner"
+      ],
+      "required": false
+    },
+    "type_id": {
+      "type": "biginteger"
     }
   }
 }

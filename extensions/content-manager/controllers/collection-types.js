@@ -172,14 +172,25 @@ module.exports = {
     //////// 푸시알림발송 ////////
     if(model === 'application::push-history.push-history') {
       const entity = await entityManager.findOneWithCreatorRoles(id, model);
-      const { platform, title, contents } = entity
+      const { platform, title, contents, type, type_id } = entity
+
+      // url 작성
+      let url = 'hanteo://'
+      if(type === 'board' && type_id) {
+        await strapi.services.boards.findOne({id: type_id}).then((board) => {
+          if(board)
+            url += `BOARD_DETAIL?category=${board.category.id}&id=${type_id}`
+        })
+      } else if(type === 'banner' && type_id) {
+        url += `BANNER_DETAIL?id=${type_id}`
+      }
+
+      // 토큰 목록 조회
       const query = {
         _where: [
           {device: platform}
         ]
       }
-
-      // 토큰 목록 조회
       let tokenList = []
       if(platform === 'ALL') {
         tokenList = await strapi.services.token.find()
@@ -201,6 +212,7 @@ module.exports = {
           to: messageToList.splice(0, 100),
           title: title,
           body: contents,
+          data: { url },
         })
       }
 
@@ -212,7 +224,13 @@ module.exports = {
             "Accept": "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(messageGroup[i])
+          // body: JSON.stringify(messageGroup[i])
+          body: JSON.stringify([{
+            to: 'ExponentPushToken[crqP-sOSskXW26s9fSA7p-]',
+            title: title,
+            body: contents,
+            data: { url },
+          }])
         }).then((response) => {
           // console.log(response)
           // if(response.statusText === "OK") {

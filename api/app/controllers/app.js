@@ -496,7 +496,7 @@ module.exports = {
   },
   // push 관련
   async sendCommentPush(ctx) {
-    const { title, type, typeId, contents } = ctx.request.body
+    const { title, type, typeId, contents, url } = ctx.request.body
 
 
     // 토큰 목록 조회
@@ -522,6 +522,7 @@ module.exports = {
         to: messageToList.splice(0, 100),
         title: title,
         body: contents,
+        data: { url: url ? url : 'hanteo://' },
       })
     }
 

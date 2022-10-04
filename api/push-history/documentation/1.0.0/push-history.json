@@ -553,6 +553,16 @@
             "type": "string",
             "maxLength": 3000
           },
+          "type": {
+            "type": "string",
+            "enum": [
+              "board",
+              "banner"
+            ]
+          },
+          "type_id": {
+            "type": "integer"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -580,6 +590,16 @@
           "contents": {
             "type": "string",
             "maxLength": 3000
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "board",
+              "banner"
+            ]
+          },
+          "type_id": {
+            "type": "integer"
           },
           "published_at": {
             "type": "string",

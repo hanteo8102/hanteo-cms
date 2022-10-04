@@ -29,9 +29,6 @@
     "contents": {
       "type": "text",
       "maxLength": 3000
-    },
-    "url": {
-      "type": "string"
     }
   }
 }

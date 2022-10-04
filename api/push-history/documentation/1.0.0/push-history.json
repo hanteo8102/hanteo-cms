@@ -553,9 +553,6 @@
             "type": "string",
             "maxLength": 3000
           },
-          "url": {
-            "type": "string"
-          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -583,9 +580,6 @@
           "contents": {
             "type": "string",
             "maxLength": 3000
-          },
-          "url": {
-            "type": "string"
           },
           "published_at": {
             "type": "string",

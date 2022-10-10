@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "my_page_read_states",
+  "info": {
+    "name": "MyPageReadState",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "read_count": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "content_id": {
+      "type": "biginteger"
+    },
+    "user_id": {
+      "type": "biginteger"
+    }
+  }
+}

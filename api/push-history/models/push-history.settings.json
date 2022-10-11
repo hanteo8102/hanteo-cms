@@ -34,7 +34,8 @@
       "type": "enumeration",
       "enum": [
         "board",
-        "banner"
+        "banner",
+        "news"
       ],
       "required": false
     },

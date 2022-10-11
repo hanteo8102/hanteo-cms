@@ -216,6 +216,8 @@ module.exports = {
         })
       } else if (type === 'banner' && type_id) {
         url += `BANNER_DETAIL?id=${type_id}`
+      } else if (type === 'news' && type_id) {
+        url += `NEWS_DETAIL?id=${type_id}`
       }
 
       // 토큰 목록 조회

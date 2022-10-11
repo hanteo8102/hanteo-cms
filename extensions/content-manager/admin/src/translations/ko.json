@@ -341,6 +341,11 @@
   "Tokens.filter.field.name.user_id": "회원",
   "Tokens.filter.field.name.id": "id",
   "Tokens.filter.field.name.created_at": "등록일",
-  "Tokens.filter.field.name.updated_at": "갱신일"
-
+  "Tokens.filter.field.name.updated_at": "갱신일",
+  "MyPageReadStates.filter.field.name.id": "id",
+  "MyPageReadStates.filter.field.name.created_at": "등록일",
+  "MyPageReadStates.filter.field.name.updated_at": "갱신일",
+  "MyPageReadStates.filter.field.name.user_id": "회원",
+  "MyPageReadStates.filter.field.name.content_id": "게시물 아이디",
+  "MyPageReadStates.filter.field.name.read_count": "읽은 댓글수"
 }

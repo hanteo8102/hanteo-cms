@@ -163,6 +163,8 @@ function FilterPicker({
         return '푸시알림 관리'
       case 'Tokens':
         return '토큰 관리'
+      case 'MyPageReadStates':
+        return '마이페이지 관리'
       default:
         return name
     }

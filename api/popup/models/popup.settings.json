@@ -54,6 +54,16 @@
       "type": "integer",
       "default": 152,
       "required": true
+    },
+    "mobile_image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true,
+      "pluginOptions": {}
     }
   }
 }

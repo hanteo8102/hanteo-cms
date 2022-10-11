@@ -55,15 +55,13 @@
       "default": 152,
       "required": true
     },
-    "mobile_image": {
-      "model": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "web",
+        "mobile"
       ],
-      "plugin": "upload",
-      "required": true,
-      "pluginOptions": {}
+      "default": "web"
     }
   }
 }

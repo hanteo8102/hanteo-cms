@@ -35,7 +35,8 @@
       "enum": [
         "board",
         "banner",
-        "news"
+        "news",
+        "news-paper"
       ],
       "required": false
     },

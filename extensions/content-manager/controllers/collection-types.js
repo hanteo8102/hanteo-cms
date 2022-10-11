@@ -218,6 +218,8 @@ module.exports = {
         url += `BANNER_DETAIL?id=${type_id}`
       } else if (type === 'news' && type_id) {
         url += `NEWS_DETAIL?id=${type_id}`
+      } else if (type === 'news-paper') {
+        url += `NEWS_PAPER`
       }
 
       // 토큰 목록 조회

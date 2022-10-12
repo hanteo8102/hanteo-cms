@@ -143,6 +143,10 @@ module.exports = {
                  THEN N'차단된 멤버의 댓글입니다.'
                ELSE t1.contents
                END                                                                             AS contents,
+             0 < (SELECT COUNT(*)
+                  FROM block_user_lists
+                  WHERE user_id = ${userId}
+                    AND t1.writer = block_user_id) AS is_block,
              t1.comment,
              t1.created_by,
              t1.updated_by,

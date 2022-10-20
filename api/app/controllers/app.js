@@ -20,7 +20,7 @@ const formatError = (error) => [
   { messages: [{ id: error.id, message: error.message, field: error.field }] },
 ]
 
-const fetch = require("node-fetch");
+const fetch = require('node-fetch')
 
 module.exports = {
   async findNewsContents(ctx) {
@@ -72,7 +72,7 @@ module.exports = {
              LEFT JOIN upload_file_morph AS UFM
                        ON (NC.id = UFM.related_id AND related_type = 'news_contents' AND field = 'thumbnail')
       WHERE NC.is_public = true
-      ORDER BY NC.created_at DESC, NC.priority DESC
+      ORDER NC.priority DESC, BY NC.created_at DESC
         ${query}
     `
 
@@ -498,15 +498,18 @@ module.exports = {
   async sendCommentPush(ctx) {
     const { title, type, typeId, contents, url } = ctx.request.body
 
-
     // 토큰 목록 조회
-    const agreeList = await strapi.services['comment-push-agree'].find({ _where: [{type, type_id: typeId}] })
+    const agreeList = await strapi.services['comment-push-agree'].find({
+      _where: [{ type, type_id: typeId }],
+    })
     const userList = []
     agreeList.map((item) => {
       userList.push(item.user_id)
     })
 
-    const tokenList = await strapi.services.token.find({ _where: [{ user_id_in: userList }] })
+    const tokenList = await strapi.services.token.find({
+      _where: [{ user_id_in: userList }],
+    })
 
     // 토큰 배열 생성
     const messageToList = []
@@ -517,7 +520,7 @@ module.exports = {
     // 100개씩 그룹 분할
     const messageGroup = []
     const groupCount = Math.ceil(messageToList.length / 100)
-    for (let i = 0; i < groupCount; i ++) {
+    for (let i = 0; i < groupCount; i++) {
       messageGroup.push({
         to: messageToList.splice(0, 100),
         title: title,
@@ -529,17 +532,17 @@ module.exports = {
     // 그룹별 전송
     for (let i = 0; i < messageGroup.length; i++) {
       await fetch('https://exp.host/--/api/v2/push/send', {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(messageGroup[i])
+        body: JSON.stringify(messageGroup[i]),
       })
     }
 
     return {
-      result: 'success'
+      result: 'success',
     }
-  }
+  },
 }

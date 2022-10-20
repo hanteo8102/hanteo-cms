@@ -72,7 +72,7 @@ module.exports = {
              LEFT JOIN upload_file_morph AS UFM
                        ON (NC.id = UFM.related_id AND related_type = 'news_contents' AND field = 'thumbnail')
       WHERE NC.is_public = true
-      ORDER NC.priority DESC, BY NC.created_at DESC
+      ORDER BY NC.priority DESC, NC.created_at DESC
         ${query}
     `
 

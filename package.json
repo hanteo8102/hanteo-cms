@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "knex": "0.21.18",
+    "moment": "^2.29.4",
     "pg": "8.7.1",
     "strapi": "3.6.9",
     "strapi-admin": "3.6.9",

@@ -347,5 +347,15 @@
   "MyPageReadStates.filter.field.name.updated_at": "갱신일",
   "MyPageReadStates.filter.field.name.user_id": "회원",
   "MyPageReadStates.filter.field.name.content_id": "게시물 아이디",
-  "MyPageReadStates.filter.field.name.read_count": "읽은 댓글수"
+  "MyPageReadStates.filter.field.name.read_count": "읽은 댓글수",
+  "WithdrawalHistories.filter.field.name.id": "id",
+  "WithdrawalHistories.filter.field.name.created_at": "탈퇴일",
+  "WithdrawalHistories.filter.field.name.updated_at": "갱신일",
+  "WithdrawalHistories.filter.field.name.username": "탈퇴회원 아이디",
+  "WithdrawalHistories.filter.field.name.withdrawal_type": "탈퇴사유",
+  "WithdrawalTypes.filter.field.name.id": "id",
+  "WithdrawalTypes.filter.field.name.created_at": "작성일",
+  "WithdrawalTypes.filter.field.name.updated_at": "갱신일",
+  "WithdrawalTypes.filter.field.name.contents": "탈퇴사유",
+  "WithdrawalTypes.filter.field.name.withdrawal_histories": "탈퇴회원"
 }

@@ -38,23 +38,27 @@ module.exports = {
           SELECT boards.*,
                  (SELECT count(1)
                   FROM article_elements
+                  INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                   WHERE boards.id = article_elements.type_id
                     AND type = 'board'
                     AND article_elements.is_delete = false
                     AND good = true)    AS good_count,
                  (SELECT count(1)
                   FROM article_elements
+                  INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                   WHERE boards.id = article_elements.type_id
                     AND type = 'board'
                     AND article_elements.is_delete = false
                     AND hate = true)    AS hate_count,
                  (SELECT count(1)
                   FROM comments
+                  INNER JOIN "users-permissions_user" AS U ON comments.writer = U.id
                   WHERE boards.id = comments.type_id
                     AND comments.is_delete = false
                     AND type = 'board') AS comment_count,
                  (SELECT count(1)
                   FROM re_comments
+                  INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
                   WHERE boards.id = re_comments.type_id
                     AND re_comments.is_delete = false
                     AND type = 'board') AS re_comment_count,
@@ -73,23 +77,27 @@ module.exports = {
           FROM (SELECT boards.*,
                        (SELECT count(1)
                         FROM article_elements
+                        INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                         WHERE boards.id = article_elements.type_id
                           AND type = 'board'
                           AND article_elements.is_delete = false
                           AND good = true)    AS good_count,
                        (SELECT count(1)
                         FROM article_elements
+                        INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                         WHERE boards.id = article_elements.type_id
                           AND type = 'board'
                           AND article_elements.is_delete = false
                           AND hate = true)    AS hate_count,
                        (SELECT count(1)
                         FROM comments
+                        INNER JOIN "users-permissions_user" AS U ON comments.writer = U.id
                         WHERE boards.id = comments.type_id
                           AND comments.is_delete = false
                           AND type = 'board') AS comment_count,
                        (SELECT count(1)
                         FROM re_comments
+                        INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
                         WHERE boards.id = re_comments.type_id
                           AND re_comments.is_delete = false
                           AND type = 'board') AS re_comment_count,
@@ -140,18 +148,21 @@ module.exports = {
           SELECT comments.*,
                  (SELECT count(1)
                   FROM article_elements
+                  INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                   WHERE comments.id = article_elements.type_id
                     AND type = 'comment'
                     AND article_elements.is_delete = false
                     AND good = true)                   AS good_count,
                  (SELECT count(1)
                   FROM article_elements
+                  INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                   WHERE comments.id = article_elements.type_id
                     AND type = 'comment'
                     AND article_elements.is_delete = false
                     AND hate = false)                  AS hate_count,
                  (SELECT count(1)
                   FROM re_comments
+                  INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
                   WHERE comments.id = re_comments.comment
                     AND re_comments.is_delete = false) AS re_comment_count,
                  U.nick_name,
@@ -186,18 +197,21 @@ module.exports = {
           FROM (SELECT comments.*,
                        (SELECT count(1)
                         FROM article_elements
+                        INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                         WHERE comments.id = article_elements.type_id
                           AND type = 'comment'
                           AND article_elements.is_delete = false
                           AND good = true)                   AS good_count,
                        (SELECT count(1)
                         FROM article_elements
+                        INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                         WHERE comments.id = article_elements.type_id
                           AND type = 'comment'
                           AND article_elements.is_delete = false
                           AND hate = false)                  AS hate_count,
                        (SELECT count(1)
                         FROM re_comments
+                        INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
                         WHERE comments.id = re_comments.comment
                           AND re_comments.is_delete = false) AS re_comment_count,
                        U.nick_name,
@@ -278,17 +292,20 @@ module.exports = {
                      , t1.view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'board'
                           AND st1.type_id = t1.id
                           AND st1.is_delete = false
                           AND good = true)         AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'board'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'board'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS re_comment_count
@@ -315,17 +332,20 @@ module.exports = {
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id
                           AND good = true)         AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS re_comment_count
@@ -350,17 +370,20 @@ module.exports = {
                      , t1.view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'board'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id
                           AND good = true)         AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'board'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'board'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS re_comment_count
@@ -386,17 +409,20 @@ module.exports = {
                      , t1.view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id
                           AND good = true)         AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS re_comment_count
@@ -429,17 +455,20 @@ module.exports = {
                            , view_count
                            , (SELECT COUNT(*)
                               FROM article_elements st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'board'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id
                                 AND good = true)         AS good_count
                            , (SELECT COUNT(*)
                               FROM comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'board'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS comment_count
                            , (SELECT COUNT(*)
                               FROM re_comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'board'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS re_comment_count
@@ -461,17 +490,20 @@ module.exports = {
                            , view_count
                            , (SELECT COUNT(*)
                               FROM article_elements st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'news'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id
                                 AND good = true)         AS good_count
                            , (SELECT COUNT(*)
                               FROM comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'news'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS comment_count
                            , (SELECT COUNT(*)
                               FROM re_comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'news'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS re_comment_count
@@ -492,17 +524,20 @@ module.exports = {
                            , t1.view_count
                            , (SELECT COUNT(*)
                               FROM article_elements st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'board'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id
                                 AND good = true)         AS good_count
                            , (SELECT COUNT(*)
                               FROM comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'board'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS comment_count
                            , (SELECT COUNT(*)
                               FROM re_comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'board'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS re_comment_count
@@ -524,17 +559,20 @@ module.exports = {
                            , t1.view_count
                            , (SELECT COUNT(*)
                               FROM article_elements st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'news'
                                 AND st1.type_id = t1.id
                                 AND st1.is_delete = false
                                 AND good = true)         AS good_count
                            , (SELECT COUNT(*)
                               FROM comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'news'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS comment_count
                            , (SELECT COUNT(*)
                               FROM re_comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'news'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS re_comment_count
@@ -606,17 +644,20 @@ module.exports = {
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'board'
                           AND st1.type_id = t1.id
                           AND st1.is_delete = false
                           AND scrap = true)        AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'board'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'board'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS re_comment_count
@@ -642,17 +683,20 @@ module.exports = {
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'news'
                           AND st1.type_id = t1.id
                           AND st1.is_delete = false
                           AND scrap = true)        AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS re_comment_count
@@ -685,17 +729,20 @@ module.exports = {
                            , view_count
                            , (SELECT COUNT(*)
                               FROM article_elements st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'board'
                                 AND st1.type_id = t1.id
                                 AND st1.is_delete = false
                                 AND scrap = true)        AS good_count
                            , (SELECT COUNT(*)
                               FROM comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'board'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS comment_count
                            , (SELECT COUNT(*)
                               FROM re_comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'board'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS re_comment_count
@@ -717,17 +764,20 @@ module.exports = {
                            , view_count
                            , (SELECT COUNT(*)
                               FROM article_elements st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'news'
                                 AND st1.type_id = t1.id
                                 AND st1.is_delete = false
                                 AND scrap = true)        AS good_count
                            , (SELECT COUNT(*)
                               FROM comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'news'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS comment_count
                            , (SELECT COUNT(*)
                               FROM re_comments st1
+                              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                               WHERE st1.type = 'news'
                                 AND st1.is_delete = false
                                 AND st1.type_id = t1.id) AS re_comment_count
@@ -774,23 +824,27 @@ module.exports = {
       SELECT boards.*,
              (SELECT count(1)
               FROM article_elements
+              INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
               WHERE boards.id = article_elements.type_id
                 AND type = 'board'
                 AND article_elements.is_delete = false
                 AND good = true)    AS good_count,
              (SELECT count(1)
               FROM article_elements
+              INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
               WHERE boards.id = article_elements.type_id
                 AND type = 'board'
                 AND article_elements.is_delete = false
                 AND hate = true)    AS hate_count,
              (SELECT count(1)
               FROM comments
+              INNER JOIN "users-permissions_user" AS U ON comments.writer = U.id
               WHERE boards.id = comments.type_id
                 AND comments.is_delete = false
                 AND type = 'board') AS comment_count,
              (SELECT count(1)
               FROM re_comments
+              INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
               WHERE boards.id = re_comments.type_id
                 AND re_comments.is_delete = false
                 AND type = 'board') AS re_comment_count,
@@ -809,23 +863,27 @@ module.exports = {
       FROM (SELECT boards.*,
                    (SELECT count(1)
                     FROM article_elements
+                    INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                     WHERE boards.id = article_elements.type_id
                       AND article_elements.is_delete = false
                       AND type = 'board'
                       AND good = true)    AS good_count,
                    (SELECT count(1)
                     FROM article_elements
+                    INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                     WHERE boards.id = article_elements.type_id
                       AND article_elements.is_delete = false
                       AND type = 'board'
                       AND hate = true)    AS hate_count,
                    (SELECT count(1)
                     FROM comments
+                    INNER JOIN "users-permissions_user" AS U ON comments.writer = U.id
                     WHERE boards.id = comments.type_id
                       AND comments.is_delete = false
                       AND type = 'board') AS comment_count,
                    (SELECT count(1)
                     FROM re_comments
+                    INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
                     WHERE boards.id = re_comments.type_id
                       AND re_comments.is_delete = false
                       AND type = 'board') AS re_comment_count,
@@ -866,18 +924,21 @@ module.exports = {
       SELECT comments.*,
              (SELECT count(1)
               FROM article_elements
+              INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
               WHERE comments.id = article_elements.type_id
                 AND article_elements.is_delete = false
                 AND type = 'comment'
                 AND good = true)                   AS good_count,
              (SELECT count(1)
               FROM article_elements
+              INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
               WHERE comments.id = article_elements.type_id
                 AND article_elements.is_delete = false
                 AND type = 'comment'
                 AND hate = false)                  AS hate_count,
              (SELECT count(1)
               FROM re_comments
+              INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
               WHERE comments.id = re_comments.comment
                 AND re_comments.is_delete = false) AS re_comment_count,
              U.nick_name,
@@ -905,18 +966,21 @@ module.exports = {
       FROM (SELECT comments.*,
                    (SELECT count(1)
                     FROM article_elements
+                    INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                     WHERE comments.id = article_elements.type_id
                       AND article_elements.is_delete = false
                       AND type = 'comment'
                       AND good = true)                   AS good_count,
                    (SELECT count(1)
                     FROM article_elements
+                    INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                     WHERE comments.id = article_elements.type_id
                       AND article_elements.is_delete = false
                       AND type = 'comment'
                       AND hate = false)                  AS hate_count,
                    (SELECT count(1)
                     FROM re_comments
+                    INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
                     WHERE comments.id = re_comments.comment
                       AND re_comments.is_delete = false) AS re_comment_count,
                    U.nick_name,
@@ -987,17 +1051,20 @@ module.exports = {
                  , U.nick_name                 AS nick_name
                  , (SELECT COUNT(*)
                     FROM article_elements st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'board'
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id
                       AND good = true)         AS good_count
                  , (SELECT COUNT(*)
                     FROM comments st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'board'
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id) AS comment_count
                  , (SELECT COUNT(*)
                     FROM re_comments st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'board'
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id) AS re_comment_count
@@ -1024,17 +1091,20 @@ module.exports = {
                  , t1.source_type                 as nick_name
                  , (SELECT COUNT(*)
                     FROM article_elements st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'news'
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id
                       AND good = true)         AS good_count
                  , (SELECT COUNT(*)
                     FROM comments st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'news'
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id) AS comment_count
                  , (SELECT COUNT(*)
                     FROM re_comments st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'news'
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id) AS re_comment_count
@@ -1059,17 +1129,20 @@ module.exports = {
                  , U.nick_name                 AS nick_name
                  , (SELECT COUNT(*)
                     FROM article_elements st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'board'
                       AND st1.type_id = t1.id
                       AND st1.is_delete = false
                       AND good = true)         AS good_count
                  , (SELECT COUNT(*)
                     FROM comments st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'board'
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id) AS comment_count
                  , (SELECT COUNT(*)
                     FROM re_comments st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'board'
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id) AS re_comment_count
@@ -1096,17 +1169,20 @@ module.exports = {
                  , t1.source_type                 AS nick_name
                  , (SELECT COUNT(*)
                     FROM article_elements st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'news'
                       AND st1.type_id = t1.id
                       AND st1.is_delete = false
                       AND good = true)         AS good_count
                  , (SELECT COUNT(*)
                     FROM comments st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'news'
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id) AS comment_count
                  , (SELECT COUNT(*)
                     FROM re_comments st1
+                    INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                     WHERE st1.type = 'news'
                       AND st1.is_delete = false
                       AND st1.type_id = t1.id) AS re_comment_count
@@ -1140,17 +1216,20 @@ module.exports = {
                        , view_count
                        , (SELECT COUNT(*)
                           FROM article_elements st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'board'
                             AND st1.type_id = t1.id
                             AND st1.is_delete = false
                             AND good = true)         AS good_count
                        , (SELECT COUNT(*)
                           FROM comments st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'board'
                             AND st1.is_delete = false
                             AND st1.type_id = t1.id) AS comment_count
                        , (SELECT COUNT(*)
                           FROM re_comments st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'board'
                             AND st1.is_delete = false
                             AND st1.type_id = t1.id) AS re_comment_count
@@ -1172,17 +1251,20 @@ module.exports = {
                        , view_count
                        , (SELECT COUNT(*)
                           FROM article_elements st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'news'
                             AND st1.is_delete = false
                             AND st1.type_id = t1.id
                             AND good = true)         AS good_count
                        , (SELECT COUNT(*)
                           FROM comments st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'news'
                             AND st1.is_delete = false
                             AND st1.type_id = t1.id) AS comment_count
                        , (SELECT COUNT(*)
                           FROM re_comments st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'news'
                             AND st1.is_delete = false
                             AND st1.type_id = t1.id) AS re_comment_count
@@ -1203,17 +1285,20 @@ module.exports = {
                        , t1.view_count
                        , (SELECT COUNT(*)
                           FROM article_elements st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'board'
                             AND st1.type_id = t1.id
                             AND st1.is_delete = false
                             AND good = true)         AS good_count
                        , (SELECT COUNT(*)
                           FROM comments st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'board'
                             AND st1.is_delete = false
                             AND st1.type_id = t1.id) AS comment_count
                        , (SELECT COUNT(*)
                           FROM re_comments st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'board'
                             AND st1.is_delete = false
                             AND st1.type_id = t1.id) AS re_comment_count
@@ -1235,17 +1320,20 @@ module.exports = {
                        , t1.view_count
                        , (SELECT COUNT(*)
                           FROM article_elements st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'news'
                             AND st1.is_delete = false
                             AND st1.type_id = t1.id
                             AND good = true)         AS good_count
                        , (SELECT COUNT(*)
                           FROM comments st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'news'
                             AND st1.is_delete = false
                             AND st1.type_id = t1.id) AS comment_count
                        , (SELECT COUNT(*)
                           FROM re_comments st1
+                          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                           WHERE st1.type = 'news'
                             AND st1.is_delete = false
                             AND st1.type_id = t1.id) AS re_comment_count

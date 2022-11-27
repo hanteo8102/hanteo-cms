@@ -35,21 +35,25 @@ module.exports = {
              news_contents.view_count,
              CAST((SELECT count(1)
                    FROM article_elements
+                   INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                    WHERE news_contents.id = article_elements.type_id
                      AND type = 'news'
                      AND good = true) AS INT)              AS good_count,
              CAST((SELECT count(1)
                    FROM article_elements
+                   INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
                    WHERE news_contents.id = article_elements.type_id
                      AND type = 'news'
                      AND hate = true) AS INT)              AS hate_count,
              CAST((SELECT count(1)
                    FROM comments
+                   INNER JOIN "users-permissions_user" AS U ON comments.writer = U.id
                    WHERE news_contents.id = comments.type_id
                      AND comments.is_delete = false
                      AND type = 'news') AS INT)            AS comment_count,
              CAST((SELECT count(1)
                    FROM re_comments
+                   INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
                    WHERE news_contents.id = re_comments.type_id
                      AND re_comments.is_delete = false
                      AND type = 'news') AS INT)            AS re_comment_count
@@ -135,11 +139,13 @@ module.exports = {
                              , U.nick_name
                              , (SELECT COUNT(*)
                                 FROM comments st1
+                                INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                                 WHERE st1.type = 'board'
                                   AND st1.is_delete = false
                                   AND st1.type_id = t1.id) AS comment_count
                              , (SELECT COUNT(*)
                                 FROM re_comments st1
+                                INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
                                 WHERE st1.type = 'board'
                                   AND st1.type_id = t1.id
                                   AND st1.is_delete = false) AS re_comment_count

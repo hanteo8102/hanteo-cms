@@ -7,12 +7,51 @@
 
 const { sanitizeEntity } = require('strapi-utils')
 
+const fetch = require("node-fetch");
+
 module.exports = {
   /**
    * Retrieve records.
    *
    * @return {Array}
    */
+
+  // async create(ctx) {
+  //   const { jwt, writer, type, type_id, contents, category } = ctx.request.body
+  //
+  //   const result = await strapi.services.comments.create({writer, type, type_id, contents})
+  //
+  //   if(result) {
+  //     const screenName = 'BOARD_DETAIL'
+  //     const url = `hanteo://${screenName}?id=${result.type_id}&category=${category}`
+  //     void await strapi.services.apps.comment.push({
+  //       // request : {
+  //         jwt: jwt,
+  //         type: result.type,
+  //         typeId: result.type_id,
+  //         title: '댓글 알림',
+  //         contents: result.contents,
+  //         url,
+  //       // }
+  //     })
+  //   }
+  //
+  //   return sanitizeEntity(result, { model: strapi.models.comments });
+  // },
+
+  async count(ctx) {
+    const type = ctx.query.type
+    const id = ctx.query.type_id
+    let sql = `
+      SELECT count(*)
+        FROM comments t1
+       INNER JOIN "users-permissions_user" AS U ON t1.writer = U.id
+      WHERE t1.type = '${type}'
+         AND t1.type_id = ${id}
+    `
+
+    return await strapi.connections.default.raw(sql)
+  },
 
   async find(ctx) {
     let query = ''
@@ -32,19 +71,22 @@ module.exports = {
     let sql = `
       SELECT comments.*,
              (SELECT count(1)
-              FROM article_elements
+              FROM article_elements AS st1
+              INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
               WHERE comments.id = article_elements.type_id
                 AND type = 'comment'
                 AND article_elements.is_delete = false
                 AND good = true)                       AS good_count,
              (SELECT count(1)
               FROM article_elements
+              INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
               WHERE comments.id = article_elements.type_id
                 AND type = 'comment'
                 AND article_elements.is_delete = false
                 AND hate = false)                      AS hate_count,
              (SELECT count(1)
               FROM re_comments
+              INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
               WHERE comments.id = re_comments.comment
                 AND re_comments.is_delete = false) AS re_comment_count,
              U.nick_name,
@@ -110,16 +152,19 @@ module.exports = {
                     AND t1.writer = block_user_id) AS is_block,
              (SELECT CAST(COUNT(*) AS INT)
               FROM article_elements st1
+              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
               WHERE st1.type = 'comment'
                 AND st1.type_id = t1.id
                 AND st1.good = TRUE)               AS GOOD_COUNT,
              (SELECT CAST(COUNT(*) AS INT)
               FROM article_elements st1
+              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
               WHERE st1.type = 'comment'
                 AND st1.type_id = t1.id
                 AND st1.hate = TRUE)               AS HATE_COUNT,
              (SELECT CAST(COUNT(*) AS INT)
               FROM re_comments st1
+              INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
               WHERE st1.type = t1.type
                 AND st1.type_id = t1.type_id
                 AND st1.comment = t1.id
@@ -170,6 +215,7 @@ module.exports = {
     let sql3 = `
       SELECT COUNT(*)
       FROM comments t1
+      INNER JOIN "users-permissions_user" AS U ON t1.writer = U.id
       WHERE t1.is_delete = FALSE
         ${typeQuery}
     `
@@ -177,6 +223,7 @@ module.exports = {
     let sql4 = `
       SELECT COUNT(*)
       FROM re_comments t1
+      INNER JOIN "users-permissions_user" AS U ON t1.writer = U.id
       WHERE t1.is_delete = FALSE
         ${typeQuery}
     `

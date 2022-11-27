@@ -9,6 +9,24 @@ const { parseMultipartData, sanitizeEntity } = require('strapi-utils')
 const _ = require('lodash')
 
 module.exports = {
+  async count(ctx) {
+    if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+      try {
+        const sql = `
+          SELECT COUNT(*)-COUNT(read_time) AS count
+          FROM message_boards
+            INNER JOIN "users-permissions_user" AS U ON message_boards.from_user = U.id
+          WHERE to_user = ${ctx.query.to_user}
+            AND is_to_delete = false
+            AND is_keep = false
+        `
+        return await strapi.connections.default.raw(sql)
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  },
+
   async findByMe(ctx) {
     if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
       try {
@@ -61,6 +79,7 @@ module.exports = {
           SELECT COUNT(*)
           FROM (SELECT *
                 FROM message_boards
+                INNER JOIN "users-permissions_user" AS U ON message_boards.from_user = U.id
                 WHERE from_user = ${userId}
                   AND is_from_delete = false) AS a
         `
@@ -69,6 +88,7 @@ module.exports = {
           SELECT COUNT(*)
           FROM (SELECT *
                 FROM message_boards
+                INNER JOIN "users-permissions_user" AS U ON message_boards.to_user = U.id
                 WHERE to_user = ${userId}
                   AND is_to_delete = false
                   AND is_keep = false) AS a
@@ -78,6 +98,7 @@ module.exports = {
           SELECT COUNT(*)
           FROM (SELECT *
                 FROM message_boards
+                INNER JOIN "users-permissions_user" AS U ON message_boards.to_user = U.id
                 WHERE to_user = ${userId}
                   AND is_keep = true) AS a
         `
@@ -85,6 +106,7 @@ module.exports = {
         let notReadCountSql = `
           SELECT COUNT(*)-COUNT(read_time) AS count
           FROM message_boards
+          INNER JOIN "users-permissions_user" AS U ON message_boards.to_user = U.id
           WHERE to_user = ${userId}
             AND is_to_delete = false
             AND is_keep = false
@@ -199,6 +221,7 @@ module.exports = {
     let notReadCountSql = `
           SELECT COUNT(*)-COUNT(read_time) AS count
           FROM message_boards
+          INNER JOIN "users-permissions_user" AS U ON message_boards.to_user = U.id
           WHERE to_user = ${userId}
             AND is_to_delete = false
             AND is_keep = false

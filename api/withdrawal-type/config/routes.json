@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/withdrawal-types",
+      "handler": "withdrawal-type.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/withdrawal-types/count",
+      "handler": "withdrawal-type.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/withdrawal-types/:id",
+      "handler": "withdrawal-type.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/withdrawal-types",
+      "handler": "withdrawal-type.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/withdrawal-types/:id",
+      "handler": "withdrawal-type.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/withdrawal-types/:id",
+      "handler": "withdrawal-type.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

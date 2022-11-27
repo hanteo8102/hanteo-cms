@@ -20,21 +20,25 @@ const querySelectorBoard = (category, user) => {
                         AND boards.writer = block_user_id) AS isBlock,
                  (select count(1)
                   from article_elements
+                  inner join "users-permissions_user" AS U ON U.id = article_elements.writer
                   where boards.id = article_elements.type_id
                     AND type = 'board'
                     AND good = true)                       AS good_count,
                  (select count(1)
                   from article_elements
+                  inner join "users-permissions_user" AS U ON U.id = article_elements.writer
                   where boards.id = article_elements.type_id
                     AND type = 'board'
                     AND hate = true)                       AS hate_count,
                  (select count(1)
                   from comments
+                  inner join "users-permissions_user" AS U ON U.id = comments.writer
                   where boards.id = comments.type_id
                     AND comments.is_delete = false
                     AND type = 'board')                    AS comment_count,
                  (select count(1)
                   from re_comments
+                  inner join "users-permissions_user" AS U ON U.id = re_comments.writer
                   where boards.id = re_comments.type_id
                     AND type = 'board'
                     AND re_comments.is_delete = false)                    AS re_comment_count,
@@ -81,21 +85,25 @@ const querySelectorBoard = (category, user) => {
                         AND boards.writer = block_user_id) AS isBlock,
                  (select count(1)
                   from article_elements
+                  inner join "users-permissions_user" AS U ON U.id = article_elements.writer
                   where boards.id = article_elements.type_id
                     AND type = 'board'
                     AND good = true)                       AS good_count,
                  (select count(1)
                   from article_elements
+                  inner join "users-permissions_user" AS U ON U.id = article_elements.writer
                   where boards.id = article_elements.type_id
                     AND type = 'board'
                     AND hate = true)                       AS hate_count,
                  (select count(1)
                   from comments
+                  inner join "users-permissions_user" AS U ON U.id = comments.writer
                   where boards.id = comments.type_id
                     AND comments.is_delete = false
                     AND type = 'board')                    AS comment_count,
                  (select count(1)
                   from re_comments
+                  inner join "users-permissions_user" AS U ON U.id = re_comments.writer
                   where boards.id = re_comments.type_id
                     AND type = 'board'
                     AND re_comments.is_delete = false)                    AS re_comment_count,
@@ -126,21 +134,25 @@ const querySelectorUserContentsBoard = (user) => {
     SELECT boards.*,
            (SELECT count(1)
             FROM article_elements
+            inner join "users-permissions_user" AS U ON U.id = article_elements.writer
             WHERE boards.id = article_elements.type_id
               AND type = 'board'
               AND good = true)    AS good_count,
            (SELECT count(1)
             FROM article_elements
+            inner join "users-permissions_user" AS U ON U.id = article_elements.writer
             WHERE boards.id = article_elements.type_id
               AND type = 'board'
               AND hate = true)    AS hate_count,
            (SELECT count(1)
             FROM comments
+            inner join "users-permissions_user" AS U ON U.id = article_elements.writer
             WHERE boards.id = comments.type_id
               AND comments.is_delete = false
               AND type = 'board') AS comment_count,
            (SELECT count(1)
             FROM re_comments
+            inner join "users-permissions_user" AS U ON U.id = article_elements.writer
             WHERE boards.id = re_comments.type_id
               AND type = 'board'
               AND re_comments.is_delete = false) AS re_comment_count,
@@ -172,16 +184,19 @@ const querySelectorUserContentsComment = (user) => {
     SELECT comments.*,
            (SELECT COUNT(1)
             FROM article_elements
+            INNER JOIN "users-permissions_user" AS U ON U.id = article_elements.writer
             WHERE comments.id = article_elements.type_id
               AND type = 'comment'
               AND good = true)                       AS good_count,
            (SELECT COUNT(1)
             FROM article_elements
+            INNER JOIN "users-permissions_user" AS U ON U.id = article_elements.writer
             WHERE comments.id = article_elements.type_id
               AND type = 'comment'
               AND hate = false)                      AS hate_count,
            (SELECT COUNT(1)
             FROM re_comments
+            INNER JOIN "users-permissions_user" AS U ON U.id = re_comments.writer
             WHERE comments.id = re_comments.comment AND re_comments.is_delete = false) AS re_comment_count,
            U.nick_name,
            CASE
@@ -240,16 +255,19 @@ const querySelectorUserContentsGood = (user) => {
                , view_count
                , (SELECT COUNT(*)
                   FROM article_elements st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'board'
                     AND st1.type_id = t1.id
                     AND good = true)         AS good_count
                , (SELECT COUNT(*)
                   FROM comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'board'
                     AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'board'
                     AND st1.type_id = t1.id
                     AND st1.is_delete = false) AS re_comment_count
@@ -269,16 +287,19 @@ const querySelectorUserContentsGood = (user) => {
                , view_count
                , (SELECT COUNT(*)
                   FROM article_elements st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'news'
                     AND st1.type_id = t1.id
                     AND good = true)         AS good_count
                , (SELECT COUNT(*)
                   FROM comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'news'
                     AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'news'
                     AND st1.type_id = t1.id
                     AND st1.is_delete = false) AS re_comment_count
@@ -297,16 +318,19 @@ const querySelectorUserContentsGood = (user) => {
                , t1.view_count
                , (SELECT COUNT(*)
                   FROM article_elements st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'board'
                     AND st1.type_id = t1.id
                     AND good = true)         AS good_count
                , (SELECT COUNT(*)
                   FROM comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'board'
                     AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'board'
                     AND st1.type_id = t1.id
                     AND st1.is_delete = false) AS re_comment_count
@@ -326,16 +350,19 @@ const querySelectorUserContentsGood = (user) => {
                , t1.view_count
                , (SELECT COUNT(*)
                   FROM article_elements st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'news'
                     AND st1.type_id = t1.id
                     AND good = true)         AS good_count
                , (SELECT COUNT(*)
                   FROM comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'news'
                     AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'news'
                     AND st1.type_id = t1.id
                     AND st1.is_delete = false) AS re_comment_count
@@ -370,16 +397,19 @@ const handleCountUserContentsGood = (user) => {
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'board'
                           AND st1.type_id = t1.id
                           AND good = true)         AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'board'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'board'
                           AND st1.type_id = t1.id
                           AND st1.is_delete = false) AS re_comment_count
@@ -399,16 +429,19 @@ const handleCountUserContentsGood = (user) => {
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'news'
                           AND st1.type_id = t1.id
                           AND good = true)         AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'news'
                           AND st1.type_id = t1.id
                           AND st1.is_delete = false) AS re_comment_count
@@ -427,16 +460,19 @@ const handleCountUserContentsGood = (user) => {
                      , t1.view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'board'
                           AND st1.type_id = t1.id
                           AND good = true)         AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'board'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'board'
                           AND st1.type_id = t1.id
                           AND st1.is_delete = false) AS re_comment_count
@@ -456,16 +492,19 @@ const handleCountUserContentsGood = (user) => {
                      , t1.view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'news'
                           AND st1.type_id = t1.id
                           AND good = true)         AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'news'
                           AND st1.type_id = t1.id
                           AND st1.is_delete = false) AS re_comment_count
@@ -499,16 +538,19 @@ const querySelectorUserContentsScrap = (user) => {
                , view_count
                , (SELECT COUNT(*)
                   FROM article_elements st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'board'
                     AND st1.type_id = t1.id
                     AND scrap = true)        AS good_count
                , (SELECT COUNT(*)
                   FROM comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'board'
                     AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'board'
                     AND st1.type_id = t1.id
                     AND st1.is_delete = false) AS re_comment_count
@@ -528,16 +570,19 @@ const querySelectorUserContentsScrap = (user) => {
                , view_count
                , (SELECT COUNT(*)
                   FROM article_elements st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'news'
                     AND st1.type_id = t1.id
                     AND scrap = true)        AS good_count
                , (SELECT COUNT(*)
                   FROM comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'news'
                     AND st1.is_delete = false
                     AND st1.type_id = t1.id) AS comment_count
                , (SELECT COUNT(*)
                   FROM re_comments st1
+                  INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                   WHERE st1.type = 'news'
                     AND st1.type_id = t1.id
                     AND st1.is_delete = false) AS re_comment_count
@@ -571,16 +616,19 @@ const handleCountUserContentsScrap = (user) => {
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'board'
                           AND st1.type_id = t1.id
                           AND scrap = true)        AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'board'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'board'
                           AND st1.type_id = t1.id
                           AND st1.is_delete = false) AS re_comment_count
@@ -600,16 +648,19 @@ const handleCountUserContentsScrap = (user) => {
                      , view_count
                      , (SELECT COUNT(*)
                         FROM article_elements st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'news'
                           AND st1.type_id = t1.id
                           AND scrap = true)        AS good_count
                      , (SELECT COUNT(*)
                         FROM comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'news'
                           AND st1.is_delete = false
                           AND st1.type_id = t1.id) AS comment_count
                      , (SELECT COUNT(*)
                         FROM re_comments st1
+                        INNER JOIN "users-permissions_user" AS U ON U.id = st1.writer
                         WHERE st1.type = 'news'
                           AND st1.type_id = t1.id
                           AND st1.is_delete = false) AS re_comment_count

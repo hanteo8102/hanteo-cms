@@ -54,23 +54,27 @@ module.exports = {
                           AND boards.writer = block_user_id) AS isBlock,
                    (select count(1)
                     from article_elements
+                    inner join "users-permissions_user" AS U ON U.id = article_elements.writer
                     where boards.id = article_elements.type_id
                       AND type = 'board'
                       AND article_elements.is_delete = false
                       AND good = true)                       AS good_count,
                    (select count(1)
                     from article_elements
+                    inner join "users-permissions_user" AS U ON U.id = article_elements.writer
                     where boards.id = article_elements.type_id
                       AND type = 'board'
                       AND article_elements.is_delete = false
                       AND hate = true)                       AS hate_count,
                    (select count(1)
                     from comments
+                    inner join "users-permissions_user" AS U ON U.id = comments.writer
                     where boards.id = comments.type_id
                       AND comments.is_delete = false
                       AND type = 'board')                    AS comment_count,
                    (select count(1)
                     from re_comments
+                    inner join "users-permissions_user" AS U ON U.id = re_comments.writer
                     where boards.id = re_comments.type_id
                       AND re_comments.is_delete = false
                       AND type = 'board')                    AS re_comment_count,
@@ -116,23 +120,27 @@ module.exports = {
                           AND boards.writer = block_user_id) AS isBlock,
                    (select count(1)
                     from article_elements
+                    inner join "users-permissions_user" AS U ON U.id = article_elements.writer
                     where boards.id = article_elements.type_id
                       AND type = 'board'
                       AND article_elements.is_delete = false
                       AND good = true)                       AS good_count,
                    (select count(1)
                     from article_elements
+                    inner join "users-permissions_user" AS U ON U.id = article_elements.writer
                     where boards.id = article_elements.type_id
                       AND type = 'board'
                       AND article_elements.is_delete = false
                       AND hate = true)                       AS hate_count,
                    (select count(1)
                     from comments
+                    ineer join "users-permissions_user" AS U ON U.id = comments.writer
                     where boards.id = comments.type_id
                       AND comments.is_delete = false
                       AND type = 'board')                    AS comment_count,
                    (select count(1)
                     from re_comments
+                    inner join "users-permissions_user" AS U ON U.id = re_comments.writer
                     where boards.id = re_comments.type_id
                       AND re_comments.is_delete = false
                       AND type = 'board')                    AS re_comment_count,
@@ -213,23 +221,27 @@ module.exports = {
                     AND boards.writer = block_user_id) AS isBlock,
              CAST((select count(1)
                    from article_elements
+                   inner join "users-permissions_user" AS U ON U.id = article_elements.writer
                    where boards.id = article_elements.type_id
                      AND type = 'board'
                      AND article_elements.is_delete = false
                      AND good = true) AS INT)          AS good_count,
              CAST((select count(1)
                    from article_elements
+                   inner join "users-permissions_user" AS U ON U.id = article_elements.writer
                    where boards.id = article_elements.type_id
                      AND type = 'board'
                      AND article_elements.is_delete = false
                      AND hate = true) AS INT)          AS hate_count,
              CAST((select count(1)
                    from comments
+                   inner join "users-permissions_user" AS U ON U.id = comments.writer
                    where boards.id = comments.type_id
                      AND comments.is_delete = false
                      AND type = 'board') AS INT)       AS comment_count,
              CAST((select count(1)
                    from re_comments
+                   inner join "users-permissions_user" AS U ON U.id = re_comments.writer
                    where boards.id = re_comments.type_id
                      AND re_comments.is_delete = false
                      AND type = 'board') AS INT)       AS re_comment_count,

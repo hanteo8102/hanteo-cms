@@ -17,11 +17,13 @@ module.exports = {
         from (select t1.id,
                      (select count(1)
                       from comments st1
+                      inner join "users-permissions_user" AS U ON st1.writer = U.id
                       where st1.type = 'board'
                         and st1.type_id = t1.id
                         and st1.is_delete = false ) as comment_count,
                      (select count(1)
                       from re_comments st1
+                      inner join "users-permissions_user" AS U ON st1.writer = U.id
                       where st1.type = 'board'
                         and st1.type_id = t1.id
                         and st1.is_delete = false ) as re_comment_count,

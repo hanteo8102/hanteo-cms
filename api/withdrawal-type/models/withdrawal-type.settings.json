@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "withdrawal_types",
+  "info": {
+    "name": "WithdrawalType",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "contents": {
+      "type": "string",
+      "required": false
+    },
+    "withdrawal_histories": {
+      "collection": "withdrawal-history",
+      "via": "withdrawal_type"
+    }
+  }
+}

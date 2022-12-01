@@ -80,6 +80,10 @@ const LeftMenuLinksSection = ({
         return '토큰 관리'
       case 'MyPageReadStates':
         return '마이페이지 관리'
+      case 'WithdrawalTypes':
+        return '회원탈퇴'
+      case 'WithdrawalHistories':
+        return '회원탈퇴 기록'
       default:
         return defaultLabel
     }

@@ -134,7 +134,7 @@ module.exports = {
                       AND hate = true)                       AS hate_count,
                    (select count(1)
                     from comments
-                    ineer join "users-permissions_user" AS U ON U.id = comments.writer
+                    inner join "users-permissions_user" AS U ON U.id = comments.writer
                     where boards.id = comments.type_id
                       AND comments.is_delete = false
                       AND type = 'board')                    AS comment_count,

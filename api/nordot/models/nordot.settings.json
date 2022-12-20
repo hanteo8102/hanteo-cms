@@ -1,0 +1,14 @@
+{
+  "collectionName": "nordots",
+  "info": {
+    "name": "nordot",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false,
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {}
+}

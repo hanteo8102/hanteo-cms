@@ -26,9 +26,11 @@
     "prettier": "^2.5.1"
   },
   "dependencies": {
+    "axios": "^1.2.1",
     "knex": "0.21.18",
     "moment": "^2.29.4",
     "pg": "8.7.1",
+    "qs": "^6.11.0",
     "strapi": "3.6.9",
     "strapi-admin": "3.6.9",
     "strapi-connector-bookshelf": "3.6.9",

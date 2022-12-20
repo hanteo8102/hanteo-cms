@@ -30,9 +30,10 @@ module.exports = {
     })
     try {
       response = await NordotAPI.get(`/curator/curations.list?${query}`)
+      console.log(response)
     } catch (e) {
       console.log(e)
     }
-    return response
+    return response.body
   },
 }

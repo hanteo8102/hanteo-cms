@@ -10,7 +10,7 @@ const qs = require('qs')
 
 module.exports = {
   find: async (ctx) => {
-    console.log(ctx)
+    console.log(ctx.params.limit)
 
     // const NordotAPI = axios.create({
     //   baseURL: process.env.NORDOT_API_URL,

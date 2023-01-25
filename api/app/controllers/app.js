@@ -498,6 +498,10 @@ module.exports = {
   async sendCommentPush(ctx) {
     const { title, type, typeId, contents, url } = ctx.request.body
 
+    if (type === undefined || typeId === undefined) {
+      return 'failed'
+    }
+
     // 토큰 목록 조회
     const agreeList = await strapi.services['comment-push-agree'].find({
       _where: [{ type, type_id: typeId }],

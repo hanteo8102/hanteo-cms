@@ -170,6 +170,52 @@ module.exports = {
     let boardList = await strapi.connections.default.raw(boardListSql)
     let boardCount = await strapi.connections.default.raw(boardCountSql)
 
+    // 주소록
+    let addressSql = `SELECT B.id AS book_id
+                           , B.title AS book_title
+                           , C.id AS group_id
+                           , C.group_name AS group_title
+                           , A.*
+                           , E.url
+                           , E.formats
+                        FROM address_lists A
+                        LEFT JOIN address_books B ON A.address_book = B.id
+                        LEFT JOIN address_groups C ON B.id = C.address_book AND A.address_group = C.id
+                        LEFT JOIN upload_file_morph D ON A.id = D.related_id AND D.related_type = 'address_lists'
+                        LEFT JOIN upload_file E ON D.upload_file_id = E.id
+                       WHERE A.company like '%${keyword}%'
+                          OR A.description like '%${keyword}%'
+                          OR A.address like '%${keyword}%'
+                          OR A.contact_info like '%${keyword}%'
+                       ORDER BY A.address_book, A.premium DESC, A.address_group, A.priority, A.id`
+
+    const findAddressListResult = await strapi.connections.default.raw(addressSql)
+    const addressList = []
+
+    findAddressListResult.rows.map((item) => {
+      if(item.formats) {
+        item.thumbnail = item.formats.thumbnail
+      }
+
+      if(addressList.findIndex((v) => v.bookId === item.book_id) === -1) {
+        addressList.push({ bookId: item.book_id, bookTitle: item.book_title, groupList: [], premiumList: [] })
+      }
+    })
+
+    findAddressListResult.rows.map((item) => {
+      const index = addressList.findIndex((v) => v.bookId === item.book_id)
+      if (item.premium) {
+        addressList[index].premiumList.push(sanitizeEntity(item, { model: strapi.models['address-list']}))
+      } else {
+        const groupIndex = addressList[index].groupList.findIndex((v) => v.groupId === item.group_id)
+        if(groupIndex === -1) {
+          addressList[index].groupList.push({groupId: item.group_id, groupTitle: item.group_title, list: [sanitizeEntity(item, { model: strapi.models['address-list']})]})
+        } else {
+          addressList[index].groupList[groupIndex].list.push(sanitizeEntity(item, { model: strapi.models['address-list']}))
+        }
+      }
+    })
+
     return {
       newsList: {
         contents: newsList.rows.map((entity) =>
@@ -188,6 +234,9 @@ module.exports = {
           sanitizeEntity(entity, { model: strapi.models['boards'] })
         ),
         totalCount: boardCount.rows[0].count,
+      },
+      addressList: {
+        contents: addressList
       },
     }
   },

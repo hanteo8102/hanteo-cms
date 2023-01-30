@@ -21,7 +21,6 @@ module.exports = {
       },
     })
 
-    let response
     const query = qs.stringify({
       unit_id: process.env.NORDOT_API_UNIT_ID,
       status: 'public',
@@ -29,10 +28,11 @@ module.exports = {
       limit,
     })
     try {
-      response = await NordotAPI.get(`/curator/curations.list?${query}`)
+      const response = await NordotAPI.get(`/curator/curations.list?${query}`)
+      return response.data
     } catch (e) {
       console.log(e)
+      return ctx.notFound()
     }
-    return response.data
   },
 }

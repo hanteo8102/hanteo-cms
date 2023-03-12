@@ -12,7 +12,7 @@ import PageTitle from '../../components/PageTitle'
 import { useModels } from '../../hooks'
 
 import useFetch from './hooks'
-import { Container } from './components'
+import Container from "strapi-plugin-upload/admin/src/components/Container";
 
 const HomePage = ({ history: { push } }) => {
   const { error, isLoading, posts } = useFetch()
@@ -70,125 +70,8 @@ const HomePage = ({ history: { push } }) => {
         {(title) => <PageTitle title={title} />}
       </FormattedMessage>
       <Container className="container-fluid">
-        <div className="row">
-          {/*<div className="col-lg-8 col-md-12">*/}
-          {/*  <Block>*/}
-          {/*    <Wave />*/}
-          {/*    <FormattedMessage*/}
-          {/*      id={headerId}*/}
-          {/*      values={{*/}
-          {/*        name: upperFirst(username),*/}
-          {/*      }}*/}
-          {/*    >*/}
-          {/*      {msg => <h2 id="mainHeader">{msg}</h2>}*/}
-          {/*    </FormattedMessage>*/}
-          {/*    {hasAlreadyCreatedContentTypes ? (*/}
-          {/*      <FormattedMessage id="app.components.HomePage.welcomeBlock.content.again">*/}
-          {/*        {msg => <P>{msg}</P>}*/}
-          {/*      </FormattedMessage>*/}
-          {/*    ) : (*/}
-          {/*      <FormattedMessage id="HomePage.welcome.congrats">*/}
-          {/*        {congrats => {*/}
-          {/*          return (*/}
-          {/*            <FormattedMessage id="HomePage.welcome.congrats.content">*/}
-          {/*              {content => {*/}
-          {/*                return (*/}
-          {/*                  <FormattedMessage id="HomePage.welcome.congrats.content.bold">*/}
-          {/*                    {boldContent => {*/}
-          {/*                      return (*/}
-          {/*                        <P>*/}
-          {/*                          <b>{congrats}</b>&nbsp;*/}
-          {/*                          {content}&nbsp;*/}
-          {/*                          <b>{boldContent}</b>*/}
-          {/*                        </P>*/}
-          {/*                      );*/}
-          {/*                    }}*/}
-          {/*                  </FormattedMessage>*/}
-          {/*                );*/}
-          {/*              }}*/}
-          {/*            </FormattedMessage>*/}
-          {/*          );*/}
-          {/*        }}*/}
-          {/*      </FormattedMessage>*/}
-          {/*    )}*/}
-          {/*    {hasAlreadyCreatedContentTypes && (*/}
-          {/*      <div style={{ marginTop: isLoading ? 60 : 50 }}>*/}
-          {/*        {posts.map((post, index) => (*/}
-          {/*          <BlogPost*/}
-          {/*            {...post}*/}
-          {/*            key={post.link}*/}
-          {/*            isFirst={index === 0}*/}
-          {/*            isLoading={isLoading}*/}
-          {/*            error={error}*/}
-          {/*          />*/}
-          {/*        ))}*/}
-          {/*      </div>*/}
-          {/*    )}*/}
-          {/*    <FormattedMessage id={linkProps.id}>*/}
-          {/*      {msg => (*/}
-          {/*        <ALink*/}
-          {/*          rel="noopener noreferrer"*/}
-          {/*          {...linkProps}*/}
-          {/*          style={{ verticalAlign: ' bottom', marginBottom: 5 }}*/}
-          {/*        >*/}
-          {/*          {msg}*/}
-          {/*        </ALink>*/}
-          {/*      )}*/}
-          {/*    </FormattedMessage>*/}
-          {/*    <Separator style={{ marginTop: 37, marginBottom: 36 }} />*/}
-          {/*    <div style={{ display: 'flex', justifyContent: 'space-between' }}>*/}
-          {/*      {FIRST_BLOCK_LINKS.map((data, index) => {*/}
-          {/*        const type = index === 0 ? 'doc' : 'code';*/}
-
-          {/*        return (*/}
-          {/*          <LinkWrapper href={data.link} target="_blank" key={data.link} type={type}>*/}
-          {/*            <FormattedMessage id={data.titleId}>*/}
-          {/*              {title => <p className="bold">{title}</p>}*/}
-          {/*            </FormattedMessage>*/}
-          {/*            <FormattedMessage id={data.contentId}>*/}
-          {/*              {content => <p>{content}</p>}*/}
-          {/*            </FormattedMessage>*/}
-          {/*          </LinkWrapper>*/}
-          {/*        );*/}
-          {/*      })}*/}
-          {/*    </div>*/}
-          {/*  </Block>*/}
-          {/*</div>*/}
-
-          {/*<div className="col-md-12 col-lg-4">*/}
-          {/*  <Block style={{ paddingRight: 30, paddingBottom: 0 }}>*/}
-          {/*    <FormattedMessage id="HomePage.community">{msg => <h2>{msg}</h2>}</FormattedMessage>*/}
-          {/*    <FormattedMessage id="app.components.HomePage.community.content">*/}
-          {/*      {content => <P style={{ marginTop: 7, marginBottom: 0 }}>{content}</P>}*/}
-          {/*    </FormattedMessage>*/}
-          {/*    <FormattedMessage id="HomePage.roadmap">*/}
-          {/*      {msg => (*/}
-          {/*        <ALink*/}
-          {/*          rel="noopener noreferrer"*/}
-          {/*          href="https://portal.productboard.com/strapi/1-public-roadmap/tabs/2-under-consideration"*/}
-          {/*          target="_blank"*/}
-          {/*        >*/}
-          {/*          {msg}*/}
-          {/*        </ALink>*/}
-          {/*      )}*/}
-          {/*    </FormattedMessage>*/}
-
-          {/*    <Separator style={{ marginTop: 18 }} />*/}
-          {/*    <div*/}
-          {/*      className="row social-wrapper"*/}
-          {/*      style={{*/}
-          {/*        display: 'flex',*/}
-          {/*        margin: 0,*/}
-          {/*        marginTop: 36,*/}
-          {/*        marginLeft: -15,*/}
-          {/*      }}*/}
-          {/*    >*/}
-          {/*      {SOCIAL_LINKS.map((value, key) => (*/}
-          {/*        <SocialLink key={key} {...value} />*/}
-          {/*      ))}*/}
-          {/*    </div>*/}
-          {/*  </Block>*/}
-          {/*</div>*/}
+        <div className="col-lg-8 col-md-12">
+          <iframe width="100%" height="700px" src="https://lookerstudio.google.com/embed/reporting/09fdb755-eb74-4591-9efe-76e02159bf41/page/oyFID"/>
         </div>
       </Container>
     </>

@@ -71,7 +71,7 @@ const HomePage = ({ history: { push } }) => {
       </FormattedMessage>
       <Container className="container-fluid">
         <div className="col-lg-8 col-md-12">
-          <iframe width="100%" height="700px" src="https://lookerstudio.google.com/embed/reporting/09fdb755-eb74-4591-9efe-76e02159bf41/page/oyFID"/>
+          <iframe width="130%" height="1100px" src="https://lookerstudio.google.com/embed/reporting/09fdb755-eb74-4591-9efe-76e02159bf41/page/oyFID"/>
         </div>
       </Container>
     </>

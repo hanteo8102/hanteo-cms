@@ -12,7 +12,7 @@ import PageTitle from '../../components/PageTitle'
 import { useModels } from '../../hooks'
 
 import useFetch from './hooks'
-import Container from "strapi-plugin-upload/admin/src/components/Container";
+import Container from 'strapi-plugin-upload/admin/src/components/Container'
 
 const HomePage = ({ history: { push } }) => {
   const { error, isLoading, posts } = useFetch()
@@ -71,7 +71,11 @@ const HomePage = ({ history: { push } }) => {
       </FormattedMessage>
       <Container className="container-fluid">
         <div className="col-lg-8 col-md-12">
-          <iframe width="130%" height="1100px" src="https://lookerstudio.google.com/embed/reporting/09fdb755-eb74-4591-9efe-76e02159bf41/page/oyFID"/>
+          <iframe
+            width="130%"
+            height="1100px"
+            src="https://lookerstudio.google.com/embed/reporting/09fdb755-eb74-4591-9efe-76e02159bf41/page/oyFID"
+          />
         </div>
       </Container>
     </>

@@ -609,6 +609,9 @@
                 "banner_category": {
                   "type": "string"
                 },
+                "writer": {
+                  "type": "string"
+                },
                 "created_by": {
                   "type": "string"
                 },

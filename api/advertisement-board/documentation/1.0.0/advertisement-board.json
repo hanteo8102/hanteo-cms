@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/push-histories": {
+    "/advertisement-boards": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -52,7 +52,7 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Advertisement-board"
         ],
         "parameters": [
           {
@@ -244,7 +244,7 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Advertisement-board"
         ],
         "requestBody": {
           "description": "",
@@ -252,14 +252,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPush-history"
+                "$ref": "#/components/schemas/NewAdvertisement-board"
               }
             }
           }
         }
       }
     },
-    "/push-histories/count": {
+    "/advertisement-boards/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -311,12 +311,12 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Advertisement-board"
         ],
         "parameters": []
       }
     },
-    "/push-histories/{id}": {
+    "/advertisement-boards/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -368,7 +368,7 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Advertisement-board"
         ],
         "parameters": [
           {
@@ -434,7 +434,7 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Advertisement-board"
         ],
         "requestBody": {
           "description": "",
@@ -442,7 +442,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPush-history"
+                "$ref": "#/components/schemas/NewAdvertisement-board"
               }
             }
           }
@@ -508,7 +508,155 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Advertisement-board"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/advertisement-boards/view/{id}": {
+      "put": {
+        "deprecated": false,
+        "description": "Update a record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Advertisement-board"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/advertisement-boards/custom/{id}": {
+      "delete": {
+        "deprecated": false,
+        "description": "Delete a record",
+        "responses": {
+          "200": {
+            "description": "deletes a single record based on the ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Advertisement-board"
         ],
         "parameters": [
           {
@@ -527,89 +675,244 @@
   },
   "components": {
     "schemas": {
-      "Push-history": {
+      "Advertisement-board": {
         "required": [
-          "id",
-          "platform",
-          "title"
+          "id"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "platform": {
-            "type": "string",
-            "enum": [
-              "ALL",
-              "ANDROID",
-              "IOS"
-            ]
-          },
           "title": {
-            "type": "string",
-            "maxLength": 100
+            "type": "string"
           },
           "contents": {
-            "type": "string",
-            "maxLength": 3000
+            "type": "string"
           },
-          "type": {
+          "writer": {
+            "required": [
+              "id",
+              "email"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "resetPasswordToken": {
+                "type": "string"
+              },
+              "confirmationToken": {
+                "type": "string"
+              },
+              "confirmed": {
+                "type": "boolean"
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "role": {
+                "type": "string"
+              },
+              "gender": {
+                "type": "string",
+                "enum": [
+                  "남성",
+                  "여성"
+                ]
+              },
+              "birth_day": {
+                "type": "string"
+              },
+              "post": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string",
+                "enum": [
+                  "한국",
+                  "일본",
+                  "기타 국가"
+                ]
+              },
+              "nick_name": {
+                "type": "string"
+              },
+              "visitor_count": {
+                "type": "integer"
+              },
+              "attendance": {
+                "type": "string"
+              },
+              "complain_histories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "writing_type": {
             "type": "string",
             "enum": [
-              "board",
-              "banner",
-              "news",
-              "news-paper",
-              "advertisement"
+              "일반 게시물",
+              "공지",
+              "필독"
             ]
           },
-          "type_id": {
-            "type": "integer"
-          },
-          "published_at": {
+          "color_type": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "없음(일반 게시물)",
+              "주황(#ff6f1e)",
+              "파랑(#2f6fd4)",
+              "빨강(#ff6666)",
+              "회색(#9a9a9a)",
+              "검정(#000000)"
+            ]
+          },
+          "is_delete": {
+            "type": "boolean"
+          },
+          "category": {
+            "required": [
+              "id",
+              "company_name",
+              "main_banner_text",
+              "contents",
+              "position",
+              "is_public",
+              "priority"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "company_name": {
+                "type": "string"
+              },
+              "main_banner_text": {
+                "type": "string"
+              },
+              "sub_banner_text": {
+                "type": "string"
+              },
+              "small_banner_image": {
+                "type": "string"
+              },
+              "small_thumbnail_path": {
+                "type": "string"
+              },
+              "big_banner_image": {
+                "type": "string"
+              },
+              "big_thumbnail_path": {
+                "type": "string"
+              },
+              "site_url": {
+                "type": "string"
+              },
+              "contents": {
+                "type": "string"
+              },
+              "position": {
+                "type": "string",
+                "enum": [
+                  "홈 화면",
+                  "홈 화면(큰 배너)",
+                  "사이드 화면",
+                  "카테고리 페이지 상단"
+                ]
+              },
+              "is_public": {
+                "type": "boolean"
+              },
+              "contact_info": {
+                "type": "string"
+              },
+              "priority": {
+                "type": "integer"
+              },
+              "pdf_file": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "banner_category": {
+                "type": "string"
+              },
+              "writer": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "view_count": {
+            "type": "integer"
           }
         }
       },
-      "NewPush-history": {
-        "required": [
-          "platform",
-          "title"
-        ],
+      "NewAdvertisement-board": {
         "properties": {
-          "platform": {
-            "type": "string",
-            "enum": [
-              "ALL",
-              "ANDROID",
-              "IOS"
-            ]
-          },
           "title": {
-            "type": "string",
-            "maxLength": 100
+            "type": "string"
           },
           "contents": {
-            "type": "string",
-            "maxLength": 3000
+            "type": "string"
           },
-          "type": {
+          "writer": {
+            "type": "string"
+          },
+          "writing_type": {
             "type": "string",
             "enum": [
-              "board",
-              "banner",
-              "news",
-              "news-paper",
-              "advertisement"
+              "일반 게시물",
+              "공지",
+              "필독"
             ]
           },
-          "type_id": {
-            "type": "integer"
-          },
-          "published_at": {
+          "color_type": {
             "type": "string",
-            "format": "date-time"
+            "enum": [
+              "없음(일반 게시물)",
+              "주황(#ff6f1e)",
+              "파랑(#2f6fd4)",
+              "빨강(#ff6666)",
+              "회색(#9a9a9a)",
+              "검정(#000000)"
+            ]
+          },
+          "is_delete": {
+            "type": "boolean"
+          },
+          "category": {
+            "type": "string"
+          },
+          "view_count": {
+            "type": "integer"
           },
           "created_by": {
             "type": "string"

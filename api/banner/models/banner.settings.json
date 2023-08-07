@@ -96,6 +96,10 @@
     "banner_category": {
       "via": "banners",
       "model": "banner-categories"
+    },
+    "writer": {
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/push-histories": {
+    "/nordots": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -10,10 +10,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Nordot"
                   }
                 }
               }
@@ -52,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Nordot"
         ],
         "parameters": [
           {
@@ -202,11 +201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Nordot"
                 }
               }
             }
@@ -244,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Nordot"
         ],
         "requestBody": {
           "description": "",
@@ -252,14 +247,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPush-history"
+                "$ref": "#/components/schemas/NewNordot"
               }
             }
           }
         }
       }
     },
-    "/push-histories/count": {
+    "/nordots/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -270,8 +265,8 @@
               "application/json": {
                 "schema": {
                   "properties": {
-                    "foo": {
-                      "type": "string"
+                    "count": {
+                      "type": "integer"
                     }
                   }
                 }
@@ -311,12 +306,12 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Nordot"
         ],
         "parameters": []
       }
     },
-    "/push-histories/{id}": {
+    "/nordots/{id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -326,11 +321,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Nordot"
                 }
               }
             }
@@ -368,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Nordot"
         ],
         "parameters": [
           {
@@ -392,11 +383,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
+                  "$ref": "#/components/schemas/Nordot"
                 }
               }
             }
@@ -434,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Nordot"
         ],
         "requestBody": {
           "description": "",
@@ -442,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPush-history"
+                "$ref": "#/components/schemas/NewNordot"
               }
             }
           }
@@ -508,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Push-history"
+          "Nordot"
         ],
         "parameters": [
           {
@@ -527,90 +514,18 @@
   },
   "components": {
     "schemas": {
-      "Push-history": {
+      "Nordot": {
         "required": [
-          "id",
-          "platform",
-          "title"
+          "id"
         ],
         "properties": {
           "id": {
             "type": "string"
-          },
-          "platform": {
-            "type": "string",
-            "enum": [
-              "ALL",
-              "ANDROID",
-              "IOS"
-            ]
-          },
-          "title": {
-            "type": "string",
-            "maxLength": 100
-          },
-          "contents": {
-            "type": "string",
-            "maxLength": 3000
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "board",
-              "banner",
-              "news",
-              "news-paper",
-              "advertisement"
-            ]
-          },
-          "type_id": {
-            "type": "integer"
-          },
-          "published_at": {
-            "type": "string",
-            "format": "date-time"
           }
         }
       },
-      "NewPush-history": {
-        "required": [
-          "platform",
-          "title"
-        ],
+      "NewNordot": {
         "properties": {
-          "platform": {
-            "type": "string",
-            "enum": [
-              "ALL",
-              "ANDROID",
-              "IOS"
-            ]
-          },
-          "title": {
-            "type": "string",
-            "maxLength": 100
-          },
-          "contents": {
-            "type": "string",
-            "maxLength": 3000
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "board",
-              "banner",
-              "news",
-              "news-paper",
-              "advertisement"
-            ]
-          },
-          "type_id": {
-            "type": "integer"
-          },
-          "published_at": {
-            "type": "string",
-            "format": "date-time"
-          },
           "created_by": {
             "type": "string"
           },
@@ -621,5 +536,9 @@
       }
     }
   },
-  "tags": []
+  "tags": [
+    {
+      "name": "Nordot"
+    }
+  ]
 }

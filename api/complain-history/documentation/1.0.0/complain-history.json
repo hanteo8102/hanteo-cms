@@ -640,7 +640,8 @@
             "enum": [
               "board",
               "comment",
-              "re-comment"
+              "re-comment",
+              "advertisement"
             ]
           },
           "type_id": {
@@ -665,7 +666,8 @@
                 "enum": [
                   "board",
                   "comment",
-                  "re-comment"
+                  "re-comment",
+                  "advertisement"
                 ]
               },
               "type_id": {
@@ -700,7 +702,8 @@
             "enum": [
               "board",
               "comment",
-              "re-comment"
+              "re-comment",
+              "advertisement"
             ]
           },
           "type_id": {

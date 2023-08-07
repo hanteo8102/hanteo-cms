@@ -36,7 +36,8 @@
         "board",
         "banner",
         "news",
-        "news-paper"
+        "news-paper",
+        "advertisement"
       ],
       "required": false
     },

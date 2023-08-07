@@ -546,7 +546,8 @@
             "default": "board",
             "enum": [
               "news",
-              "board"
+              "board",
+              "advertisement"
             ]
           },
           "type_id": {
@@ -569,7 +570,8 @@
             "default": "board",
             "enum": [
               "news",
-              "board"
+              "board",
+              "advertisement"
             ]
           },
           "type_id": {

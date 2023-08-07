@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/advertisement-boards",
+      "handler": "advertisement-board.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/advertisement-boards/count",
+      "handler": "advertisement-board.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/advertisement-boards/:id",
+      "handler": "advertisement-board.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/advertisement-boards",
+      "handler": "advertisement-board.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/advertisement-boards/:id",
+      "handler": "advertisement-board.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/advertisement-boards/:id",
+      "handler": "advertisement-board.delete",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/advertisement-boards/view/:id",
+      "handler": "advertisement-board.updateViewCount",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/advertisement-boards/custom/:id",
+      "handler": "advertisement-board.customRemove",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

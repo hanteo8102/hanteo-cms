@@ -19,7 +19,8 @@
       "type": "enumeration",
       "enum": [
         "news",
-        "board"
+        "board",
+        "advertisement"
       ],
       "default": "board",
       "required": true

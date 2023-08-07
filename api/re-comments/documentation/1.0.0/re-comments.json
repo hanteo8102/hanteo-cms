@@ -704,7 +704,8 @@
                 "type": "string",
                 "enum": [
                   "news",
-                  "board"
+                  "board",
+                  "advertisement"
                 ]
               },
               "type_id": {
@@ -728,7 +729,8 @@
             "type": "string",
             "enum": [
               "news",
-              "board"
+              "board",
+              "advertisement"
             ]
           },
           "type_id": {
@@ -835,7 +837,8 @@
             "type": "string",
             "enum": [
               "news",
-              "board"
+              "board",
+              "advertisement"
             ]
           },
           "type_id": {

@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "advertisement_boards",
+  "info": {
+    "name": "AdvertisementBoard",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "contents": {
+      "type": "richtext"
+    },
+    "writer": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "writing_type": {
+      "type": "enumeration",
+      "enum": [
+        "일반 게시물",
+        "공지",
+        "필독"
+      ]
+    },
+    "color_type": {
+      "type": "enumeration",
+      "enum": [
+        "없음(일반 게시물)",
+        "주황(#ff6f1e)",
+        "파랑(#2f6fd4)",
+        "빨강(#ff6666)",
+        "회색(#9a9a9a)",
+        "검정(#000000)"
+      ]
+    },
+    "is_delete": {
+      "type": "boolean"
+    },
+    "category": {
+      "model": "banner"
+    },
+    "view_count": {
+      "type": "biginteger"
+    }
+  }
+}

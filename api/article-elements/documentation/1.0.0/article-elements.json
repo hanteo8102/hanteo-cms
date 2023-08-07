@@ -1064,7 +1064,8 @@
               "news",
               "board",
               "comment",
-              "re-comment"
+              "re-comment",
+              "advertisement"
             ]
           },
           "type_id": {
@@ -1196,7 +1197,8 @@
               "news",
               "board",
               "comment",
-              "re-comment"
+              "re-comment",
+              "advertisement"
             ]
           },
           "type_id": {

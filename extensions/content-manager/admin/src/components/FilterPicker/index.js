@@ -151,8 +151,8 @@ function FilterPicker({
         return '주소록 그룹'
       case 'AddressLists':
         return '주소록 리스트'
-      case 'AdvertisementBoards':
-        return '광고 게시판'
+      case 'AdvertisementBoard':
+        return '광고주 게시판'
       case 'ComplainTypes':
         return '신고 유형'
       case 'ComplainHistories':

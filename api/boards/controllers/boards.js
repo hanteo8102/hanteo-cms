@@ -152,7 +152,6 @@ module.exports = {
               ${categoryQuery} ${writerQuery}
             ORDER BY boards.created_at DESC ${startQuery} ${limitQuery}) as b
     `
-
     let result = await strapi.connections.default.raw(sql)
 
     return result.rows.map((entity) =>
@@ -191,18 +190,20 @@ module.exports = {
              boards.updated_by,
              boards.created_at,
              boards.updated_at,
-             (SELECT MAX(id)
-              FROM boards AS BBB
+             (SELECT MAX(BBB.id)
+              FROM boards AS BBB, "users-permissions_user" AS u
               WHERE BBB.id < boards.id
                 AND BBB.category = boards.category
                 AND BBB.is_delete = false
-                AND BBB.writing_type = '일반 게시물')       AS prev,
-             (SELECT MIN(id)
-              FROM boards AS BBB
+                AND BBB.writing_type = '일반 게시물'
+                AND BBB.writer = u.id)       AS prev,
+             (SELECT MIN(BBB.id)
+              FROM boards AS BBB, "users-permissions_user" AS u
               WHERE BBB.id > boards.id
                 AND BBB.category = boards.category
                 AND BBB.is_delete = false
-                AND BBB.writing_type = '일반 게시물')       AS next,
+                AND BBB.writing_type = '일반 게시물'
+                AND BBB.writer = u.id)       AS next,
              (SELECT MAX(id)
               FROM boards AS BBB
               WHERE BBB.id < boards.id
@@ -271,7 +272,6 @@ module.exports = {
         const { id: userId } = await strapi.plugins[
           'users-permissions'
         ].services.jwt.getToken(ctx)
-
         if (userId) {
           let sql = `
           UPDATE boards

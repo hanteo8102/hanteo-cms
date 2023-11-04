@@ -258,6 +258,7 @@ module.exports = {
       return sanitizeEntity(result.rows[0], { model: strapi.models['boards'] })
     },
     async updateViewCount(ctx) {
+      console.log(ctx)
       let boardId = ctx.params.id
       let sql = `UPDATE advertisement_boards
                  SET view_count = view_count + 1
@@ -266,13 +267,14 @@ module.exports = {
       return 'OK'
     },
     async customRemove(ctx) {
+      console.log(ctx)
       if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
         try {
           const { id: contentsId } = ctx.params
           const { id: userId } = await strapi.plugins[
             'users-permissions'
           ].services.jwt.getToken(ctx)
-  
+          console.log(contentsId, ' ', userId)
           if (userId) {
             let sql = `
             UPDATE advertisement_boards

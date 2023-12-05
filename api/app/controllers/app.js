@@ -514,7 +514,7 @@ module.exports = {
     const tokenList = await strapi.services.token.find({
       _where: [{ user_id_in: userList }],
     })
-
+    
     // 토큰 배열 생성
     const messageToList = []
     tokenList.map((item) => {
@@ -532,7 +532,6 @@ module.exports = {
         data: { url: url ? url : 'hanteo://' },
       })
     }
-
     // 그룹별 전송
     for (let i = 0; i < messageGroup.length; i++) {
       await fetch('https://exp.host/--/api/v2/push/send', {

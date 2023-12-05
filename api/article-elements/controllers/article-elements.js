@@ -37,8 +37,7 @@ module.exports = {
         let sql = `
           select a.*
           from (SELECT boards.*,
-            (SELECT -1
-            )      AS banner_category,
+            (SELECT -1 ) AS banner_category,
             (SELECT count(1)
             FROM article_elements
             INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
@@ -95,14 +94,14 @@ module.exports = {
             FROM article_elements
             INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
             WHERE advertisement_boards.id = article_elements.type_id
-            AND type = 'advertisement_boards'
+            AND type = 'advertisement'
             AND article_elements.is_delete = false
             AND good = true)    AS good_count,
             (SELECT count(1)
             FROM article_elements
             INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
             WHERE advertisement_boards.id = article_elements.type_id
-            AND type = 'advertisement_boards'
+            AND type = 'advertisement'
             AND article_elements.is_delete = false
             AND hate = true)    AS hate_count,
             (SELECT count(1)

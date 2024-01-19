@@ -96,9 +96,6 @@
     "complain_histories": {
       "via": "reported_user",
       "collection": "complain-history"
-    },
-    "id_token": {
-      "type": "text"
     }
   }
 }

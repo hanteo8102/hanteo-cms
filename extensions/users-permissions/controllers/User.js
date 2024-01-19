@@ -36,11 +36,7 @@ module.exports = {
       return ctx.badRequest('username.notNull')
     }
 
-    if (
-      _.has(ctx.request.body, 'password') &&
-      !password &&
-      user.provider === 'local'
-    ) {
+    if ( _.has(ctx.request.body, 'password') &&!password &&user.provider === 'local') {
       return ctx.badRequest('password.notNull')
     }
 
@@ -93,6 +89,7 @@ module.exports = {
 
     ctx.send(data)
   },
+
   async getMe(ctx) {
     if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
       const { id: userId } = await strapi.plugins[

@@ -1323,9 +1323,6 @@
                 }
               }
             }
-          },
-          "id_token": {
-            "type": "string"
           }
         }
       },
@@ -1406,9 +1403,6 @@
             "items": {
               "type": "string"
             }
-          },
-          "id_token": {
-            "type": "string"
           },
           "created_by": {
             "type": "string"

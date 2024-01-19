@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "member_push_agrees",
+  "info": {
+    "name": "MemberPushAgree",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "biginteger"
+    },
+    "member_id": {
+      "type": "biginteger"
+    }
+  }
+}

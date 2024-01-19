@@ -31,7 +31,12 @@ const LeftMenuLinksSection = ({
   )
 
   const handleLabel = (defaultLabel) => {
+    console.log(defaultLabel)
     switch (defaultLabel) {
+      case 'AdvertisementPushAgrees':
+        return '광고주게시판 알림이력'
+      case 'MemberPushAgrees':
+        return '멤버 알림이력'
       case 'Users':
         return '회원'
       case 'Boards':
@@ -75,7 +80,7 @@ const LeftMenuLinksSection = ({
       case 'Complains':
         return '신고 관리'
       case 'CommentPushAgrees':
-        return '댓글알림 이력'
+        return '댓글 알림이력'
       case 'PushHistories':
         return '푸시알림 관리'
       case 'Tokens':

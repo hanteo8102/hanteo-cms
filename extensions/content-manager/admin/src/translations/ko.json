@@ -234,6 +234,7 @@
   "Users.filter.field.name.visitor_count": "방문자 수",
   "Users.filter.field.name.attendance": "마지막 방문일",
   "Users.filter.field.name.complain_histories": "신고 이력",
+  "Users.filter.field.name.id_token": "애플 토큰",
   "AddressLists.filter.field.name.address": "주소",
   "AddressLists.filter.field.name.address_book": "주소록 카테고리",
   "AddressLists.filter.field.name.address_group": "주소록 그룹",

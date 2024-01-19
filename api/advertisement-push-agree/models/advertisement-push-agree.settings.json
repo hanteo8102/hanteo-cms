@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "advertisement_push_agrees",
+  "info": {
+    "name": "AdvertisementPushAgree"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user_id": {
+      "type": "biginteger"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "board",
+        "advertisement"
+      ]
+    },
+    "type_id": {
+      "type": "biginteger"
+    }
+  }
+}

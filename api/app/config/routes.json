@@ -55,6 +55,22 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/apps/push/advertisement",
+      "handler": "app.sendAdvertisementPush",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/apps/push/member",
+      "handler": "app.sendMemberPush",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

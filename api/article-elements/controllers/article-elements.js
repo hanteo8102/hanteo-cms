@@ -1257,7 +1257,6 @@ module.exports = {
         ORDER BY advertisement_boards.created_at DESC )as b
           order by created_at DESC ${startQuery} ${limitQuery}
         `
-
         let sql2 = `
           SELECT COUNT(*) FROM(
           select a.* from (SELECT boards.id FROM boards
@@ -1273,10 +1272,8 @@ module.exports = {
           ORDER BY advertisement_boards.created_at DESC )as b
           )as c
         `
-
         let result = await strapi.connections.default.raw(sql)
         let result2 = await strapi.connections.default.raw(sql2)
-
         return {
           contents: result.rows.map((entity) =>
             sanitizeEntity(entity, { model: strapi.models['article-elements'] })

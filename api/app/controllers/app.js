@@ -549,7 +549,6 @@ module.exports = {
       result: 'success',
     }
   },
-
   async sendAdvertisementPush(ctx) {
     const { title, type, typeId, contents, url } = ctx.request.body
 
@@ -605,12 +604,9 @@ module.exports = {
       result: 'success',
     }
   },
-
   async sendMemberPush(ctx) {
     const { title, typeId, contents, url } = ctx.request.body
-    console.log(typeId)
-    console.log(title)
-    console.log(contents)
+
     if (typeId === undefined) {
       return 'failed'
     }
@@ -620,8 +616,8 @@ module.exports = {
       _where: [{ member_id: typeId }],
     })
     const userList = []
+
     agreeList.map((item) => {
-      console.log(item)
       userList.push(item.user_id)
     })
 

@@ -1,15 +1,9 @@
 import React, { memo, useMemo } from 'react'
-import { Header } from '@buffetjs/custom'
-import { Flex, Padded, Text } from '@buffetjs/core'
 import { useSelector } from 'react-redux'
 import { createSelector } from 'reselect'
 import { useIntl } from 'react-intl'
-import { BaselineAlignment } from 'strapi-helper-plugin'
-import Bloc from '../../components/Bloc'
-import PageTitle from '../../components/SettingsPageTitle'
 import makeSelectApp from '../App/selectors'
 import makeSelectAdmin from '../Admin/selectors'
-import { Detail, InfoText } from './components'
 
 const makeSelectAppInfos = () =>
   createSelector(makeSelectApp(), (appState) => appState.appInfos)

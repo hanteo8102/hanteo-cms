@@ -212,10 +212,10 @@ module.exports = {
       if (type === 'board' && type_id) {
         await strapi.services.boards.findOne({ id: type_id }).then((board) => {
           if (board)
-            url += `BOARD_DETAIL?category=${board.category.id}&id=${type_id}&goComment=true`
+            url += `BOARD_DETAIL?category=${board.category.id}&id=${type_id}`
         })
       } else if (type === 'banner' && type_id) {
-        url += `BANNER_DETAIL?id=${type_id}&goComment=true`
+        url += `BANNER_DETAIL?id=${type_id}`
       } else if (type === 'news' && type_id) {
         url += `NEWS_DETAIL?id=${type_id}`
       } else if (type === 'news-paper') {

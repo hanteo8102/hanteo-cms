@@ -109,13 +109,13 @@ module.exports = {
             INNER JOIN "users-permissions_user" AS U ON comments.writer = U.id
             WHERE advertisement_boards.id = comments.type_id
             AND comments.is_delete = false
-            AND type = 'advertisement_boards') AS comment_count,
+            AND type = 'advertisement') AS comment_count,
             (SELECT count(1)
             FROM re_comments
             INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
             WHERE advertisement_boards.id = re_comments.type_id
             AND re_comments.is_delete = false
-            AND type = 'advertisement_boards') AS re_comment_count,
+            AND type = 'advertisement') AS re_comment_count,
             U.nick_name
           FROM advertisement_boards
           INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
@@ -125,6 +125,7 @@ module.exports = {
           order by created_at DESC
           ${startQuery} ${limitQuery}
         `
+        
 
         let sql2 = `
         SELECT COUNT(*)
@@ -239,7 +240,7 @@ module.exports = {
                   WHEN comments.type = 'news' then 0
                   WHEN comments.type = 'board' then 0
                   WHEN comments.type = 'advertisement'
-                    THEN (SELECT ab.view_count
+                    THEN (SELECT ab.category
                     FROM advertisement_boards ab
                     WHERE ab.id = comments.type_id)
                   END                                 AS banner_category
@@ -1048,7 +1049,245 @@ module.exports = {
       }
     }
   },
-  
+  async findBoardSubscription(ctx){
+    if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+      try {
+        let startQuery = ''
+        let limitQuery = ''
+        let start = ctx.query.start
+        let limit = ctx.query.limit
+        const { id: userId } = await strapi.plugins['users-permissions'].services.jwt.getToken(ctx)
+        console.log(userId)
+        if (start) {
+          startQuery = `OFFSET ${ctx.query.start}`
+        }
+
+        if (limit) {
+          limitQuery = `LIMIT ${ctx.query.limit}`
+        }
+
+        let sql = `
+          SELECT b.* FROM (
+          SELECT advertisement_boards.id,
+          advertisement_boards.title,
+          advertisement_boards.contents,
+          advertisement_boards.writer,
+          advertisement_boards.writing_type,
+          advertisement_boards.color_type,
+          advertisement_boards.is_delete,
+          advertisement_boards.category,
+          advertisement_boards.view_count,
+          advertisement_boards.created_by,
+          advertisement_boards.updated_by,
+          advertisement_boards.created_at,
+          advertisement_boards.updated_at,
+          (SELECT banners.banner_category
+          FROM banners 
+          WHERE banners.id = advertisement_boards.category
+          )
+          AS banner_category,
+          (SELECT count(1)
+          FROM article_elements
+          INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
+          WHERE advertisement_boards.id = article_elements.type_id
+          AND type = 'advertisement'
+          AND article_elements.is_delete = false
+          AND good = true)
+          AS good_count,
+          (SELECT count(1)
+          FROM article_elements
+          INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
+          WHERE advertisement_boards.id = article_elements.type_id
+          AND type = 'advertisement'
+          AND article_elements.is_delete = false
+          AND hate = true)
+          AS hate_count,
+          (SELECT count(1)
+          FROM comments
+          WHERE advertisement_boards.id = comments.type_id
+          AND comments.is_delete = false
+          AND type = 'advertisement')
+          AS comment_count,
+          (SELECT count(1)
+          FROM re_comments
+          INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
+          WHERE advertisement_boards.id = re_comments.type_id
+          AND re_comments.is_delete = false
+          AND type = 'advertisement')
+          AS re_comment_count,
+          U.nick_name
+          FROM advertisement_boards
+          INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
+          WHERE advertisement_boards.is_delete = false
+          AND category in (select type_id from advertisement_push_agrees where user_id = ${userId} AND updated_at < advertisement_boards.updated_at)
+          ORDER BY advertisement_boards.created_at DESC)as b
+          order by created_at DESC ${startQuery} ${limitQuery}
+        `
+
+        let sql2 = `
+          SELECT COUNT(*) FROM(
+          SELECT advertisement_boards.id
+          FROM advertisement_boards
+          INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
+          WHERE advertisement_boards.is_delete = false
+          AND category in (select type_id from advertisement_push_agrees 
+          where user_id = ${userId} AND updated_at < advertisement_boards.updated_at)
+          ORDER BY advertisement_boards.created_at DESC)as b
+        `
+
+        let result = await strapi.connections.default.raw(sql)
+        let result2 = await strapi.connections.default.raw(sql2)
+        console.log(result2.rows[0].count)
+        return {
+          contents: result.rows.map((entity) =>
+            sanitizeEntity(entity, { model: strapi.models['article-elements'] })
+          ),
+          totalCount: result2.rows[0].count,
+        }
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  },
+  async findMemberSubscription(ctx){
+    //게시글 (메인, 광고주)에 작성한 글 불러오기
+    if (ctx.request && ctx.request.header && ctx.request.header.authorization) {
+      try {
+        let startQuery = ''
+        let limitQuery = ''
+        let start = ctx.query.start
+        let limit = ctx.query.limit
+
+        const { id: userId } = await strapi.plugins['users-permissions'].services.jwt.getToken(ctx)
+
+        if (start) {
+          startQuery = `OFFSET ${ctx.query.start}`
+        }
+
+        if (limit) {
+          limitQuery = `LIMIT ${ctx.query.limit}`
+        }
+
+        let sql = `
+        select a.*
+        from (SELECT boards.*, (SELECT -1) AS banner_category,
+        'board' AS type,
+        (SELECT count(1)
+        FROM article_elements
+        INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
+        WHERE boards.id = article_elements.type_id
+        AND type = 'board'
+        AND article_elements.is_delete = false
+        AND good = true)    AS good_count,
+        (SELECT count(1)
+        FROM article_elements
+        INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
+        WHERE boards.id = article_elements.type_id
+        AND type = 'board'
+        AND article_elements.is_delete = false
+        AND hate = true)    AS hate_count,
+        (SELECT count(1)
+        FROM comments
+        INNER JOIN "users-permissions_user" AS U ON comments.writer = U.id
+        WHERE boards.id = comments.type_id
+        AND comments.is_delete = false
+        AND type = 'board') AS comment_count,
+        (SELECT count(1)
+        FROM re_comments
+        INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
+        WHERE boards.id = re_comments.type_id
+        AND re_comments.is_delete = false
+        AND type = 'board') AS re_comment_count,
+        U.nick_name
+        FROM boards
+        INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
+        WHERE boards.is_delete = false
+        AND boards.writer in (select member_id from "member_push_agrees" where user_id = ${userId} AND created_at < boards.created_at)
+        ORDER BY boards.created_at DESC) as a
+        UNION ALL
+        select b.*
+        from (
+        SELECT advertisement_boards.id,
+        advertisement_boards.title,
+        advertisement_boards.contents,
+        advertisement_boards.writer,
+        advertisement_boards.writing_type,
+        advertisement_boards.color_type,
+        advertisement_boards.is_delete,
+        advertisement_boards.category,
+        advertisement_boards.view_count,
+        advertisement_boards.created_by,
+        advertisement_boards.updated_by,
+        advertisement_boards.created_at,
+        advertisement_boards.updated_at,
+        (SELECT banners.banner_category FROM banners WHERE banners.id = advertisement_boards.category)
+        AS banner_category,
+        'advertisement' AS type,
+        (SELECT count(1)
+        FROM article_elements
+        INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
+        WHERE advertisement_boards.id = article_elements.type_id
+        AND type = 'advertisement'
+        AND article_elements.is_delete = false
+        AND good = true)    AS good_count,
+        (SELECT count(1)
+        FROM article_elements
+        INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
+        WHERE advertisement_boards.id = article_elements.type_id
+        AND type = 'advertisement'
+        AND article_elements.is_delete = false
+        AND hate = true)    AS hate_count,
+        (SELECT count(1)
+        FROM comments
+        INNER JOIN "users-permissions_user" AS U ON comments.writer = U.id
+        WHERE advertisement_boards.id = comments.type_id
+        AND comments.is_delete = false
+        AND type = 'advertisement') AS comment_count,
+        (SELECT count(1)
+        FROM re_comments
+        INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
+        WHERE advertisement_boards.id = re_comments.type_id
+        AND re_comments.is_delete = false
+        AND type = 'advertisement') AS re_comment_count,
+        U.nick_name
+        FROM advertisement_boards
+        INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
+        WHERE advertisement_boards.is_delete = false
+        AND advertisement_boards.writer in (select member_id from "member_push_agrees" where user_id = ${userId} AND created_at < advertisement_boards.created_at)
+        ORDER BY advertisement_boards.created_at DESC )as b
+          order by created_at DESC ${startQuery} ${limitQuery}
+        `
+
+        let sql2 = `
+          SELECT COUNT(*) FROM(
+          select a.* from (SELECT boards.id FROM boards
+          INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
+          WHERE boards.is_delete = false
+          AND boards.writer in (select member_id from "member_push_agrees" where user_id = ${userId} AND created_at < boards.created_at)
+          ORDER BY boards.created_at DESC) as a
+          UNION ALL
+          select b.* from ( SELECT advertisement_boards.id FROM advertisement_boards
+          INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
+          WHERE advertisement_boards.is_delete = false
+          AND advertisement_boards.writer in (select member_id from "member_push_agrees" where user_id = ${userId} AND created_at < advertisement_boards.created_at)
+          ORDER BY advertisement_boards.created_at DESC )as b
+          )as c
+        `
+
+        let result = await strapi.connections.default.raw(sql)
+        let result2 = await strapi.connections.default.raw(sql2)
+
+        return {
+          contents: result.rows.map((entity) =>
+            sanitizeEntity(entity, { model: strapi.models['article-elements'] })
+          ),
+          totalCount: result2.rows[0].count,
+        }
+      } catch (err) {
+        console.log(err.message)
+      }
+    }
+  },
   async findAnotherUserBoards(ctx) {
     let startQuery = ''
     let limitQuery = ''
@@ -1067,8 +1306,7 @@ module.exports = {
     let sql = `
       select a.*
       from (SELECT boards.*,
-        (SELECT -1
-        )      AS banner_category,
+        (SELECT -1) AS banner_category,
         (SELECT count(1)
         FROM article_elements
         INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
@@ -1125,14 +1363,14 @@ module.exports = {
         FROM article_elements
         INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
         WHERE advertisement_boards.id = article_elements.type_id
-        AND type = 'advertisement_boards'
+        AND type = 'advertisement'
         AND article_elements.is_delete = false
         AND good = true)    AS good_count,
         (SELECT count(1)
         FROM article_elements
         INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
         WHERE advertisement_boards.id = article_elements.type_id
-        AND type = 'advertisement_boards'
+        AND type = 'advertisement'
         AND article_elements.is_delete = false
         AND hate = true)    AS hate_count,
         (SELECT count(1)
@@ -1140,13 +1378,13 @@ module.exports = {
         INNER JOIN "users-permissions_user" AS U ON comments.writer = U.id
         WHERE advertisement_boards.id = comments.type_id
         AND comments.is_delete = false
-        AND type = 'advertisement_boards') AS comment_count,
+        AND type = 'advertisement') AS comment_count,
         (SELECT count(1)
         FROM re_comments
         INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
         WHERE advertisement_boards.id = re_comments.type_id
         AND re_comments.is_delete = false
-        AND type = 'advertisement_boards') AS re_comment_count,
+        AND type = 'advertisement') AS re_comment_count,
         U.nick_name
       FROM advertisement_boards
       INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
@@ -1262,7 +1500,7 @@ module.exports = {
             WHEN comments.type = 'news' then 0
             WHEN comments.type = 'board' then 0
             WHEN comments.type = 'advertisement'
-              THEN (SELECT ab.view_count
+              THEN (SELECT ab.category
               FROM advertisement_boards ab
               WHERE ab.id = comments.type_id)
             END                                 AS banner_category

@@ -82,6 +82,22 @@
     },
     {
       "method": "GET",
+      "path": "/article-elements/me/membersub",
+      "handler": "article-elements.findMemberSubscription",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/article-elements/me/boardsub",
+      "handler": "article-elements.findBoardSubscription",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/article-elements/user/:id/boards",
       "handler": "article-elements.findAnotherUserBoards",
       "config": {

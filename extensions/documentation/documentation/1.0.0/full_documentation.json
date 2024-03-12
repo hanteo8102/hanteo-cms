@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/04/2024 9:58:24 AM"
+    "x-generation-date": "03/12/2024 5:48:04 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -19777,6 +19777,18 @@
               "big_thumbnail_path": {
                 "type": "string"
               },
+              "home_side_banner_image": {
+                "type": "string"
+              },
+              "home_side_thumbnail_path": {
+                "type": "string"
+              },
+              "category_top_banner_image": {
+                "type": "string"
+              },
+              "category_top_thumbnail_path": {
+                "type": "string"
+              },
               "site_url": {
                 "type": "string"
               },
@@ -19801,6 +19813,18 @@
               "priority": {
                 "type": "integer"
               },
+              "home_top_priority": {
+                "type": "integer"
+              },
+              "home_bottom_priority": {
+                "type": "integer"
+              },
+              "home_side_priority": {
+                "type": "integer"
+              },
+              "category_top_priority": {
+                "type": "integer"
+              },
               "pdf_file": {
                 "type": "array",
                 "items": {
@@ -19812,6 +19836,18 @@
               },
               "writer": {
                 "type": "string"
+              },
+              "home_top": {
+                "type": "boolean"
+              },
+              "home_bottom": {
+                "type": "boolean"
+              },
+              "home_side": {
+                "type": "boolean"
+              },
+              "category_top": {
+                "type": "boolean"
               },
               "created_by": {
                 "type": "string"
@@ -20160,6 +20196,18 @@
                 "big_thumbnail_path": {
                   "type": "string"
                 },
+                "home_side_banner_image": {
+                  "type": "string"
+                },
+                "home_side_thumbnail_path": {
+                  "type": "string"
+                },
+                "category_top_banner_image": {
+                  "type": "string"
+                },
+                "category_top_thumbnail_path": {
+                  "type": "string"
+                },
                 "site_url": {
                   "type": "string"
                 },
@@ -20184,6 +20232,18 @@
                 "priority": {
                   "type": "integer"
                 },
+                "home_top_priority": {
+                  "type": "integer"
+                },
+                "home_bottom_priority": {
+                  "type": "integer"
+                },
+                "home_side_priority": {
+                  "type": "integer"
+                },
+                "category_top_priority": {
+                  "type": "integer"
+                },
                 "pdf_file": {
                   "type": "array",
                   "items": {
@@ -20195,6 +20255,18 @@
                 },
                 "writer": {
                   "type": "string"
+                },
+                "home_top": {
+                  "type": "boolean"
+                },
+                "home_bottom": {
+                  "type": "boolean"
+                },
+                "home_side": {
+                  "type": "boolean"
+                },
+                "category_top": {
+                  "type": "boolean"
                 },
                 "created_by": {
                   "type": "string"
@@ -20392,6 +20464,146 @@
           "big_thumbnail_path": {
             "type": "string"
           },
+          "home_side_banner_image": {
+            "required": [
+              "id",
+              "name",
+              "hash",
+              "mime",
+              "size",
+              "url",
+              "provider"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "alternativeText": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "formats": {
+                "type": "object"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "ext": {
+                "type": "string"
+              },
+              "mime": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "previewUrl": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "provider_metadata": {
+                "type": "object"
+              },
+              "related": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "home_side_thumbnail_path": {
+            "type": "string"
+          },
+          "category_top_banner_image": {
+            "required": [
+              "id",
+              "name",
+              "hash",
+              "mime",
+              "size",
+              "url",
+              "provider"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "alternativeText": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "formats": {
+                "type": "object"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "ext": {
+                "type": "string"
+              },
+              "mime": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "previewUrl": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "provider_metadata": {
+                "type": "object"
+              },
+              "related": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "category_top_thumbnail_path": {
+            "type": "string"
+          },
           "site_url": {
             "type": "string"
           },
@@ -20415,6 +20627,22 @@
             "type": "string"
           },
           "priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "home_top_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "home_bottom_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "home_side_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "category_top_priority": {
             "type": "integer",
             "default": "0"
           },
@@ -20593,6 +20821,22 @@
                 "type": "string"
               }
             }
+          },
+          "home_top": {
+            "type": "boolean",
+            "default": false
+          },
+          "home_bottom": {
+            "type": "boolean",
+            "default": false
+          },
+          "home_side": {
+            "type": "boolean",
+            "default": false
+          },
+          "category_top": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -20621,6 +20865,12 @@
           "big_thumbnail_path": {
             "type": "string"
           },
+          "home_side_thumbnail_path": {
+            "type": "string"
+          },
+          "category_top_thumbnail_path": {
+            "type": "string"
+          },
           "site_url": {
             "type": "string"
           },
@@ -20647,11 +20897,43 @@
             "type": "integer",
             "default": "0"
           },
+          "home_top_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "home_bottom_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "home_side_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "category_top_priority": {
+            "type": "integer",
+            "default": "0"
+          },
           "banner_category": {
             "type": "string"
           },
           "writer": {
             "type": "string"
+          },
+          "home_top": {
+            "type": "boolean",
+            "default": false
+          },
+          "home_bottom": {
+            "type": "boolean",
+            "default": false
+          },
+          "home_side": {
+            "type": "boolean",
+            "default": false
+          },
+          "category_top": {
+            "type": "boolean",
+            "default": false
           },
           "created_by": {
             "type": "string"

@@ -51,6 +51,34 @@
       "type": "string",
       "required": false
     },
+    "home_side_banner_image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "home_side_thumbnail_path": {
+      "type": "string",
+      "required": false
+    },
+    "category_top_banner_image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "category_top_thumbnail_path": {
+      "type": "string",
+      "required": false
+    },
     "site_url": {
       "type": "string"
     },
@@ -81,6 +109,22 @@
       "default": "0",
       "required": true
     },
+    "home_top_priority": {
+      "type": "integer",
+      "default": "0"
+    },
+    "home_bottom_priority": {
+      "type": "integer",
+      "default": "0"
+    },
+    "home_side_priority": {
+      "type": "integer",
+      "default": "0"
+    },
+    "category_top_priority": {
+      "type": "integer",
+      "default": "0"
+    },
     "pdf_file": {
       "collection": "file",
       "via": "related",
@@ -100,6 +144,22 @@
     "writer": {
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "home_top": {
+      "type": "boolean",
+      "default": false
+    },
+    "home_bottom": {
+      "type": "boolean",
+      "default": false
+    },
+    "home_side": {
+      "type": "boolean",
+      "default": false
+    },
+    "category_top": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

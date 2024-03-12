@@ -678,9 +678,9 @@ const querySelectorBoardBanners = (bannerCategory) => {
           SELECT *
           FROM banners
           WHERE is_public = true
-            AND position = '카테고리 페이지 상단'
+            AND category_top = true
             AND banner_category = ${bannerCategory}
-          ORDER BY priority DESC, created_at DESC
+          ORDER BY category_top_priority ASC, updated_at DESC
           LIMIT 16
   `
 }

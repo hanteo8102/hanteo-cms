@@ -677,6 +677,146 @@
           "big_thumbnail_path": {
             "type": "string"
           },
+          "home_side_banner_image": {
+            "required": [
+              "id",
+              "name",
+              "hash",
+              "mime",
+              "size",
+              "url",
+              "provider"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "alternativeText": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "formats": {
+                "type": "object"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "ext": {
+                "type": "string"
+              },
+              "mime": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "previewUrl": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "provider_metadata": {
+                "type": "object"
+              },
+              "related": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "home_side_thumbnail_path": {
+            "type": "string"
+          },
+          "category_top_banner_image": {
+            "required": [
+              "id",
+              "name",
+              "hash",
+              "mime",
+              "size",
+              "url",
+              "provider"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "alternativeText": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "formats": {
+                "type": "object"
+              },
+              "hash": {
+                "type": "string"
+              },
+              "ext": {
+                "type": "string"
+              },
+              "mime": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "url": {
+                "type": "string"
+              },
+              "previewUrl": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              },
+              "provider_metadata": {
+                "type": "object"
+              },
+              "related": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
+          "category_top_thumbnail_path": {
+            "type": "string"
+          },
           "site_url": {
             "type": "string"
           },
@@ -700,6 +840,22 @@
             "type": "string"
           },
           "priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "home_top_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "home_bottom_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "home_side_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "category_top_priority": {
             "type": "integer",
             "default": "0"
           },
@@ -878,6 +1034,22 @@
                 "type": "string"
               }
             }
+          },
+          "home_top": {
+            "type": "boolean",
+            "default": false
+          },
+          "home_bottom": {
+            "type": "boolean",
+            "default": false
+          },
+          "home_side": {
+            "type": "boolean",
+            "default": false
+          },
+          "category_top": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -906,6 +1078,12 @@
           "big_thumbnail_path": {
             "type": "string"
           },
+          "home_side_thumbnail_path": {
+            "type": "string"
+          },
+          "category_top_thumbnail_path": {
+            "type": "string"
+          },
           "site_url": {
             "type": "string"
           },
@@ -932,11 +1110,43 @@
             "type": "integer",
             "default": "0"
           },
+          "home_top_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "home_bottom_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "home_side_priority": {
+            "type": "integer",
+            "default": "0"
+          },
+          "category_top_priority": {
+            "type": "integer",
+            "default": "0"
+          },
           "banner_category": {
             "type": "string"
           },
           "writer": {
             "type": "string"
+          },
+          "home_top": {
+            "type": "boolean",
+            "default": false
+          },
+          "home_bottom": {
+            "type": "boolean",
+            "default": false
+          },
+          "home_side": {
+            "type": "boolean",
+            "default": false
+          },
+          "category_top": {
+            "type": "boolean",
+            "default": false
           },
           "created_by": {
             "type": "string"

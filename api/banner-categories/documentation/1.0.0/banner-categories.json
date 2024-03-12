@@ -576,6 +576,18 @@
                 "big_thumbnail_path": {
                   "type": "string"
                 },
+                "home_side_banner_image": {
+                  "type": "string"
+                },
+                "home_side_thumbnail_path": {
+                  "type": "string"
+                },
+                "category_top_banner_image": {
+                  "type": "string"
+                },
+                "category_top_thumbnail_path": {
+                  "type": "string"
+                },
                 "site_url": {
                   "type": "string"
                 },
@@ -600,6 +612,18 @@
                 "priority": {
                   "type": "integer"
                 },
+                "home_top_priority": {
+                  "type": "integer"
+                },
+                "home_bottom_priority": {
+                  "type": "integer"
+                },
+                "home_side_priority": {
+                  "type": "integer"
+                },
+                "category_top_priority": {
+                  "type": "integer"
+                },
                 "pdf_file": {
                   "type": "array",
                   "items": {
@@ -611,6 +635,18 @@
                 },
                 "writer": {
                   "type": "string"
+                },
+                "home_top": {
+                  "type": "boolean"
+                },
+                "home_bottom": {
+                  "type": "boolean"
+                },
+                "home_side": {
+                  "type": "boolean"
+                },
+                "category_top": {
+                  "type": "boolean"
                 },
                 "created_by": {
                   "type": "string"

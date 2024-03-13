@@ -456,7 +456,6 @@ module.exports = {
     let tripBanners
     let clubBanners
     let addressBanners
-
     await Promise.all([
       strapi.connections.default.raw(querySelectorBoardBanners(1)),
       strapi.connections.default.raw(querySelectorBoardBanners(2)),

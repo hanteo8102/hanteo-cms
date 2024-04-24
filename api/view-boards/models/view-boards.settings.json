@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "view_boards",
+  "info": {
+    "name": "ViewBoards"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "board_type": {
+      "type": "enumeration",
+      "enum": [
+        "advertisement",
+        "board"
+      ]
+    },
+    "board_num": {
+      "type": "string"
+    },
+    "user_num": {
+      "type": "string"
+    }
+  }
+}

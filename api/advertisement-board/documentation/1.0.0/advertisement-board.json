@@ -907,7 +907,16 @@
             }
           },
           "view_count": {
-            "type": "integer"
+            "type": "integer",
+            "default": "0"
+          },
+          "board_expected_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "board_expired_date": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -948,7 +957,16 @@
             "type": "string"
           },
           "view_count": {
-            "type": "integer"
+            "type": "integer",
+            "default": "0"
+          },
+          "board_expected_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "board_expired_date": {
+            "type": "string",
+            "format": "date-time"
           },
           "created_by": {
             "type": "string"

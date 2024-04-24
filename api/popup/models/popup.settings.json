@@ -55,6 +55,12 @@
       "default": 152,
       "required": true
     },
+    "popup_expected_date": {
+      "type": "datetime"
+    },
+    "popup_expired_date": {
+      "type": "datetime"
+    },
     "platform": {
       "type": "enumeration",
       "enum": [

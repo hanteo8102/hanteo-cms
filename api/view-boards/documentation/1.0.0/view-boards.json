@@ -1,18 +1,19 @@
 {
   "paths": {
-    "/boards": {
+    "/view-boards": {
       "get": {
         "deprecated": false,
-        "description": "Find all the boards's records",
+        "description": "Find all the view-boards's records",
         "responses": {
           "200": {
-            "description": "Retrieve boards document(s)",
+            "description": "Retrieve view-boards document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Boards"
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -51,7 +52,7 @@
         },
         "summary": "",
         "tags": [
-          "Boards"
+          "View-boards"
         ],
         "parameters": [
           {
@@ -194,330 +195,10 @@
       },
       "post": {
         "deprecated": false,
-        "description": "Create a new boards record",
+        "description": "Create a new view-boards record",
         "responses": {
           "200": {
-            "description": "Retrieve boards document(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Boards"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Boards"
-        ],
-        "requestBody": {
-          "description": "",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewBoards"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/boards/count": {
-      "get": {
-        "deprecated": false,
-        "description": "Retrieve the number of boards documents",
-        "responses": {
-          "200": {
-            "description": "Retrieve boards document(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "count": {
-                      "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Boards"
-        ],
-        "parameters": []
-      }
-    },
-    "/boards/{id}": {
-      "get": {
-        "deprecated": false,
-        "description": "Find one boards record",
-        "responses": {
-          "200": {
-            "description": "Retrieve boards document(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Boards"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Boards"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      },
-      "put": {
-        "deprecated": false,
-        "description": "Update a single boards record",
-        "responses": {
-          "200": {
-            "description": "Retrieve boards document(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Boards"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Boards"
-        ],
-        "requestBody": {
-          "description": "",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewBoards"
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      },
-      "delete": {
-        "deprecated": false,
-        "description": "Delete a single boards record",
-        "responses": {
-          "200": {
-            "description": "deletes a single boards based on the ID supplied",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int64"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Boards"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "",
-            "deprecated": false,
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/boards/view/{id}": {
-      "put": {
-        "deprecated": false,
-        "description": "Update a single boards record",
-        "responses": {
-          "200": {
-            "description": "Retrieve boards document(s)",
+            "description": "Retrieve view-boards document(s)",
             "content": {
               "application/json": {
                 "schema": {
@@ -563,7 +244,7 @@
         },
         "summary": "",
         "tags": [
-          "Boards"
+          "View-boards"
         ],
         "requestBody": {
           "description": "",
@@ -571,11 +252,197 @@
           "content": {
             "application/json": {
               "schema": {
-                "properties": {
-                  "foo": {
-                    "type": "string"
+                "$ref": "#/components/schemas/NewView-boards"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/view-boards/count": {
+      "get": {
+        "deprecated": false,
+        "description": "Retrieve the number of view-boards documents",
+        "responses": {
+          "200": {
+            "description": "Retrieve view-boards document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
                   }
                 }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "View-boards"
+        ],
+        "parameters": []
+      }
+    },
+    "/view-boards/{id}": {
+      "get": {
+        "deprecated": false,
+        "description": "Find one view-boards record",
+        "responses": {
+          "200": {
+            "description": "Retrieve view-boards document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "View-boards"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "deprecated": false,
+        "description": "Update a single view-boards record",
+        "responses": {
+          "200": {
+            "description": "Retrieve view-boards document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "View-boards"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewView-boards"
               }
             }
           }
@@ -592,15 +459,13 @@
             }
           }
         ]
-      }
-    },
-    "/boards/custom/{id}": {
+      },
       "delete": {
         "deprecated": false,
-        "description": "Delete a single boards record",
+        "description": "Delete a single view-boards record",
         "responses": {
           "200": {
-            "description": "deletes a single boards based on the ID supplied",
+            "description": "deletes a single view-boards based on the ID supplied",
             "content": {
               "application/json": {
                 "schema": {
@@ -643,7 +508,7 @@
         },
         "summary": "",
         "tags": [
-          "Boards"
+          "View-boards"
         ],
         "parameters": [
           {
@@ -662,217 +527,49 @@
   },
   "components": {
     "schemas": {
-      "Boards": {
+      "View-boards": {
         "required": [
-          "id",
-          "title",
-          "contents"
+          "id"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "title": {
-            "type": "string"
-          },
-          "contents": {
-            "type": "string"
-          },
-          "writer": {
-            "required": [
-              "id",
-              "email"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "username": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "provider": {
-                "type": "string"
-              },
-              "password": {
-                "type": "string"
-              },
-              "resetPasswordToken": {
-                "type": "string"
-              },
-              "confirmationToken": {
-                "type": "string"
-              },
-              "confirmed": {
-                "type": "boolean"
-              },
-              "blocked": {
-                "type": "boolean"
-              },
-              "role": {
-                "type": "string"
-              },
-              "gender": {
-                "type": "string",
-                "enum": [
-                  "남성",
-                  "여성"
-                ]
-              },
-              "birth_day": {
-                "type": "string"
-              },
-              "post": {
-                "type": "string"
-              },
-              "country": {
-                "type": "string",
-                "enum": [
-                  "한국",
-                  "일본",
-                  "기타 국가"
-                ]
-              },
-              "nick_name": {
-                "type": "string"
-              },
-              "visitor_count": {
-                "type": "integer"
-              },
-              "attendance": {
-                "type": "string"
-              },
-              "complain_histories": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "writing_type": {
+          "board_type": {
             "type": "string",
-            "default": "normal",
             "enum": [
-              "일반 게시물",
-              "공지",
-              "필독"
+              "advertisement",
+              "board"
             ]
           },
-          "color_type": {
-            "type": "string",
-            "default": "nothing",
-            "enum": [
-              "없음(일반 게시물)",
-              "주황(#ff6f1e)",
-              "파랑(#2f6fd4)",
-              "빨강(#ff6666)",
-              "회색(#9a9a9a)",
-              "검정(#000000)"
-            ]
+          "board_num": {
+            "type": "string"
           },
-          "is_delete": {
-            "type": "boolean",
-            "default": false
+          "user_num": {
+            "type": "string"
           },
-          "category": {
-            "required": [
-              "id",
-              "main_category",
-              "sub_category"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "main_category": {
-                "type": "string"
-              },
-              "sub_category": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
-          },
-          "view_count": {
-            "type": "integer",
-            "default": "0"
-          },
-          "board_expected_date": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "board_expired_date": {
+          "published_at": {
             "type": "string",
             "format": "date-time"
           }
         }
       },
-      "NewBoards": {
-        "required": [
-          "title",
-          "contents"
-        ],
+      "NewView-boards": {
         "properties": {
-          "title": {
-            "type": "string"
-          },
-          "contents": {
-            "type": "string"
-          },
-          "writer": {
-            "type": "string"
-          },
-          "writing_type": {
+          "board_type": {
             "type": "string",
-            "default": "normal",
             "enum": [
-              "일반 게시물",
-              "공지",
-              "필독"
+              "advertisement",
+              "board"
             ]
           },
-          "color_type": {
-            "type": "string",
-            "default": "nothing",
-            "enum": [
-              "없음(일반 게시물)",
-              "주황(#ff6f1e)",
-              "파랑(#2f6fd4)",
-              "빨강(#ff6666)",
-              "회색(#9a9a9a)",
-              "검정(#000000)"
-            ]
-          },
-          "is_delete": {
-            "type": "boolean",
-            "default": false
-          },
-          "category": {
+          "board_num": {
             "type": "string"
           },
-          "view_count": {
-            "type": "integer",
-            "default": "0"
+          "user_num": {
+            "type": "string"
           },
-          "board_expected_date": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "board_expired_date": {
+          "published_at": {
             "type": "string",
             "format": "date-time"
           },
@@ -886,9 +583,5 @@
       }
     }
   },
-  "tags": [
-    {
-      "name": "Boards"
-    }
-  ]
+  "tags": []
 }

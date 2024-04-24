@@ -37,6 +37,7 @@ module.exports = {
              REPLACE(NC.contents, '&nbsp;', '') AS contents,
              NC.is_public,
              NC.news_expected_date,
+             NC.news_expired_date,
              NC.reporter,
              NC.is_public_reporter_email,
              NC.source_type,

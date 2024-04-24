@@ -16,13 +16,13 @@ module.exports = {
 
   async findOne(ctx) {
     const { id } = ctx.params
-
     let sql = `
       SELECT news_contents.id,
              news_contents.title,
              REPLACE(news_contents.contents, '&nbsp;', '') AS contents,
              news_contents.is_public,
              news_contents.news_expected_date,
+             news_contents.news_expired_date,
              news_contents.reporter,
              news_contents.is_public_reporter_email,
              news_contents.source_type,
@@ -107,18 +107,17 @@ module.exports = {
                                 B.is_public,
                                 B.contact_info,
                                 B.priority,
-                                B.small_thumbnail_path,
-                                B.big_thumbnail_path,
+                                B.category_top_thumbnail_path,
                                 B.banner_category,
-                                UF.url AS small_banner_image
+                                UF.url AS category_top_banner_image
                          FROM banners B
                                 LEFT JOIN upload_file AS UF ON UF.id = (SELECT upload_file_id
                                                                         FROM upload_file_morph AS UFM
                                                                         WHERE UFM.related_id = B.id
                                                                           AND UFM.related_type = 'banners'
-                                                                          AND UFM.field = 'small_banner_image')
+                                                                          AND UFM.field = 'category_top_banner_image')
                          WHERE is_public = true
-                           AND position = N'카테고리 페이지 상단'
+                           AND category_top = true
                            AND (company_name LIKE '%${keyword}%'
                            OR main_banner_text LIKE '%${keyword}%'
                            OR sub_banner_text LIKE '%${keyword}%'
@@ -129,7 +128,7 @@ module.exports = {
                           FROM (SELECT *
                                 FROM banners
                                 WHERE is_public = true
-                                  AND position = N'카테고리 페이지 상단'
+                                  AND category_top = true
                                   AND (company_name LIKE '%${keyword}%'
                                   OR main_banner_text LIKE '%${keyword}%'
                                   OR sub_banner_text LIKE '%${keyword}%'

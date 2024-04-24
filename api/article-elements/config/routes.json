@@ -98,6 +98,14 @@
     },
     {
       "method": "GET",
+      "path": "/article-elements/me/SubCount",
+      "handler": "article-elements.getSubscriptionCount",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/article-elements/user/:id/boards",
       "handler": "article-elements.findAnotherUserBoards",
       "config": {

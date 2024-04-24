@@ -764,6 +764,10 @@
             "type": "string",
             "format": "date-time"
           },
+          "news_expired_date": {
+            "type": "string",
+            "format": "date-time"
+          },
           "reporter": {
             "required": [
               "id",
@@ -856,6 +860,10 @@
             "default": true
           },
           "news_expected_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "news_expired_date": {
             "type": "string",
             "format": "date-time"
           },

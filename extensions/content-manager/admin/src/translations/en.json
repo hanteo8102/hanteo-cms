@@ -213,6 +213,7 @@
   "NewsContents.filter.field.name.is_public": "is_public",
   "NewsContents.filter.field.name.is_public_reporter_email": "is_public_reporter_email",
   "NewsContents.filter.field.name.news_expected_date": "news_expected_date",
+  "NewsContents.filter.field.name.news_expired_date": "news_expired_date",
   "NewsContents.filter.field.name.priority": "priority",
   "NewsContents.filter.field.name.reporter": "reporter",
   "NewsContents.filter.field.name.source_type": "source_type",

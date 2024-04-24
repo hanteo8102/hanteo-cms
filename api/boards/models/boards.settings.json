@@ -57,6 +57,12 @@
       "type": "biginteger",
       "default": "0",
       "min": "0"
+    },
+    "board_expected_date": {
+      "type": "datetime"
+    },
+    "board_expired_date": {
+      "type": "datetime"
     }
   }
 }

@@ -42,6 +42,9 @@
     "news_expected_date": {
       "type": "datetime"
     },
+    "news_expired_date": {
+      "type": "datetime"
+    },
     "reporter": {
       "plugin": "admin",
       "model": "user"

@@ -622,6 +622,14 @@
             "type": "integer",
             "default": 152
           },
+          "popup_expected_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "popup_expired_date": {
+            "type": "string",
+            "format": "date-time"
+          },
           "platform": {
             "type": "string",
             "default": "web",
@@ -667,6 +675,14 @@
           "height": {
             "type": "integer",
             "default": 152
+          },
+          "popup_expected_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "popup_expired_date": {
+            "type": "string",
+            "format": "date-time"
           },
           "platform": {
             "type": "string",

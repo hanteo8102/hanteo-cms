@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/24/2024 11:50:17 PM"
+    "x-generation-date": "04/26/2024 10:45:12 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -20329,7 +20329,6 @@
               "company_name",
               "main_banner_text",
               "contents",
-              "position",
               "is_public",
               "priority"
             ],
@@ -20375,15 +20374,6 @@
               },
               "contents": {
                 "type": "string"
-              },
-              "position": {
-                "type": "string",
-                "enum": [
-                  "홈 하단 화면 (카테고리)",
-                  "홈 상단 화면 (슬라이드)",
-                  "홈 사이드 화면",
-                  "카테고리 페이지 상단"
-                ]
               },
               "is_public": {
                 "type": "boolean"
@@ -20766,7 +20756,6 @@
                 "company_name",
                 "main_banner_text",
                 "contents",
-                "position",
                 "is_public",
                 "priority"
               ],
@@ -20812,15 +20801,6 @@
                 },
                 "contents": {
                   "type": "string"
-                },
-                "position": {
-                  "type": "string",
-                  "enum": [
-                    "홈 하단 화면 (카테고리)",
-                    "홈 상단 화면 (슬라이드)",
-                    "홈 사이드 화면",
-                    "카테고리 페이지 상단"
-                  ]
                 },
                 "is_public": {
                   "type": "boolean"
@@ -20906,7 +20886,6 @@
           "company_name",
           "main_banner_text",
           "contents",
-          "position",
           "is_public",
           "priority"
         ],
@@ -21209,15 +21188,6 @@
           "contents": {
             "type": "string"
           },
-          "position": {
-            "type": "string",
-            "enum": [
-              "홈 하단 화면 (카테고리)",
-              "홈 상단 화면 (슬라이드)",
-              "홈 사이드 화면",
-              "카테고리 페이지 상단"
-            ]
-          },
           "is_public": {
             "type": "boolean",
             "default": false
@@ -21444,7 +21414,6 @@
           "company_name",
           "main_banner_text",
           "contents",
-          "position",
           "is_public",
           "priority"
         ],
@@ -21475,15 +21444,6 @@
           },
           "contents": {
             "type": "string"
-          },
-          "position": {
-            "type": "string",
-            "enum": [
-              "홈 하단 화면 (카테고리)",
-              "홈 상단 화면 (슬라이드)",
-              "홈 사이드 화면",
-              "카테고리 페이지 상단"
-            ]
           },
           "is_public": {
             "type": "boolean",

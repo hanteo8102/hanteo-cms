@@ -48,6 +48,8 @@ module.exports = {
                      advertisement_boards.updated_by,
                      advertisement_boards.created_at,
                      advertisement_boards.updated_at,
+                     advertisement_boards.board_expected_date,
+                     advertisement_boards.board_expired_date,
                      0 < (SELECT COUNT(*)
                           FROM block_user_lists
                           WHERE user_id = ${ctx.query.userId}
@@ -114,6 +116,8 @@ module.exports = {
                      advertisement_boards.updated_by,
                      advertisement_boards.created_at,
                      advertisement_boards.updated_at,
+                     advertisement_boards.board_expected_date,
+                     advertisement_boards.board_expired_date,
                      0 < (SELECT COUNT(*)
                           FROM block_user_lists
                           WHERE user_id = ${ctx.query.userId}
@@ -192,6 +196,8 @@ module.exports = {
                advertisement_boards.updated_by,
                advertisement_boards.created_at,
                advertisement_boards.updated_at,
+               advertisement_boards.board_expected_date,
+               advertisement_boards.board_expired_date,
                (SELECT MAX(id)
                 FROM advertisement_boards AS BBB
                 WHERE BBB.id < advertisement_boards.id

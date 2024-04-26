@@ -91,6 +91,8 @@ module.exports = {
           advertisement_boards.updated_by,
           advertisement_boards.created_at,
           advertisement_boards.updated_at,
+          advertisement_boards.board_expected_date,
+          advertisement_boards.board_expired_date,
           (SELECT banners.banner_category
           FROM banners 
           WHERE banners.id = advertisement_boards.category
@@ -159,7 +161,9 @@ module.exports = {
         advertisement_boards.created_by,
         advertisement_boards.updated_by,
         advertisement_boards.created_at,
-        advertisement_boards.updated_at
+        advertisement_boards.updated_at,
+        advertisement_boards.board_expected_date,
+        advertisement_boards.board_expired_date
         FROM advertisement_boards
         WHERE advertisement_boards.is_delete = false
         AND advertisement_boards.writer = ${userId})as b
@@ -1091,6 +1095,8 @@ module.exports = {
           advertisement_boards.updated_by,
           advertisement_boards.created_at,
           advertisement_boards.updated_at,
+          advertisement_boards.board_expected_date,
+          advertisement_boards.board_expired_date,
           (SELECT banners.banner_category
           FROM banners 
           WHERE banners.id = advertisement_boards.category
@@ -1240,6 +1246,8 @@ module.exports = {
         advertisement_boards.updated_by,
         advertisement_boards.created_at,
         advertisement_boards.updated_at,
+        advertisement_boards.board_expected_date,
+        advertisement_boards.board_expired_date,
         (SELECT banners.banner_category FROM banners WHERE banners.id = advertisement_boards.category)
         AS banner_category,
         'advertisement' AS type,
@@ -1332,7 +1340,7 @@ module.exports = {
           AND advertisement_boards.writer in (select member_id from "member_push_agrees" where user_id = ${userId} AND created_at < advertisement_boards.created_at)
           ORDER BY advertisement_boards.created_at DESC )as b
           UNION ALL
-          SELECT COUNT(*) FROM(
+          SELECT c.* FROM(
           SELECT advertisement_boards.id
           FROM advertisement_boards
           INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
@@ -1439,6 +1447,8 @@ module.exports = {
       advertisement_boards.updated_by,
       advertisement_boards.created_at,
       advertisement_boards.updated_at,
+      advertisement_boards.board_expected_date,
+      advertisement_boards.board_expired_date,
         (SELECT banners.banner_category
         FROM banners 
         WHERE banners.id = advertisement_boards.category
@@ -1501,7 +1511,9 @@ module.exports = {
     advertisement_boards.created_by,
     advertisement_boards.updated_by,
     advertisement_boards.created_at,
-    advertisement_boards.updated_at
+    advertisement_boards.updated_at,
+    advertisement_boards.board_expected_date,
+    advertisement_boards.board_expired_date
     FROM advertisement_boards
     WHERE advertisement_boards.is_delete = false
     AND advertisement_boards.writer = ${userId})as b

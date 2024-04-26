@@ -84,7 +84,7 @@ module.exports = {
             WHERE boards.is_delete = false
               AND boards.writing_type != N'일반 게시물'
               ${categoryQuery} ${writerQuery}
-            ORDER BY boards.created_at DESC) as a
+            ORDER BY boards.created_at DESC OFFSET 0 LIMIT 5) as a
       UNION ALL
       select b.*
       from (select boards.id,

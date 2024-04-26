@@ -187,7 +187,6 @@
   "Banners.filter.field.name.is_public": "배너 공개 여부",
   "Banners.filter.field.name.main_banner_text": "메인 배너 텍스트",
   "Banners.filter.field.name.sub_banner_text": "서브 배너 텍스트",
-  "Banners.filter.field.name.position": "배너 표시 위치",
   "Banners.filter.field.name.priority": "우선 순위",
   "Banners.filter.field.name.site_url": "사이트 링크 URL",
   "Banners.filter.field.name.home_top": "홈 상단 화면 (슬라이드)",

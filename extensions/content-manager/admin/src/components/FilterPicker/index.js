@@ -174,7 +174,9 @@ function FilterPicker({
       case 'AdvertisementPushAgrees':
         return '광고주게시판 알림이력'
       case 'MemberPushAgrees':
-        return '멤버 알림이력'  
+        return '멤버 알림이력'
+      case 'ViewBoards':
+        return '읽은 게시물'
       default:
         return name
     }

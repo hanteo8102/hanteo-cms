@@ -49,7 +49,7 @@ const querySelectorBoard = (category, user) => {
             AND boards.writing_type != N'일반 게시물'
             AND boards.category = ${category}
           ORDER BY boards.created_at DESC
-          OFFSET 0 LIMIT 20) as a
+          OFFSET 0 LIMIT 5) as a
     UNION ALL
     select b.*
     from (select boards.id,

@@ -91,6 +91,8 @@ const LeftMenuLinksSection = ({
         return '회원탈퇴'
       case 'WithdrawalHistories':
         return '회원탈퇴 기록'
+      case 'ViewBoards':
+        return '읽은 게시물'
       default:
         return defaultLabel
     }

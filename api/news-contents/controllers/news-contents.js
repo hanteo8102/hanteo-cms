@@ -103,7 +103,6 @@ module.exports = {
                                 B.sub_banner_text,
                                 B.site_url,
                                 B.contents,
-                                B.position,
                                 B.is_public,
                                 B.contact_info,
                                 B.priority,

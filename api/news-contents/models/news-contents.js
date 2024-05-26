@@ -24,20 +24,24 @@ module.exports = {
       }
     },
     beforeUpdate(params,data) {
-      const { contents , thumbnail_path } = data
-      if(!thumbnail_path){
-        const img = contents.match(/<img[^>]+src="http([^">]+)/g)
-        if(img) {
-          const url = img[0].split('"')
-          const https_img = filterStringsContainingSubstring(url,"https")
-          data.thumbnail_path = https_img[0]
+      try{
+        const { contents , thumbnail_path } = data
+        if(!(thumbnail_path) && !(contents)){
+          const img = contents.match(/<img[^>]+src="http([^">]+)/g)
+          if(img) {
+            const url = img[0].split('"')
+            const https_img = filterStringsContainingSubstring(url,"https")
+            data.thumbnail_path = https_img[0]
+          }
+          const src = contents.match(/<src[^>]+src="http([^">]+)/g)
+          if (src) {
+            const url = img[0].split('"')
+            const https_img = filterStringsContainingSubstring(url,"https")
+            data.thumbnail_path = https_img[0]
+          }
         }
-        const src = contents.match(/<src[^>]+src="http([^">]+)/g)
-        if (src) {
-          const url = img[0].split('"')
-          const https_img = filterStringsContainingSubstring(url,"https")
-          data.thumbnail_path = https_img[0]
-        }
+      }catch(e){
+        console.log(e)
       }
     },
   },

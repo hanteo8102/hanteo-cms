@@ -211,7 +211,7 @@ module.exports = {
   async readTimeUpdate(ctx) {
     const { id } = ctx.params
     const { userId } = ctx.request.body
-    console.log(ctx.request.body경)
+
     const updateData = {
       read_time: new Date(),
     }

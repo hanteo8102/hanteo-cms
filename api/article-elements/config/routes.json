@@ -105,6 +105,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/article-elements/me/ReadSub",
+      "handler": "article-elements.readSubUpdate",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "GET",
       "path": "/article-elements/user/:id/boards",
       "handler": "article-elements.findAnotherUserBoards",

@@ -63,6 +63,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/boards/findCount",
+      "handler": "boards.findCount",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

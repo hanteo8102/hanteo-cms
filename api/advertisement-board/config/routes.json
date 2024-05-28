@@ -63,6 +63,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/advertisement-boards/findCount",
+      "handler": "advertisement-board.findCount",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

@@ -727,7 +727,7 @@ module.exports = {
           AND t1.is_delete = false
           ) AS a where reaction_id notnull
           ORDER BY created_at DESC
-            ${startQuery} ${limitQuery}
+          ${startQuery} ${limitQuery}
         `
 
         let sql2 = `
@@ -1852,93 +1852,121 @@ module.exports = {
     }
 
     let sql = `
-    SELECT A.* FROM 
-    (SELECT comments.contents, comments.type,comments.type_id AS id,
-    comments.writer,comments.is_delete,comments.created_by,
-    comments.updated_by,comments.created_at,comments.updated_at,
-    (SELECT count(1)
-    FROM article_elements
-    INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
-    WHERE comments.id = article_elements.type_id
-    AND type = 'comment'
-    AND article_elements.is_delete = false
-    AND good = true) AS good_count,
-    (SELECT count(1)
-    FROM article_elements
-    INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
-    WHERE comments.id = article_elements.type_id
-    AND type = 'comment'
-    AND article_elements.is_delete = false
-    AND hate = false) AS hate_count,
-    (SELECT count(1)
-    FROM re_comments
-    INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
-    WHERE comments.id = re_comments.comment
-    AND re_comments.is_delete = false) AS re_comment_count,
-    U.nick_name,
-    CASE
-    WHEN comments.type = 'news'
-    THEN (SELECT nc.title
-    FROM news_contents nc
-    where nc.id = comments.type_id)
-    WHEN comments.type = 'board'
-    THEN (SELECT st1.title
-    FROM boards st1
-    WHERE st1.id = comments.type_id)
-    WHEN comments.type = 'advertisement'
-    THEN (SELECT ab.title
-    FROM advertisement_boards ab
-    WHERE ab.id = comments.type_id)
-    END AS title,
-    CASE
-    WHEN comments.type = 'news' then 0
-    WHEN comments.type = 'board'
-    THEN (SELECT category
-    FROM boards st1
-    WHERE st1.id = comments.type_id)
-    WHEN comments.type = 'advertisement'
-    THEN (SELECT ab.category
-    FROM advertisement_boards ab
-    WHERE ab.id = comments.type_id)
-    END AS category,
-    CASE
-    WHEN comments.type = 'news' then 0
-    WHEN comments.type = 'board'
-    THEN (SELECT view_count
-    FROM boards st1
-    WHERE st1.id = comments.type_id)
-    WHEN comments.type = 'advertisement'
-    THEN (SELECT ab.view_count
-    FROM advertisement_boards ab
-    WHERE ab.id = comments.type_id)
-    END AS view_count,
-    (SELECT CAST(count(1) AS INT)
-    FROM comments
-    WHERE comments.is_delete = false
-    AND comments.writer = ${userId}) AS total_count,
-    CASE
-    WHEN comments.type = 'news' then 0
-    WHEN comments.type = 'board' then 0
-    WHEN comments.type = 'advertisement'
-    THEN (SELECT bs.banner_category
-    FROM advertisement_boards ab , banners bs
-    WHERE ab.id = comments.type_id AND bs.id = ab.category)
-    END AS banner_category,
-    CASE
-    WHEN comments.type = 'news' then ''
-    WHEN comments.type = 'board' then ''
-    WHEN comments.type = 'advertisement'
-    THEN (SELECT bs.company_name
-    FROM advertisement_boards ab , banners bs
-    WHERE ab.id = comments.type_id AND bs.id = ab.category)
-    END AS banner_name
-    FROM comments
-    INNER JOIN "users-permissions_user" AS U ON (comments.writer = U.id)
-    WHERE comments.is_delete = false
-    AND comments.writer = ${userId}
-    ORDER BY comments.created_at DESC) 
-    as A where title notnull
-    ${startQuery} ${limitQuery} 
+      SELECT A.* FROM 
+      (SELECT comments.contents, comments.type,comments.type_id AS id,
+      comments.writer,comments.is_delete,comments.created_by,
+      comments.updated_by,comments.created_at,comments.updated_at,
+      (SELECT count(1)
+      FROM article_elements
+      INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
+      WHERE comments.id = article_elements.type_id
+      AND type = 'comment'
+      AND article_elements.is_delete = false
+      AND good = true) AS good_count,
+      (SELECT count(1)
+      FROM article_elements
+      INNER JOIN "users-permissions_user" AS U ON article_elements.writer = U.id
+      WHERE comments.id = article_elements.type_id
+      AND type = 'comment'
+      AND article_elements.is_delete = false
+      AND hate = false) AS hate_count,
+      (SELECT count(1)
+      FROM re_comments
+      INNER JOIN "users-permissions_user" AS U ON re_comments.writer = U.id
+      WHERE comments.id = re_comments.comment
+      AND re_comments.is_delete = false) AS re_comment_count,
+      U.nick_name,
+      CASE
+      WHEN comments.type = 'news'
+      THEN (SELECT nc.title
+      FROM news_contents nc
+      where nc.id = comments.type_id)
+      WHEN comments.type = 'board'
+      THEN (SELECT st1.title
+      FROM boards st1
+      WHERE st1.id = comments.type_id)
+      WHEN comments.type = 'advertisement'
+      THEN (SELECT ab.title
+      FROM advertisement_boards ab
+      WHERE ab.id = comments.type_id)
+      END AS title,
+      CASE
+      WHEN comments.type = 'news'
+      THEN (SELECT nc.news_expected_date
+      FROM news_contents nc
+      where nc.id = comments.type_id)
+      WHEN comments.type = 'board'
+      THEN (SELECT st1.board_expected_date
+      FROM boards st1
+      WHERE st1.id = comments.type_id)
+      WHEN comments.type = 'advertisement'
+      THEN (SELECT ab.board_expected_date
+      FROM advertisement_boards ab
+      WHERE ab.id = comments.type_id)
+      END AS board_expected_date,
+      CASE
+      WHEN comments.type = 'news'
+      THEN (SELECT nc.news_expired_date
+      FROM news_contents nc
+      where nc.id = comments.type_id)
+      WHEN comments.type = 'board'
+      THEN (SELECT st1.board_expired_date
+      FROM boards st1
+      WHERE st1.id = comments.type_id)
+      WHEN comments.type = 'advertisement'
+      THEN (SELECT ab.board_expired_date
+      FROM advertisement_boards ab
+      WHERE ab.id = comments.type_id)
+      END AS board_expired_date,
+      CASE
+      WHEN comments.type = 'news' then 0
+      WHEN comments.type = 'board'
+      THEN (SELECT category
+      FROM boards st1
+      WHERE st1.id = comments.type_id)
+      WHEN comments.type = 'advertisement'
+      THEN (SELECT ab.category
+      FROM advertisement_boards ab
+      WHERE ab.id = comments.type_id)
+      END AS category,
+      CASE
+      WHEN comments.type = 'news' then 0
+      WHEN comments.type = 'board'
+      THEN (SELECT view_count
+      FROM boards st1
+      WHERE st1.id = comments.type_id)
+      WHEN comments.type = 'advertisement'
+      THEN (SELECT ab.view_count
+      FROM advertisement_boards ab
+      WHERE ab.id = comments.type_id)
+      END AS view_count,
+      (SELECT CAST(count(1) AS INT)
+      FROM comments
+      WHERE comments.is_delete = false
+      AND comments.writer = ${userId}) AS total_count,
+      CASE
+      WHEN comments.type = 'news' then 0
+      WHEN comments.type = 'board' then 0
+      WHEN comments.type = 'advertisement'
+      THEN (SELECT bs.banner_category
+      FROM advertisement_boards ab , banners bs
+      WHERE ab.id = comments.type_id AND bs.id = ab.category)
+      END AS banner_category,
+      CASE
+      WHEN comments.type = 'news' then ''
+      WHEN comments.type = 'board' then ''
+      WHEN comments.type = 'advertisement'
+      THEN (SELECT bs.company_name
+      FROM advertisement_boards ab , banners bs
+      WHERE ab.id = comments.type_id AND bs.id = ab.category)
+      END AS banner_name
+      FROM comments
+      INNER JOIN "users-permissions_user" AS U ON (comments.writer = U.id)
+      WHERE comments.is_delete = false
+      AND comments.writer = ${userId}
+      ORDER BY comments.created_at DESC) 
+      as A where title notnull
+      ${startQuery} ${limitQuery} 
     `
 
     let sql2 = `
@@ -1996,7 +2024,8 @@ module.exports = {
         id, type, category,title,contents,
         created_at,view_count,good_count,writing_type,color_type,nick_name,writer,
         (comment_count + re_comment_count) AS comment_count,
-        banner_category,banner_name,isBlock,reaction_id FROM 
+        banner_category,banner_name,isBlock,reaction_id,
+        board_expected_date, board_expired_date FROM 
         (SELECT t1.id, 'board' AS type, t1.category AS category,
         CASE
         WHEN 0 < (SELECT COUNT(*)
@@ -2047,7 +2076,9 @@ module.exports = {
         AND article_elements.is_delete = false
         AND good = true
         AND writer = ${userId}
-        AND type_id = t1.id) AS reaction_id
+        AND type_id = t1.id) AS reaction_id,
+        t1.board_expected_date, 
+        t1.board_expired_date
         FROM boards t1
         INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
         WHERE t1.id IN
@@ -2090,7 +2121,9 @@ module.exports = {
         AND article_elements.is_delete = false
         AND good = true
         AND writer = ${userId}
-        AND type_id = t1.id) AS reaction_id
+        AND type_id = t1.id) AS reaction_id,
+        t1.news_expected_date, 
+        t1.news_expired_date
         FROM news_contents t1
         WHERE id IN (SELECT type_id
         FROM article_elements
@@ -2150,7 +2183,9 @@ module.exports = {
         AND article_elements.is_delete = false
         AND good = true
         AND writer = ${userId}
-        AND type_id = t1.id) AS reaction_id
+        AND type_id = t1.id) AS reaction_id,
+        t1.board_expected_date, 
+        t1.board_expired_date
         FROM boards t1
         INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'board' AND t2.is_delete = false
         INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
@@ -2193,7 +2228,9 @@ module.exports = {
         AND article_elements.is_delete = false
         AND good = true
         AND writer = ${userId}
-        AND type_id = t1.id) AS reaction_id
+        AND type_id = t1.id) AS reaction_id,
+        t1.news_expected_date, 
+        t1.news_expired_date
         FROM news_contents t1
         INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'news' AND t2.is_delete = false
         WHERE t2.id IN (SELECT type_id
@@ -2255,7 +2292,9 @@ module.exports = {
         AND article_elements.is_delete = false
         AND good = true
         AND writer = ${userId}
-        AND type_id = t1.id) AS reaction_id
+        AND type_id = t1.id) AS reaction_id,
+        t1.board_expected_date, 
+        t1.board_expired_date
         FROM advertisement_boards t1
         INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
         WHERE t1.id IN
@@ -2319,7 +2358,9 @@ module.exports = {
         AND article_elements.is_delete = false
         AND good = true
         AND writer = ${userId}
-        AND type_id = t1.id) AS reaction_id
+        AND type_id = t1.id) AS reaction_id,
+        t1.board_expected_date, 
+        t1.board_expired_date
         FROM advertisement_boards t1
         INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'advertisement' AND t2.is_delete = false
         INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
@@ -2330,9 +2371,9 @@ module.exports = {
         AND writer = ${userId})
         AND t1.is_delete = false
         ) AS a where reaction_id notnull
-        ORDER BY created_at DESC           
-      ${startQuery} ${limitQuery}
-    `
+        ORDER BY created_at DESC
+        ${startQuery} ${limitQuery}
+      `
 
   let sql2 = `
       SELECT COUNT(*)

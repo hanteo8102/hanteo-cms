@@ -236,6 +236,34 @@ module.exports = {
           WHERE ab.id = comments.type_id)
           END AS title,
           CASE
+          WHEN comments.type = 'news'
+          THEN (SELECT nc.news_expected_date
+          FROM news_contents nc
+          where nc.id = comments.type_id)
+          WHEN comments.type = 'board'
+          THEN (SELECT st1.board_expected_date
+          FROM boards st1
+          WHERE st1.id = comments.type_id)
+          WHEN comments.type = 'advertisement'
+          THEN (SELECT ab.board_expected_date
+          FROM advertisement_boards ab
+          WHERE ab.id = comments.type_id)
+          END AS board_expected_date,
+          CASE
+          WHEN comments.type = 'news'
+          THEN (SELECT nc.news_expired_date
+          FROM news_contents nc
+          where nc.id = comments.type_id)
+          WHEN comments.type = 'board'
+          THEN (SELECT st1.board_expired_date
+          FROM boards st1
+          WHERE st1.id = comments.type_id)
+          WHEN comments.type = 'advertisement'
+          THEN (SELECT ab.board_expired_date
+          FROM advertisement_boards ab
+          WHERE ab.id = comments.type_id)
+          END AS board_expired_date,
+          CASE
           WHEN comments.type = 'news' then 0
           WHEN comments.type = 'board'
           THEN (SELECT category
@@ -347,346 +375,359 @@ module.exports = {
         }
 
         let sql = `
-            SELECT DISTINCT 
-            id, type, category,title,contents,
-            created_at,view_count,good_count,writing_type,color_type,nick_name,writer,
-            (comment_count + re_comment_count) AS comment_count,
-            banner_category,banner_name,isBlock,reaction_id FROM 
-            (SELECT t1.id, 'board' AS type, t1.category AS category,
-            CASE
-            WHEN 0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id)
-            THEN N'차단된 멤버의 게시글입니다.'
-            ELSE t1.title
-            END AS title,
-            CASE
-            WHEN 0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id)
-            THEN ''
-            ELSE t1.contents
-            END AS contents,
-            t1.created_at, t1.writing_type,t1.color_type,
-            U.nick_name AS nick_name,U.id AS writer,t1.view_count,
-            (SELECT COUNT(*)
-            FROM article_elements st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'board'
-            AND st1.type_id = t1.id
-            AND st1.is_delete = false
-            AND good = true)         AS good_count,
-            (SELECT COUNT(*)
-            FROM comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'board'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS comment_count,
-            (SELECT COUNT(*)
-            FROM re_comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'board'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS re_comment_count,
-            (SELECT -1) AS banner_category,
-            '' AS banner_name,
-            0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id) AS isBlock,
-            (SELECT id
-            FROM article_elements
-            WHERE type = 'board'
-            AND article_elements.is_delete = false
-            AND good = true
-            AND writer = ${userId}
-            AND type_id = t1.id) AS reaction_id
-            FROM boards t1
-            INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
-            WHERE t1.id IN
-            (SELECT type_id
-            FROM article_elements
-            WHERE type = 'board'
-            AND article_elements.is_delete = false
-            AND good = true
-            AND writer = ${userId})
-            AND t1.is_delete = false
-            UNION ALL
-            SELECT id,'news'AS type, 0 AS category,title,contents,
-            created_at, N'뉴스'as writing_type, N'없음(일반 게시물)' as color_type,
-            source_type as nick_name, 0 AS writer, view_count,
-            (SELECT COUNT(*)
-            FROM article_elements st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'news'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id
-            AND good = true) AS good_count,
-            (SELECT COUNT(*)
-            FROM comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'news'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS comment_count,
-            (SELECT COUNT(*)
-            FROM re_comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'news'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS re_comment_count,
-            (SELECT -1) AS banner_category,
-            '' AS banner_name,
-            false AS isBlock,
-            (SELECT id
-            FROM article_elements
-            WHERE type = 'news'
-            AND article_elements.is_delete = false
-            AND good = true
-            AND writer = ${userId}
-            AND type_id = t1.id) AS reaction_id
-            FROM news_contents t1
-            WHERE id IN (SELECT type_id
-            FROM article_elements
-            WHERE type = 'news'
-            AND article_elements.is_delete = false
-            AND good = true
-            AND writer = ${userId})
-            AND t1.is_public = true
-            UNION ALL
-            SELECT t1.id,'board' AS type, t1.category AS category,
-            CASE
-            WHEN 0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id)
-            THEN N'차단된 멤버의 댓글입니다.'
-            ELSE t1.title
-            END AS title,
-            CASE
-            WHEN 0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id)
-            THEN ''
-            ELSE t1.contents
-            END AS contents,
-            t1.created_at,t1.writing_type,t1.color_type,
-            U.nick_name AS nick_name,U.id AS writer,t1.view_count,
-            (SELECT COUNT(*)
-            FROM article_elements st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'board'
-            AND st1.type_id = t1.id
-            AND st1.is_delete = false
-            AND good = true)         AS good_count,
-            (SELECT COUNT(*)
-            FROM comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'board'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS comment_count,
-            (SELECT COUNT(*)
-            FROM re_comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'board'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS re_comment_count,
-            (SELECT -1) AS banner_category,
-            '' AS banner_name,
-            0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id) AS isBlock,
-            (SELECT id
-            FROM article_elements
-            WHERE type = 'comment'
-            AND article_elements.is_delete = false
-            AND good = true
-            AND writer = ${userId}
-            AND type_id = t1.id) AS reaction_id
-            FROM boards t1
-            INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'board' AND t2.is_delete = false
-            INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
-            WHERE t2.id IN (SELECT type_id
-            FROM article_elements t3
-            WHERE type = 'comment'
-            AND good = true
-            AND writer = ${userId})
-            AND t1.is_delete = false
-            UNION ALL
-            SELECT t1.id,'news' AS type, 0 AS category,
-            t1.title,t1.contents,
-            t1.created_at, N'뉴스' as writing_type, N'없음(일반 게시물)' as color_type,
-            source_type AS nick_name, 0 AS writer, t1.view_count,
-            (SELECT COUNT(*)
-            FROM article_elements st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'news'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id
-            AND good = true) AS good_count,
-            (SELECT COUNT(*)
-            FROM comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'news'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS comment_count,
-            (SELECT COUNT(*)
-            FROM re_comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'news'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS re_comment_count,
-            (SELECT -1) AS banner_category,
-            '' AS banner_name,
-            false AS isBlock,
-            (SELECT id
-            FROM article_elements
-            WHERE type = 'news'
-            AND article_elements.is_delete = false
-            AND good = true
-            AND writer = ${userId}
-            AND type_id = t1.id) AS reaction_id
-            FROM news_contents t1
-            INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'news' AND t2.is_delete = false
-            WHERE t2.id IN (SELECT type_id
-            FROM article_elements t3
-            WHERE type = 'comment'
-            AND good = true
-            AND writer = ${userId})
-            AND t1.is_public = true
-            UNION ALL
-            SELECT t1.id, 'advertisement' AS type, t1.category AS category, 
-            CASE
-            WHEN 0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id)
-            THEN N'차단된 멤버의 게시글입니다.'
-            ELSE t1.title
-            END AS title,
-            CASE
-            WHEN 0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id)
-            THEN ''
-            ELSE t1.contents
-            END AS contents,
-            t1.created_at, t1.writing_type, t1.color_type,
-            U.nick_name AS nick_name,U.id AS writer, t1.view_count,
-            (SELECT COUNT(*)
-            FROM article_elements st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'advertisement'
-            AND st1.type_id = t1.id
-            AND st1.is_delete = false
-            AND good = true) AS good_count,
-            (SELECT COUNT(*)
-            FROM comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'advertisement'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS comment_count,
-            (SELECT COUNT(*)
-            FROM re_comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'advertisement'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS re_comment_count,
-            (SELECT ba.banner_category FROM banners ba
-            WHERE ba.id = t1.category) AS banner_category,
-            (SELECT ba.company_name FROM banners ba
-            WHERE ba.id = t1.category) AS banner_name,
-            0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id) AS isBlock,
-            (SELECT id
-            FROM article_elements
-            WHERE type = 'advertisement'
-            AND article_elements.is_delete = false
-            AND good = true
-            AND writer = ${userId}
-            AND type_id = t1.id) AS reaction_id
-            FROM advertisement_boards t1
-            INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
-            WHERE t1.id IN
-            (SELECT type_id
-            FROM article_elements
-            WHERE type = 'advertisement'
-            AND article_elements.is_delete = false
-            AND good = true
-            AND writer = ${userId})
-            AND t1.is_delete = false
-            UNION ALL
-            SELECT t1.id, 'advertisement' AS type, t1.category AS category,
-            CASE
-            WHEN 0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id)
-            THEN N'차단된 멤버의 댓글입니다.'
-            ELSE t1.title
-            END AS title,
-            CASE
-            WHEN 0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id)
-            THEN ''
-            ELSE t1.contents
-            END AS contents,
-            t1.created_at, t1.writing_type, t1.color_type,
-            U.nick_name AS nick_name,U.id AS writer, t1.view_count,
-            (SELECT COUNT(*)
-            FROM article_elements st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'advertisement'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id
-            AND good = true) AS good_count,
-            (SELECT COUNT(*)
-            FROM comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'advertisement'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS comment_count,
-            (SELECT COUNT(*)
-            FROM re_comments st1
-            INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
-            WHERE st1.type = 'advertisement'
-            AND st1.is_delete = false
-            AND st1.type_id = t1.id) AS re_comment_count,
-            (SELECT ba.banner_category FROM banners ba
-            WHERE ba.id = t1.category) AS banner_category,
-            (SELECT ba.company_name FROM banners ba
-            WHERE ba.id = t1.category) AS banner_name,
-            0 < (SELECT COUNT(*)
-            FROM block_user_lists
-            WHERE user_id = ${userId}
-            AND t1.writer = block_user_id) AS isBlock,
-            (SELECT id
-            FROM article_elements
-            WHERE type = 'advertisement'
-            AND article_elements.is_delete = false
-            AND good = true
-            AND writer = ${userId}
-            AND type_id = t1.id) AS reaction_id
-            FROM advertisement_boards t1
-            INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'advertisement' AND t2.is_delete = false
-            INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
-            WHERE t2.id IN (SELECT type_id
-            FROM article_elements t3
-            WHERE type = 'comment'
-            AND good = true
-            AND writer = ${userId})
-            AND t1.is_delete = false
-            ) AS a where reaction_id notnull
-            ORDER BY created_at DESC           
-          ${startQuery} ${limitQuery}
+          SELECT DISTINCT 
+          id, type, category,title,contents,
+          created_at,view_count,good_count,writing_type,color_type,nick_name,writer,
+          (comment_count + re_comment_count) AS comment_count,
+          banner_category,banner_name,isBlock,reaction_id,
+          board_expected_date, board_expired_date FROM 
+          (SELECT t1.id, 'board' AS type, t1.category AS category,
+          CASE
+          WHEN 0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id)
+          THEN N'차단된 멤버의 게시글입니다.'
+          ELSE t1.title
+          END AS title,
+          CASE
+          WHEN 0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id)
+          THEN ''
+          ELSE t1.contents
+          END AS contents,
+          t1.created_at, t1.writing_type,t1.color_type,
+          U.nick_name AS nick_name,U.id AS writer,t1.view_count,
+          (SELECT COUNT(*)
+          FROM article_elements st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'board'
+          AND st1.type_id = t1.id
+          AND st1.is_delete = false
+          AND good = true)         AS good_count,
+          (SELECT COUNT(*)
+          FROM comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'board'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS comment_count,
+          (SELECT COUNT(*)
+          FROM re_comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'board'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS re_comment_count,
+          (SELECT -1) AS banner_category,
+          '' AS banner_name,
+          0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id) AS isBlock,
+          (SELECT id
+          FROM article_elements
+          WHERE type = 'board'
+          AND article_elements.is_delete = false
+          AND good = true
+          AND writer = ${userId}
+          AND type_id = t1.id) AS reaction_id,
+          t1.board_expected_date, 
+          t1.board_expired_date
+          FROM boards t1
+          INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
+          WHERE t1.id IN
+          (SELECT type_id
+          FROM article_elements
+          WHERE type = 'board'
+          AND article_elements.is_delete = false
+          AND good = true
+          AND writer = ${userId})
+          AND t1.is_delete = false
+          UNION ALL
+          SELECT id,'news'AS type, 0 AS category,title,contents,
+          created_at, N'뉴스'as writing_type, N'없음(일반 게시물)' as color_type,
+          source_type as nick_name, 0 AS writer, view_count,
+          (SELECT COUNT(*)
+          FROM article_elements st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'news'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id
+          AND good = true) AS good_count,
+          (SELECT COUNT(*)
+          FROM comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'news'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS comment_count,
+          (SELECT COUNT(*)
+          FROM re_comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'news'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS re_comment_count,
+          (SELECT -1) AS banner_category,
+          '' AS banner_name,
+          false AS isBlock,
+          (SELECT id
+          FROM article_elements
+          WHERE type = 'news'
+          AND article_elements.is_delete = false
+          AND good = true
+          AND writer = ${userId}
+          AND type_id = t1.id) AS reaction_id,
+          t1.news_expected_date, 
+          t1.news_expired_date
+          FROM news_contents t1
+          WHERE id IN (SELECT type_id
+          FROM article_elements
+          WHERE type = 'news'
+          AND article_elements.is_delete = false
+          AND good = true
+          AND writer = ${userId})
+          AND t1.is_public = true
+          UNION ALL
+          SELECT t1.id,'board' AS type, t1.category AS category,
+          CASE
+          WHEN 0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id)
+          THEN N'차단된 멤버의 댓글입니다.'
+          ELSE t1.title
+          END AS title,
+          CASE
+          WHEN 0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id)
+          THEN ''
+          ELSE t1.contents
+          END AS contents,
+          t1.created_at,t1.writing_type,t1.color_type,
+          U.nick_name AS nick_name,U.id AS writer,t1.view_count,
+          (SELECT COUNT(*)
+          FROM article_elements st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'board'
+          AND st1.type_id = t1.id
+          AND st1.is_delete = false
+          AND good = true)         AS good_count,
+          (SELECT COUNT(*)
+          FROM comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'board'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS comment_count,
+          (SELECT COUNT(*)
+          FROM re_comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'board'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS re_comment_count,
+          (SELECT -1) AS banner_category,
+          '' AS banner_name,
+          0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id) AS isBlock,
+          (SELECT id
+          FROM article_elements
+          WHERE type = 'comment'
+          AND article_elements.is_delete = false
+          AND good = true
+          AND writer = ${userId}
+          AND type_id = t1.id) AS reaction_id,
+          t1.board_expected_date, 
+          t1.board_expired_date
+          FROM boards t1
+          INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'board' AND t2.is_delete = false
+          INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
+          WHERE t2.id IN (SELECT type_id
+          FROM article_elements t3
+          WHERE type = 'comment'
+          AND good = true
+          AND writer = ${userId})
+          AND t1.is_delete = false
+          UNION ALL
+          SELECT t1.id,'news' AS type, 0 AS category,
+          t1.title,t1.contents,
+          t1.created_at, N'뉴스' as writing_type, N'없음(일반 게시물)' as color_type,
+          source_type AS nick_name, 0 AS writer, t1.view_count,
+          (SELECT COUNT(*)
+          FROM article_elements st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'news'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id
+          AND good = true) AS good_count,
+          (SELECT COUNT(*)
+          FROM comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'news'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS comment_count,
+          (SELECT COUNT(*)
+          FROM re_comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'news'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS re_comment_count,
+          (SELECT -1) AS banner_category,
+          '' AS banner_name,
+          false AS isBlock,
+          (SELECT id
+          FROM article_elements
+          WHERE type = 'news'
+          AND article_elements.is_delete = false
+          AND good = true
+          AND writer = ${userId}
+          AND type_id = t1.id) AS reaction_id,
+          t1.news_expected_date, 
+          t1.news_expired_date
+          FROM news_contents t1
+          INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'news' AND t2.is_delete = false
+          WHERE t2.id IN (SELECT type_id
+          FROM article_elements t3
+          WHERE type = 'comment'
+          AND good = true
+          AND writer = ${userId})
+          AND t1.is_public = true
+          UNION ALL
+          SELECT t1.id, 'advertisement' AS type, t1.category AS category, 
+          CASE
+          WHEN 0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id)
+          THEN N'차단된 멤버의 게시글입니다.'
+          ELSE t1.title
+          END AS title,
+          CASE
+          WHEN 0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id)
+          THEN ''
+          ELSE t1.contents
+          END AS contents,
+          t1.created_at, t1.writing_type, t1.color_type,
+          U.nick_name AS nick_name,U.id AS writer, t1.view_count,
+          (SELECT COUNT(*)
+          FROM article_elements st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'advertisement'
+          AND st1.type_id = t1.id
+          AND st1.is_delete = false
+          AND good = true) AS good_count,
+          (SELECT COUNT(*)
+          FROM comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'advertisement'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS comment_count,
+          (SELECT COUNT(*)
+          FROM re_comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'advertisement'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS re_comment_count,
+          (SELECT ba.banner_category FROM banners ba
+          WHERE ba.id = t1.category) AS banner_category,
+          (SELECT ba.company_name FROM banners ba
+          WHERE ba.id = t1.category) AS banner_name,
+          0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id) AS isBlock,
+          (SELECT id
+          FROM article_elements
+          WHERE type = 'advertisement'
+          AND article_elements.is_delete = false
+          AND good = true
+          AND writer = ${userId}
+          AND type_id = t1.id) AS reaction_id,
+          t1.board_expected_date, 
+          t1.board_expired_date
+          FROM advertisement_boards t1
+          INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
+          WHERE t1.id IN
+          (SELECT type_id
+          FROM article_elements
+          WHERE type = 'advertisement'
+          AND article_elements.is_delete = false
+          AND good = true
+          AND writer = ${userId})
+          AND t1.is_delete = false
+          UNION ALL
+          SELECT t1.id, 'advertisement' AS type, t1.category AS category,
+          CASE
+          WHEN 0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id)
+          THEN N'차단된 멤버의 댓글입니다.'
+          ELSE t1.title
+          END AS title,
+          CASE
+          WHEN 0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id)
+          THEN ''
+          ELSE t1.contents
+          END AS contents,
+          t1.created_at, t1.writing_type, t1.color_type,
+          U.nick_name AS nick_name,U.id AS writer, t1.view_count,
+          (SELECT COUNT(*)
+          FROM article_elements st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'advertisement'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id
+          AND good = true) AS good_count,
+          (SELECT COUNT(*)
+          FROM comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'advertisement'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS comment_count,
+          (SELECT COUNT(*)
+          FROM re_comments st1
+          INNER JOIN "users-permissions_user" AS U ON st1.writer = U.id
+          WHERE st1.type = 'advertisement'
+          AND st1.is_delete = false
+          AND st1.type_id = t1.id) AS re_comment_count,
+          (SELECT ba.banner_category FROM banners ba
+          WHERE ba.id = t1.category) AS banner_category,
+          (SELECT ba.company_name FROM banners ba
+          WHERE ba.id = t1.category) AS banner_name,
+          0 < (SELECT COUNT(*)
+          FROM block_user_lists
+          WHERE user_id = ${userId}
+          AND t1.writer = block_user_id) AS isBlock,
+          (SELECT id
+          FROM article_elements
+          WHERE type = 'advertisement'
+          AND article_elements.is_delete = false
+          AND good = true
+          AND writer = ${userId}
+          AND type_id = t1.id) AS reaction_id,
+          t1.board_expected_date, 
+          t1.board_expired_date
+          FROM advertisement_boards t1
+          INNER JOIN comments t2 ON t1.id = t2.type_id AND t2.type = 'advertisement' AND t2.is_delete = false
+          INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
+          WHERE t2.id IN (SELECT type_id
+          FROM article_elements t3
+          WHERE type = 'comment'
+          AND good = true
+          AND writer = ${userId})
+          AND t1.is_delete = false
+          ) AS a where reaction_id notnull
+          ORDER BY created_at DESC
+            ${startQuery} ${limitQuery}
         `
 
         let sql2 = `
@@ -830,13 +871,13 @@ module.exports = {
         }
 
         let sql = `
-
-        select a.* from (SELECT DISTINCT 
+          select a.* from (SELECT DISTINCT 
           id,type,category,title,contents,created_at,
           view_count,board_expected_date,board_expired_date,
           good_count,writing_type,writer,nick_name,isBlock,
           (comment_count + re_comment_count) AS comment_count,
-          banner_category,banner_name,reaction_id
+          banner_category,banner_name,reaction_id,
+          board_expected_date,board_expired_date
           FROM 
           (SELECT t1.id,'board' AS type,t1.category AS category,
           CASE

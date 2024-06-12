@@ -871,9 +871,9 @@ module.exports = {
         }
 
         let sql = `
-          select a.* from (SELECT DISTINCT 
+        select a.* from (SELECT DISTINCT 
           id,type,category,title,contents,created_at,
-          view_count,board_expected_date,board_expired_date,
+          view_count,color_type,board_expected_date,board_expired_date,
           good_count,writing_type,writer,nick_name,isBlock,
           (comment_count + re_comment_count) AS comment_count,
           banner_category,banner_name,reaction_id,
@@ -897,7 +897,7 @@ module.exports = {
           ELSE t1.contents
           END AS contents,
           t1.created_at,t1.writing_type,t1.writer,
-          U.nick_name AS nick_name,t1.view_count,
+          U.nick_name AS nick_name,t1.view_count,t1.color_type,
           t1.board_expected_date,t1.board_expired_date,
           (SELECT COUNT(*)
           FROM article_elements st1
@@ -945,7 +945,7 @@ module.exports = {
           SELECT t1.id,'news' AS type,0 AS category,
           t1.title,t1.contents,t1.created_at,
           N'뉴스' as writing_type,
-          0 as writer,t1.source_type as nick_name,t1.view_count,
+          0 as writer,t1.source_type as nick_name,t1.view_count,'검정(#000000)',
           t1.news_expected_date AS board_expected_date,
           t1.news_expired_date AS board_expired_date,
           (SELECT COUNT(*)
@@ -1004,7 +1004,7 @@ module.exports = {
           ELSE t1.contents
           END AS contents,
           t1.created_at,t1.writing_type,t1.writer,
-          U.nick_name AS nick_name,t1.view_count,
+          U.nick_name AS nick_name,t1.view_count,t1.color_type,
           t1.board_expected_date,t1.board_expired_date,
           (SELECT COUNT(*)
           FROM article_elements st1
@@ -1588,38 +1588,38 @@ module.exports = {
           });
 
           let sql1 = `
-          SELECT 
-          COUNT(CASE WHEN view_board IS NULL THEN 1 END) AS no_read_count 
-          FROM(
-          select a.* from 
-          (SELECT boards.id,
-          (SELECT view_boards.id
-          FROM view_boards
-          WHERE view_boards.board_num = boards.id::VARCHAR
-          AND view_boards.user_num = ${userId}::VARCHAR
-          AND view_boards.board_type = 'board') AS view_board
-          FROM boards
-          INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
-          WHERE boards.is_delete = false
-          AND boards.writer in (select member_id from "member_push_agrees" 
-          where user_id = ${userId} AND created_at < boards.created_at)
-          ORDER BY boards.created_at DESC) as a
-          UNION ALL
-          select b.* from 
-          (SELECT advertisement_boards.id,
-          (SELECT view_boards.id
-          FROM view_boards
-          WHERE view_boards.board_num = advertisement_boards.id::VARCHAR
-          AND view_boards.user_num = ${userId}::VARCHAR
-          AND view_boards.board_type = 'advertisement') AS view_board
-          FROM advertisement_boards
-          INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
-          WHERE advertisement_boards.is_delete = false
-          AND advertisement_boards.writer in (select member_id from "member_push_agrees" 
-          where user_id = ${userId} AND created_at < advertisement_boards.created_at)
-          ORDER BY advertisement_boards.created_at DESC )as b
-          ) as c
-        `
+            SELECT 
+            COUNT(CASE WHEN view_board IS NULL THEN 1 END) AS no_read_count 
+            FROM(
+            select a.* from 
+            (SELECT boards.id,
+            (SELECT view_boards.id
+            FROM view_boards
+            WHERE view_boards.board_num = boards.id::VARCHAR
+            AND view_boards.user_num = ${userId}::VARCHAR
+            AND view_boards.board_type = 'board') AS view_board
+            FROM boards
+            INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
+            WHERE boards.is_delete = false
+            AND boards.writer in (select member_id from "member_push_agrees" 
+            where user_id = ${userId} AND created_at < boards.created_at)
+            ORDER BY boards.created_at DESC) as a
+            UNION ALL
+            select b.* from 
+            (SELECT advertisement_boards.id,
+            (SELECT view_boards.id
+            FROM view_boards
+            WHERE view_boards.board_num = advertisement_boards.id::VARCHAR
+            AND view_boards.user_num = ${userId}::VARCHAR
+            AND view_boards.board_type = 'advertisement') AS view_board
+            FROM advertisement_boards
+            INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
+            WHERE advertisement_boards.is_delete = false
+            AND advertisement_boards.writer in (select member_id from "member_push_agrees" 
+            where user_id = ${userId} AND created_at < advertisement_boards.created_at)
+            ORDER BY advertisement_boards.created_at DESC )as b
+            ) as c
+          `
         let sql2 = `
           SELECT
           COUNT(CASE WHEN view_board IS NULL THEN 1 END) AS no_read_count 

@@ -122,9 +122,11 @@ const handleCountBoard = (category) => {
   return `
     SELECT COUNT(*)
     FROM boards
+    INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
     WHERE boards.is_delete = FALSE
       AND boards.writing_type = N'일반 게시물'
-      AND boards.category = ${category}`
+      AND boards.category = ${category}
+    `
 }
 
 // -------------------------------------------------------------------------------------- //

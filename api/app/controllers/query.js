@@ -1,4 +1,14 @@
-const querySelectorBoard = (category, user) => {
+const querySelectorBoard = (category, query) => {
+  const user = query.userId;
+  let start = query.start;
+  let limit = query.limit;
+  if(start == 'undefined'){
+    start = '0'
+  }
+  if(limit == 'undefined'){
+    limit = '20'
+  }
+
   return `
     select a.*
     from (select boards.id,
@@ -114,7 +124,7 @@ const querySelectorBoard = (category, user) => {
             AND boards.writing_type = N'일반 게시물'
             AND boards.category = ${category}
           ORDER BY boards.created_at DESC
-          OFFSET 0 LIMIT 20) as b
+          OFFSET ${start} LIMIT ${limit}) as b
   `
 }
 
@@ -173,6 +183,7 @@ const handleCountUserContentsBoard = (user) => {
   return `
     SELECT COUNT(*)
     FROM boards
+    INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
     WHERE boards.is_delete = FALSE
       AND boards.writing_type = N'일반 게시물'
       AND boards.writer = ${user}
@@ -232,6 +243,7 @@ const handleCountUserContentsComment = (user) => {
   return `
     SELECT COUNT(*)
     FROM comments
+    INNER JOIN "users-permissions_user" AS U ON (comments.writer = U.id)
     WHERE comments.is_delete = false
       AND comments.writer = ${user}
   `

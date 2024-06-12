@@ -158,7 +158,6 @@ module.exports = {
   async findCount(ctx){
     try {
       const { category } = ctx.request.body
-      
       let categoryQuery = ''
 
       if (category) {
@@ -169,6 +168,7 @@ module.exports = {
           SELECT count(*) FROM (
           select boards.id
           from boards
+          INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
           WHERE boards.is_delete = false
           AND boards.writing_type = N'일반 게시물'
           ${categoryQuery}

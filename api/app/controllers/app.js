@@ -130,116 +130,117 @@ module.exports = {
     ctx.send(data)
   },
   async findAllBoard(ctx) {
+    
     const jobLContents = await strapi.connections.default.raw(
-      querySelectorBoard(1, ctx.query.userId)
+      querySelectorBoard(1, ctx.query)
     )
     const jobLCount = await strapi.connections.default.raw(
       handleCountBoard(1)
     )
     const jobRContents = await strapi.connections.default.raw(
-      querySelectorBoard(2, ctx.query.userId)
+      querySelectorBoard(2, ctx.query)
     )
     const jobRCount = await strapi.connections.default.raw(
       handleCountBoard(2)
     )
     const propertyLContents = await strapi.connections.default.raw(
-      querySelectorBoard(3, ctx.query.userId)
+      querySelectorBoard(3, ctx.query)
     )
     const propertyLCount = await strapi.connections.default.raw(
       handleCountBoard(3)
     )
     const propertyRContents = await strapi.connections.default.raw(
-      querySelectorBoard(4, ctx.query.userId)
+      querySelectorBoard(4, ctx.query)
     )
     const propertyRCount = await strapi.connections.default.raw(
       handleCountBoard(4)
     )
     const shoppingLContents = await strapi.connections.default.raw(
-      querySelectorBoard(5, ctx.query.userId)
+      querySelectorBoard(5, ctx.query)
     )
     const shoppingLCount = await strapi.connections.default.raw(
       handleCountBoard(5)
     )
     const shoppingRContents = await strapi.connections.default.raw(
-      querySelectorBoard(6, ctx.query.userId)
+      querySelectorBoard(6, ctx.query)
     )
     const shoppingRCount = await strapi.connections.default.raw(
       handleCountBoard(6)
     )
     const serviceLContents = await strapi.connections.default.raw(
-      querySelectorBoard(7, ctx.query.userId)
+      querySelectorBoard(7, ctx.query)
     )
     const serviceLCount = await strapi.connections.default.raw(
       handleCountBoard(7)
     )
     const serviceRContents = await strapi.connections.default.raw(
-      querySelectorBoard(8, ctx.query.userId)
+      querySelectorBoard(8, ctx.query)
     )
     const serviceRCount = await strapi.connections.default.raw(
       handleCountBoard(8)
     )
     const educationLContents = await strapi.connections.default.raw(
-      querySelectorBoard(9, ctx.query.userId)
+      querySelectorBoard(9, ctx.query)
     )
     const educationLCount = await strapi.connections.default.raw(
       handleCountBoard(9)
     )
     const educationRContents = await strapi.connections.default.raw(
-      querySelectorBoard(10, ctx.query.userId)
+      querySelectorBoard(10, ctx.query)
     )
     const educationRCount = await strapi.connections.default.raw(
       handleCountBoard(10)
     )
     const tripLContents = await strapi.connections.default.raw(
-      querySelectorBoard(11, ctx.query.userId)
+      querySelectorBoard(11, ctx.query)
     )
     const tripLCount = await strapi.connections.default.raw(
       handleCountBoard(11)
     )
     const tripRContents = await strapi.connections.default.raw(
-      querySelectorBoard(12, ctx.query.userId)
+      querySelectorBoard(12, ctx.query)
     )
     const tripRCount = await strapi.connections.default.raw(
       handleCountBoard(12)
     )
     const medicalLContents = await strapi.connections.default.raw(
-      querySelectorBoard(13, ctx.query.userId)
+      querySelectorBoard(13, ctx.query)
     )
     const medicalLCount = await strapi.connections.default.raw(
       handleCountBoard(13)
     )
     const medicalRContents = await strapi.connections.default.raw(
-      querySelectorBoard(14, ctx.query.userId)
+      querySelectorBoard(14, ctx.query)
     )
     const medicalRCount = await strapi.connections.default.raw(
       handleCountBoard(14)
     )
     const lawLContents = await strapi.connections.default.raw(
-      querySelectorBoard(15, ctx.query.userId)
+      querySelectorBoard(15, ctx.query)
     )
     const lawLCount = await strapi.connections.default.raw(
       handleCountBoard(15)
     )
     const lawRContents = await strapi.connections.default.raw(
-      querySelectorBoard(16, ctx.query.userId)
+      querySelectorBoard(16, ctx.query)
     )
     const lawRCount = await strapi.connections.default.raw(
       handleCountBoard(16)
     )
     const clubLContents = await strapi.connections.default.raw(
-      querySelectorBoard(17, ctx.query.userId)
+      querySelectorBoard(17, ctx.query)
     )
     const clubLCount = await strapi.connections.default.raw(
       handleCountBoard(17)
     )
     const clubRContents = await strapi.connections.default.raw(
-      querySelectorBoard(18, ctx.query.userId)
+      querySelectorBoard(18, ctx.query)
     )
     const clubRCount = await strapi.connections.default.raw(
       handleCountBoard(18)
     )
     const addressRContents = await strapi.connections.default.raw(
-      querySelectorBoard(19, ctx.query.userId)
+      querySelectorBoard(19, ctx.query)
     )
     const addressRCount = await strapi.connections.default.raw(
       handleCountBoard(19)

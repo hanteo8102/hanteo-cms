@@ -2,10 +2,10 @@ const querySelectorBoard = (category, query) => {
   const user = query.userId;
   let start = query.start;
   let limit = query.limit;
-  if(start == 'undefined'){
+  if(start == undefined){
     start = '0'
   }
-  if(limit == 'undefined'){
+  if(limit == undefined){
     limit = '20'
   }
 

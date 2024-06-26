@@ -253,7 +253,7 @@ module.exports = {
 
       // 그룹별 전송
       for (let i = 0; i < messageGroup.length; i++) {
-        await fetch('https://exp.host/--/api/v2/push/send', {
+        await fetch('https://exp.host/--/api/v2/push/send?useFcmV1=true', {
           method: 'POST',
           headers: {
             Accept: 'application/json',

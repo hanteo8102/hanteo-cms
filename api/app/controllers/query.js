@@ -2,10 +2,18 @@ const querySelectorBoard = (category, query) => {
   const user = query.userId;
   let start = query.start;
   let limit = query.limit;
+  //어플에서
   if(start == undefined){
     start = '0'
   }
   if(limit == undefined){
+    limit = '20'
+  }
+  //모바일에서
+  if(start == 'undefined'){
+    start = '0'
+  }
+  if(limit == 'undefined'){
     limit = '20'
   }
 

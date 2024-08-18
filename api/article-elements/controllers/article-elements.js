@@ -2387,7 +2387,9 @@ module.exports = {
       AND good = true
       AND writer = ${userId}
       AND type_id = t1.id) AS reaction_id
-      FROM boards t1 WHERE t1.id IN
+      FROM boards t1
+      INNER JOIN "users-permissions_user" AS U ON (t1.writer = U.id)
+      WHERE t1.id IN
       (SELECT type_id FROM article_elements WHERE type = 'board'
       AND article_elements.is_delete = false
       AND good = true

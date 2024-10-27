@@ -248,5 +248,10 @@
   "Users.filter.field.name.confirmationToken": "confirmationToken",
   "Users.filter.field.name.resetPasswordToken": "resetPasswordToken",
   "Users.filter.field.name.blocked": "blocked",
-  "Users.filter.field.name.boards": "boards"
+  "Users.filter.field.name.boards": "boards",
+  "Users.filter.field.name.age_group": "age_group",
+  "Users.filter.field.name.terms_of_service_agreement": "terms_of_service_agreement",
+  "Users.filter.field.name.privacy_policy_agreement": "privacy_policy_agreement",
+  "Users.filter.field.name.marketing_consent": "marketing_consent",
+  "Users.filter.field.name.email_consent": "email_consent"
 }

@@ -69,6 +69,16 @@
     "birth_day": {
       "type": "date"
     },
+    "age_group": {
+      "type": "enumeration",
+      "enum": [
+        "10대 ~ 20대",
+        "30대 ~ 40대",
+        "50대 ~ 60대",
+        "70대 이상"
+      ],
+      "required": false
+    },
     "post": {
       "type": "string"
     },
@@ -96,6 +106,26 @@
     "complain_histories": {
       "via": "reported_user",
       "collection": "complain-history"
+    },
+    "terms_of_service_agreement": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
+    },
+    "privacy_policy_agreement": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
+    },
+    "marketing_consent": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
+    },
+    "email_consent": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false
     }
   }
 }

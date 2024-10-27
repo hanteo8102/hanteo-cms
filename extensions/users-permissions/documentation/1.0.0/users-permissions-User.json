@@ -1261,6 +1261,15 @@
             "type": "string",
             "format": "date"
           },
+          "age_group": {
+            "type": "string",
+            "enum": [
+              "10대 ~ 20대",
+              "30대 ~ 40대",
+              "50대 ~ 60대",
+              "70대 이상"
+            ]
+          },
           "post": {
             "type": "string"
           },
@@ -1323,6 +1332,22 @@
                 }
               }
             }
+          },
+          "terms_of_service_agreement": {
+            "type": "boolean",
+            "default": false
+          },
+          "privacy_policy_agreement": {
+            "type": "boolean",
+            "default": false
+          },
+          "marketing_consent": {
+            "type": "boolean",
+            "default": false
+          },
+          "email_consent": {
+            "type": "boolean",
+            "default": false
           }
         }
       },
@@ -1375,6 +1400,15 @@
             "type": "string",
             "format": "date"
           },
+          "age_group": {
+            "type": "string",
+            "enum": [
+              "10대 ~ 20대",
+              "30대 ~ 40대",
+              "50대 ~ 60대",
+              "70대 이상"
+            ]
+          },
           "post": {
             "type": "string"
           },
@@ -1403,6 +1437,22 @@
             "items": {
               "type": "string"
             }
+          },
+          "terms_of_service_agreement": {
+            "type": "boolean",
+            "default": false
+          },
+          "privacy_policy_agreement": {
+            "type": "boolean",
+            "default": false
+          },
+          "marketing_consent": {
+            "type": "boolean",
+            "default": false
+          },
+          "email_consent": {
+            "type": "boolean",
+            "default": false
           },
           "created_by": {
             "type": "string"

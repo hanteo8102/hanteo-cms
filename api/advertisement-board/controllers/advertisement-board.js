@@ -82,6 +82,7 @@ module.exports = {
           from advertisement_boards
           INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
           WHERE advertisement_boards.is_delete = false
+          AND CURRENT_TIMESTAMP >= advertisement_boards.board_expected_date
           AND advertisement_boards.writing_type != N'일반 게시물'
           ${categoryQuery} ${writerQuery}
           ORDER BY advertisement_boards.created_at DESC limit 5) as a
@@ -149,6 +150,7 @@ module.exports = {
           from advertisement_boards
           INNER JOIN "users-permissions_user" AS U ON (advertisement_boards.writer = U.id)
           WHERE advertisement_boards.is_delete = false
+          AND CURRENT_TIMESTAMP >= advertisement_boards.board_expected_date
           AND advertisement_boards.writing_type = N'일반 게시물'
           ${categoryQuery} ${writerQuery}
           ORDER BY advertisement_boards.created_at DESC ${startQuery} ${limitQuery}) as b
@@ -175,6 +177,7 @@ module.exports = {
           select count(*) from (SELECT advertisement_boards.id
           from advertisement_boards
           WHERE advertisement_boards.is_delete = false
+          AND CURRENT_TIMESTAMP >= advertisement_boards.board_expected_date
           AND advertisement_boards.writing_type = N'일반 게시물'
           ${categoryQuery}
           ORDER BY advertisement_boards.created_at DESC) as b

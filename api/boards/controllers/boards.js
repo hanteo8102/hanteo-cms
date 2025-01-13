@@ -78,6 +78,7 @@ module.exports = {
         from boards
         INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
         WHERE boards.is_delete = false
+        AND CURRENT_TIMESTAMP >= boards.board_expected_date
         AND boards.writing_type != N'일반 게시물'
         ${categoryQuery} ${writerQuery}
         ORDER BY boards.created_at DESC OFFSET 0 LIMIT 5) as a
@@ -143,6 +144,7 @@ module.exports = {
         from boards
         INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
         WHERE boards.is_delete = false
+        AND CURRENT_TIMESTAMP >= boards.board_expected_date
         AND boards.writing_type = N'일반 게시물'
         ${categoryQuery} ${writerQuery}
         ORDER BY boards.created_at DESC ${startQuery} ${limitQuery}) as b
@@ -170,6 +172,7 @@ module.exports = {
           from boards
           INNER JOIN "users-permissions_user" AS U ON (boards.writer = U.id)
           WHERE boards.is_delete = false
+          AND CURRENT_TIMESTAMP >= boards.board_expected_date
           AND boards.writing_type = N'일반 게시물'
           ${categoryQuery}
           ORDER BY boards.created_at DESC) as b
